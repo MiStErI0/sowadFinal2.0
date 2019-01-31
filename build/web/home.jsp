@@ -14,7 +14,6 @@
     <jsp:include page="body.html" />
 
 
-
     <div class="box-body bg-gray-c">
         <div class="row">
             <div class="col-md-12">
