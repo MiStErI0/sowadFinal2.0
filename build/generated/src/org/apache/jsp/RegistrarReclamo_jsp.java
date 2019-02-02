@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class RegistrarReclamo_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -56,7 +56,19 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "body.html", out, false);
       out.write("\n");
       out.write("\n");
+      out.write("<div class=\"row\">\n");
       out.write("\n");
+      out.write("                <div >\n");
+      out.write("                    <center>\n");
+      out.write("                        \n");
+      out.write("                        <h5><a href=\"ProductoServlet?accion=LISTAR\" class=\"color\">Listar Producto</a></h5>\n");
+      out.write("                    </center>\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("                </div>\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("            </div>\n");
       out.write("    <div class=\"box-body bg-gray-c\">\n");
       out.write("        <div class=\"row\">\n");
       out.write("            <div class=\"col-md-12\">\n");
