@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/Desktop/documentos%20en%20divididos/Curso%20java/ProyectoFinalSowadVeranito/web/RegistrarReclamo.jsp</file>
-            <file>file:/C:/Users/User/Desktop/documentos%20en%20divididos/Curso%20java/ProyectoFinalSowadVeranito/web/body.html</file>
-            <file>file:/C:/Users/User/Desktop/documentos%20en%20divididos/Curso%20java/ProyectoFinalSowadVeranito/web/ListarReclamos.jsp</file>
-            <file>file:/C:/Users/User/Desktop/documentos%20en%20divididos/Curso%20java/ProyectoFinalSowadVeranito/src/java/controlador/ReclamoServlet.java</file>
-            <file>file:/C:/Users/User/Desktop/documentos%20en%20divididos/Curso%20java/ProyectoFinalSowadVeranito/src/java/funciones/reclamoDB.java</file>
+            <file>file:/C:/Users/johan07/Documents/GitHub/SowadVeranito/web/distrito.jsp</file>
+            <file>file:/C:/Users/johan07/Documents/GitHub/SowadVeranito/src/java/modelo/conexion.java</file>
+            <file>file:/C:/Users/johan07/Documents/GitHub/SowadVeranito/web/provincia.jsp</file>
+            <file>file:/C:/Users/johan07/Documents/GitHub/SowadVeranito/web/source/fancybox_overlay.png</file>
+            <file>file:/C:/Users/johan07/Documents/GitHub/SowadVeranito/web/source/fancybox_loading@2x.gif</file>
+            <file>file:/C:/Users/johan07/Documents/GitHub/SowadVeranito/web/RegistrarReclamo.jsp</file>
+            <file>file:/C:/Users/johan07/Documents/GitHub/SowadVeranito/web/source/fancybox_loading.gif</file>
         </group>
     </open-files>
 </project-private>

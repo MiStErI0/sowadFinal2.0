@@ -11,7 +11,46 @@
 <%@page import="modelo.departamento"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<sql:setDataSource 
+    var="conexion" 
+    driver="com.mysql.jdbc.Driver"
+    url="jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false"
+    user="root"
+    password="database"/>
+<sql:query var="sqlDep" dataSource="${conexion}">
+    select idDepartamento, departamento from departamento
+</sql:query>
 <!DOCTYPE html>
+<script>
+            function getprovincia(){
+                cdep = document.getElementById("iddepartamento").value;
+                $.ajax({
+                    data:{dpto:cdep},
+                    type: 'POST',
+                    url: "provincia.jsp",
+                    success: function (response) {
+                        document.getElementById("idprovincia").innerHTML=response;
+                    }
+                });
+            }
+            
+            function getdistrito(){
+                cdep = document.getElementById("iddepartamento").value;
+                cpro = document.getElementById("idprovincia").value;
+                $.ajax({
+                    data:{dpto:cdep, prov:cpro},
+                    type: 'POST',
+                    url: "distrito.jsp",
+                    success: function (response) {
+                        document.getElementById("iddistrito").innerHTML=response;
+                    }
+                });
+            }
+            
+        </script>
+
 <html>
 
     <jsp:include page="head.html" />
@@ -91,14 +130,11 @@
                                 <div class="col-sm-4">				
                                     <div class="form-group">
                                         <label>Departamento</label>
-                                        <select id="iddepartamento" name="departamento" class="form-control">
-                                            <%
-                                                for (departamento e : listaB) {
-                                            %>
-                                            <option value="<%=e.getIddepa()%>"><%=e.getDepartamento()%></option>
-                                            <%
-                                                }
-                                            %>
+                                        <select id="iddepartamento" name="departamento" class="form-control" onchange="getprovincia()">
+                                            <option value="00">.: Seleccione Provincia :.</option>
+                                            <c:forEach var="fila" items="${sqlDep.rows}">
+                                                <option value="${fila.idDepartamento}">${fila.departamento}</option>
+                                            </c:forEach>
                                         </select>
 
 
@@ -109,14 +145,8 @@
                                 <div class="col-sm-4">				
                                     <div class="form-group">
                                         <label>Provincia</label>
-                                        <select id="idprovincia" name="provincia" class="form-control">
-                                            <%
-                                                for (provincia e : listaC) {
-                                            %>
-                                            <option value="<%=e.getIdprov()%>"><%=e.getProvincia()%></option>
-                                            <%
-                                                }
-                                            %>
+                                        <select id="idprovincia" name="provincia" class="form-control" onchange="getdistrito()">
+                                            <option value="00">.: Seleccione Provincia :.</option>
                                         </select>
                                     </div>      
                                 </div> 
@@ -124,13 +154,7 @@
                                     <div class="form-group">
                                         <label>Distrito</label>
                                         <select id="iddistrito" name="distrito" class="form-control">
-                                        <%
-                                                for (distrito e : listaD) {
-                                            %>
-                                            <option value="<%=e.getIddist()%>"><%=e.getDistrito()%></option>
-                                            <%
-                                                }
-                                            %>
+                                            <option value="00">.: Seleccione Distrito :.</option>  
                                         </select>
 
                                     </div>
