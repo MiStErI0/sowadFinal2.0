@@ -24,32 +24,32 @@
 </sql:query>
 <!DOCTYPE html>
 <script>
-            function getprovincia(){
-                cdep = document.getElementById("iddepartamento").value;
-                $.ajax({
-                    data:{dpto:cdep},
-                    type: 'POST',
-                    url: "provincia.jsp",
-                    success: function (response) {
-                        document.getElementById("idprovincia").innerHTML=response;
-                    }
-                });
+    function getprovincia() {
+        cdep = document.getElementById("iddepartamento").value;
+        $.ajax({
+            data: {dpto: cdep},
+            type: 'POST',
+            url: "provincia.jsp",
+            success: function (response) {
+                document.getElementById("idprovincia").innerHTML = response;
             }
-            
-            function getdistrito(){
-                cdep = document.getElementById("iddepartamento").value;
-                cpro = document.getElementById("idprovincia").value;
-                $.ajax({
-                    data:{dpto:cdep, prov:cpro},
-                    type: 'POST',
-                    url: "distrito.jsp",
-                    success: function (response) {
-                        document.getElementById("iddistrito").innerHTML=response;
-                    }
-                });
+        });
+    }
+
+    function getdistrito() {
+        cdep = document.getElementById("iddepartamento").value;
+        cpro = document.getElementById("idprovincia").value;
+        $.ajax({
+            data: {dpto: cdep, prov: cpro},
+            type: 'POST',
+            url: "distrito.jsp",
+            success: function (response) {
+                document.getElementById("iddistrito").innerHTML = response;
             }
-            
-        </script>
+        });
+    }
+
+</script>
 
 <html>
 
@@ -221,8 +221,37 @@
                                 </div>
                                 <div style="margin-top: 23px" class="col-sm-2">
                                     <div class="form-group">
-                                        <input type="submit" value="enviar">
-                                    </div>	
+                                        <input type="submit"class="btn btn-primary" value="enviar">
+                                    </div>
+                                    <!-- LO ULTIMO-->
+                                    <!-- LO ULTIMO-->
+                                    <!-- LO ULTIMO-->
+                                    <div class="form-group">
+                                        <a href="#ventana1" class="btn btn-primary" data-toggle="modal">probando</a>
+                                        <div class="modal fade" id="ventana1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h2 class="modal-title">ALEXIS CABRITO FOR EVER</h2>
+                                                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true"></button> 
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>YA LES DIJISTE A TUS PADRES QUE ERES GAY??</p>
+
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <div class="form-group">
+                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">SI</button>
+                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
