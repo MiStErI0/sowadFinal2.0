@@ -17,6 +17,7 @@ import modelo.persona;
 import modelo.provincia;
 import modelo.reclamos;
 import modelo.reclamos;
+import modelo.tipotelefono;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -93,88 +94,6 @@ public class reclamoDB {
 
     }
 
-    /**
-     * *****************************Direccion***************************
-     */
-    public List<departamento> ListarDepartamento() {
-
-        List<departamento> lista = null;
-        Connection cn = null;
-        departamento f = null;
-        String sql = "select idDepartamento,departamento from departamento";
-
-        try {
-            cn = conexion.getConexion();
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            lista = new ArrayList<departamento>();
-
-            while (rs.next()) {
-                f = new departamento();
-                f.setIddepa(rs.getInt(1));
-                f.setDepartamento(rs.getString(2));
-                lista.add(f);
-            }
-            conexion.CierraConexion(cn);
-        } catch (Exception e) {
-            conexion.CierraConexion(cn);
-
-        }
-        return lista;
-    }
     
-    public List<provincia> ListarProvincia() {
-
-        List<provincia> lista = null;
-        Connection cn = null;
-        provincia f = null;
-        String sql = "select idProvincia,provincia from provincia";
-
-        try {
-            cn = conexion.getConexion();
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            lista = new ArrayList<provincia>();
-
-            while (rs.next()) {
-                f = new provincia();
-                f.setIdprov(rs.getInt(1));
-                f.setProvincia(rs.getString(2));
-                lista.add(f);
-            }
-            conexion.CierraConexion(cn);
-        } catch (Exception e) {
-            conexion.CierraConexion(cn);
-
-        }
-        return lista;
-    }
-    
-    public List<distrito> ListarDistrito() {
-
-        List<distrito> lista = null;
-        Connection cn = null;
-        distrito f = null;
-        String sql = "select idDistrito,distrito from distrito";
-
-        try {
-            cn = conexion.getConexion();
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            lista = new ArrayList<distrito>();
-
-            while (rs.next()) {
-                f = new distrito();
-                f.setIddist(rs.getInt(1));
-                f.setDistrito(rs.getString(2));
-                lista.add(f);
-            }
-            conexion.CierraConexion(cn);
-        } catch (Exception e) {
-            conexion.CierraConexion(cn);
-
-        }
-        return lista;
-    }
 
 }

@@ -4,6 +4,7 @@
     Author     : User
 --%>
 
+<%@page import="modelo.tipotelefono"%>
 <%@page import="modelo.distrito"%>
 <%@page import="modelo.provincia"%>
 <%@page import="java.util.ArrayList"%>
@@ -18,10 +19,19 @@
     driver="com.mysql.jdbc.Driver"
     url="jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false"
     user="root"
-    password="database"/>
+    password="varvon1995"/>
 <sql:query var="sqlDep" dataSource="${conexion}">
     select idDepartamento, departamento from departamento
 </sql:query>
+
+<sql:query var="sqlTT" dataSource="${conexion}">
+    select idTipo_telefono, nombreTT from tipo_telefono
+</sql:query>
+    
+<sql:query var="sqlOp" dataSource="${conexion}">
+    select idOperador, nombreO from Operador
+</sql:query>
+
 <!DOCTYPE html>
 <script>
     function getprovincia() {
@@ -116,16 +126,6 @@
                                     </div> 												
                                 </div>
                             </div>
-
-                            <%
-                                List<departamento> listaB = (ArrayList<departamento>) request.getSession().getAttribute("listaB");
-                            %>
-                            <%
-                                List<provincia> listaC = (ArrayList<provincia>) request.getSession().getAttribute("listaC");
-                            %>
-                            <%
-                                List<distrito> listaD = (ArrayList<distrito>) request.getSession().getAttribute("listaD");
-                            %>
                             <div class="row">
                                 <div class="col-sm-4">				
                                     <div class="form-group">
@@ -161,39 +161,56 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-8">
                                     <div class="form-group">
                                         <label>Direccion</label> 
                                         <input id="iddireccion" type="text" name="direccion" class="form-control" placeholder="Ingrese Direccion ...">	
                                     </div>   												
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Correo Electronico</label> 
                                         <input id="idcorreo" type="text" name="correo" class="form-control" placeholder="Ingrese correo ...">	
                                     </div>  												
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Telefono</label> 
                                         <input id="idtelefono" type="text" name="telefono" class="form-control" placeholder="Ingrese telefono ...">	
                                     </div>  												
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-4">				
                                     <div class="form-group">
-                                        <label>Celular</label> 
-                                        <input id="idcelular" type="text" name="celular" class="form-control" placeholder="Ingrese celular ...">	
-                                    </div>  												
+                                        <label>Tipo Telefono</label>
+                                        <select id="idtipotelefono" name="tipotelefono" class="form-control">
+                                            <option value="00">.: Seleccione Tipo de telefono :.</option>
+                                            <c:forEach var="fila" items="${sqlTT.rows}">
+                                                <option value="${fila.idtipo_telefono}">${fila.nombreTT}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
                                 </div>
+                                <div class="col-sm-4">				
+                                    <div class="form-group">
+                                        <label>Operador</label>
+                                        <select id="idoperador" name="operador" class="form-control">
+                                            <option value="00">.: Seleccione Operador :.</option>
+                                            <c:forEach var="fila" items="${sqlOp.rows}">
+                                                <option value="${fila.idOperador}">${fila.nombreO}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Fecha del hecho</label> 
-                                        <input id="idfecha" type="text" name="fecha" class="form-control" placeholder="Ingrese correo ...">	
+                                        <input id="idfecha" type="date" name="fecha" class="form-control" placeholder="Ingrese correo ...">	
                                     </div>  												
                                 </div>
                                 <div class="col-sm-8">

@@ -17,6 +17,7 @@ import modelo.departamento;
 import modelo.distrito;
 import modelo.provincia;
 import modelo.reclamos;
+import modelo.tipotelefono;
 
 /**
  *
@@ -32,19 +33,7 @@ public class ReclamoServlet extends HttpServlet {
         System.out.println(" accion " + accion);
         reclamoDB proDB = new reclamoDB();
         List<reclamos> listaA = null;
-        List<departamento> listaB = null;/*departamento*/
-        List<provincia> listaC = null;/*Provincia*/
-        List<distrito> listaD = null;/*distrito*/
-        
-        
-        listaB = proDB.ListarDepartamento();    
-        request.getSession().setAttribute("listaB", listaB);
-        
-        listaC = proDB.ListarProvincia();    
-        request.getSession().setAttribute("listaC", listaC);
-        
-        listaD = proDB.ListarDistrito();    
-        request.getSession().setAttribute("listaD", listaD);
+       
         
         if (accion.equals("LISTAR")) {
             
