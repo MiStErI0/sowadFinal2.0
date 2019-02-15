@@ -45,9 +45,9 @@ public class reclamoDB {
                 reclamos e = new reclamos();
                 e.setIdreclamos(rs.getInt(1));
                 e.setFechahecho(rs.getString(2));
-                e.setFuncionario(rs.getString(3));
+                
                 e.setDescripcion(rs.getString(4));
-                e.setEstado(rs.getString(5));
+                
 
                 lista.add(e);
             }
@@ -66,16 +66,19 @@ public class reclamoDB {
 
         String resultado = null;
         Connection cn = null;
-        String sql = " insert into reclamos(fechahecho,funcionario,descripcion,estado,Persona_idPersona)"
-                + "values(date(now()),?,?,'Registrado',?)";
+        String sql = "insert into reclamos(fechahecho,descripcion,Persona_idPersona,categoria_idcategoria,Estado_idEstado,area_idarea)"
+                + "values(?,?,?,1,1,1)";
 
         try {
             cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
 
-            ps.setString(1, f.getFuncionario());
+            ps.setString(1, f.getFechahecho());
             ps.setString(2, f.getDescripcion());
             ps.setInt(3, f.getPersona_idPersona());
+            ps.setInt(4, f.getCategoria_idcategoria());
+            ps.setInt(5, f.getEstado_idEstado());
+            ps.setInt(6, f.getArea_idarea());
 
             int contador = ps.executeUpdate();
 

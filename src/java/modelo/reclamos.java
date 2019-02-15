@@ -10,23 +10,28 @@ package modelo;
  * @author User
  */
 public class reclamos {
+
     private Integer idreclamos;
+    private String condigoR;
     private String fechahecho;
-    private String funcionario;
     private String descripcion;
-    private String estado;
     private Integer Persona_idPersona;
+    private Integer categoria_idcategoria;
+    private Integer Estado_idEstado;
+    private Integer area_idarea;
 
     public reclamos() {
     }
 
-    public reclamos(Integer idreclamos, String fechahecho, String funcionario, String descripcion, String estado, Integer Persona_idPersona) {
+    public reclamos(Integer idreclamos, String condigoR, String fechahecho, String descripcion, Integer Persona_idPersona, Integer categoria_idcategoria, Integer Estado_idEstado, Integer area_idarea) {
         this.idreclamos = idreclamos;
+        this.condigoR = condigoR;
         this.fechahecho = fechahecho;
-        this.funcionario = funcionario;
         this.descripcion = descripcion;
-        this.estado = estado;
         this.Persona_idPersona = Persona_idPersona;
+        this.categoria_idcategoria = categoria_idcategoria;
+        this.Estado_idEstado = Estado_idEstado;
+        this.area_idarea = area_idarea;
     }
 
     public Integer getIdreclamos() {
@@ -37,20 +42,20 @@ public class reclamos {
         this.idreclamos = idreclamos;
     }
 
+    public String getCondigoR() {
+        return condigoR;
+    }
+
+    public void setCondigoR(String condigoR) {
+        this.condigoR = condigoR;
+    }
+
     public String getFechahecho() {
         return fechahecho;
     }
 
     public void setFechahecho(String fechahecho) {
         this.fechahecho = fechahecho;
-    }
-
-    public String getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(String funcionario) {
-        this.funcionario = funcionario;
     }
 
     public String getDescripcion() {
@@ -61,14 +66,6 @@ public class reclamos {
         this.descripcion = descripcion;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
     public Integer getPersona_idPersona() {
         return Persona_idPersona;
     }
@@ -77,5 +74,27 @@ public class reclamos {
         this.Persona_idPersona = Persona_idPersona;
     }
 
-   
+    public Integer getCategoria_idcategoria() {
+        return categoria_idcategoria;
+    }
+
+    public void setCategoria_idcategoria(Integer categoria_idcategoria) {
+        this.categoria_idcategoria = categoria_idcategoria;
+    }
+
+    public Integer getEstado_idEstado() {
+        return Estado_idEstado;
+    }
+
+    public void setEstado_idEstado(Integer Estado_idEstado) {
+        this.Estado_idEstado = Estado_idEstado;
+    }
+
+    public Integer getArea_idarea() {
+        return area_idarea;
+    }
+
+    public void setArea_idarea(Integer area_idarea) {
+        this.area_idarea = area_idarea;
+    }   
 }
