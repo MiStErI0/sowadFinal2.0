@@ -4,7 +4,7 @@
 <sql:setDataSource 
     var="conexion3" 
     driver="com.mysql.jdbc.Driver"
-    url="jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false"
+    url="jdbc:mysql://localhost:3306/sowad?useTimezone=true&serverTimezone=UTC&useSSL=false"
     user="root"
     password="varvon1995"/>
 <sql:query var="sqldist" dataSource="${conexion3}">

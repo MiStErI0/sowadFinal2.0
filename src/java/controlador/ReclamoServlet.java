@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.departamento;
 import modelo.distrito;
+import modelo.persona;
 import modelo.provincia;
 import modelo.reclamos;
 import modelo.tipotelefono;
@@ -55,26 +56,42 @@ public class ReclamoServlet extends HttpServlet {
             
         }else if (accion.equals("REGISTRARBD")) {
 
-            
-            String funcionario = request.getParameter("funcionario");
+            /*reclamos*/
+            String fechahecho = request.getParameter("fecha");
             String descripcion = request.getParameter("descripcion");
-            int idpersona = Integer.valueOf(request.getParameter("persona"));
+            /*persona*/
+            String nombre = request.getParameter("nombre");
+            String paterno = request.getParameter("paterno");
+            String materno = request.getParameter("materno");
+            Integer tipodoc = Integer.valueOf(request.getParameter("tipodoc"));
+            String documento = request.getParameter("documento");
+            
             
             reclamos reclamo = new reclamos();
-            reclamo.setFuncionario(funcionario);
+            reclamo.setFechahecho(fechahecho);
             reclamo.setDescripcion(descripcion);
-            reclamo.setPersona_idPersona(idpersona);
+            
+            persona personas = new persona();
+            personas.setNombreP(nombre);
+            personas.setPaternoP(paterno);
+            personas.setMaternoP(materno);
+            personas.setTipodocumento(tipodoc);
+            personas.setNum_documento(documento);
+            
+            
+            
             
            String resultado = proDB.RegistrarReclamo(reclamo);
+           String resultado2 = proDB.RegistrarPersona(personas);
            
            
            
            
            
-            if (resultado==null) {
+            if (resultado==null || resultado2==null ) {
                 System.out.println("lo inserto correctamente");
                 
-                listaA = proDB.ListaReclamos();
+                /*listaA = proDB.ListaReclamos();*/
                 
                 request.getSession().setAttribute("listaA", listaA);
                 response.sendRedirect("ListarReclamos.jsp");

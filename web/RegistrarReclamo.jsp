@@ -17,7 +17,7 @@
 <sql:setDataSource 
     var="conexion" 
     driver="com.mysql.jdbc.Driver"
-    url="jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false"
+    url="jdbc:mysql://localhost:3306/sowad?useTimezone=true&serverTimezone=UTC&useSSL=false"
     user="root"
     password="varvon1995"/>
 <sql:query var="sqlDep" dataSource="${conexion}">
@@ -30,6 +30,10 @@
     
 <sql:query var="sqlOp" dataSource="${conexion}">
     select idOperador, nombreO from Operador
+</sql:query>
+    
+<sql:query var="sqlTD" dataSource="${conexion}">
+    select idtipo_documento, tipodoc from tipo_documento
 </sql:query>
 
 <!DOCTYPE html>
@@ -90,11 +94,11 @@
                                 <div class="col-sm-6">				
                                     <div class="form-group">
                                         <label>Tipo Documento</label>
-                                        <select id="a" name="marca_producto" class="form-control">
-                                            <option value="" disabled selected >Selecione Tipo de Producto</option>
-                                            <option value="DNI">DNI</option>
-                                            <option value="RUC">RUC</option>
-                                            <option value="PASAPORTE">PASAPORTE</option>
+                                        <select id="idtipodoc" name="tipodoc" class="form-control">
+                                            <option value="00">.: Seleccione Tipo doc :.</option>
+                                            <c:forEach var="fila" items="${sqlTD.rows}">
+                                                <option value="${fila.idtipo_documento}">${fila.tipodoc}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>

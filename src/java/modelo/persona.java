@@ -14,23 +14,20 @@ public class persona {
     private String nombreP;
     private String paternoP;
     private String maternoP;
-    private Integer estado;
-    private Integer Tipo_persona_idTipo_persona;
-    private String tipodocumento;
-    private String numerodoc;
+    private Integer tipodocumento;
+    private String num_documento;
     private String correo;
-
+    
     public persona() {
     }
 
-    public persona(String nombreP, String paternoP, String maternoP, Integer estado, Integer Tipo_persona_idTipo_persona, String tipodocumento, String numerodoc, String correo) {
+
+    public persona(String nombreP, String paternoP, String maternoP, Integer tipodocumento, String num_documento, String correo) {
         this.nombreP = nombreP;
         this.paternoP = paternoP;
         this.maternoP = maternoP;
-        this.estado = estado;
-        this.Tipo_persona_idTipo_persona = Tipo_persona_idTipo_persona;
         this.tipodocumento = tipodocumento;
-        this.numerodoc = numerodoc;
+        this.num_documento = num_documento;
         this.correo = correo;
     }
 
@@ -58,36 +55,20 @@ public class persona {
         this.maternoP = maternoP;
     }
 
-    public Integer getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Integer estado) {
-        this.estado = estado;
-    }
-
-    public Integer getTipo_persona_idTipo_persona() {
-        return Tipo_persona_idTipo_persona;
-    }
-
-    public void setTipo_persona_idTipo_persona(Integer Tipo_persona_idTipo_persona) {
-        this.Tipo_persona_idTipo_persona = Tipo_persona_idTipo_persona;
-    }
-
-    public String getTipodocumento() {
+    public Integer getTipodocumento() {
         return tipodocumento;
     }
 
-    public void setTipodocumento(String tipodocumento) {
+    public void setTipodocumento(Integer tipodocumento) {
         this.tipodocumento = tipodocumento;
     }
 
-    public String getNumerodoc() {
-        return numerodoc;
+    public String getNum_documento() {
+        return num_documento;
     }
 
-    public void setNumerodoc(String numerodoc) {
-        this.numerodoc = numerodoc;
+    public void setNum_documento(String num_documento) {
+        this.num_documento = num_documento;
     }
 
     public String getCorreo() {
@@ -98,6 +79,7 @@ public class persona {
         this.correo = correo;
     }
 
+    
     
 
 }
