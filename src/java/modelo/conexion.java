@@ -22,7 +22,7 @@ public class conexion {
     }
     
    
-   private static final String url ="jdbc:mysql://localhost:3306/sowad?useTimezone=true&serverTimezone=UTC";
+   private static final String url ="jdbc:mysql://localhost:3306/sowad?useTimezone=true&serverTimezone=UTC&useSSL=false";
     private static final String user="root";
     private static final String password="varvon1995";
     

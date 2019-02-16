@@ -67,6 +67,7 @@ public class reclamoDB {
         Connection cn = null;
         String sql = "insert into persona(nombreP,paternoP,maternoP,tipo_documento_idtipo_documento,num_documento)"
                 + "values(?,?,?,?,?)";
+        
 
         try {
             cn = conexion.getConexion();
@@ -79,7 +80,9 @@ public class reclamoDB {
             ps.setString(5, f.getNum_documento());
 
             int contador = ps.executeUpdate();
-
+            
+            RegistrarCliente(cn);
+            
             if (contador == 0) {
 
                 resultado = "CERO filas insertadas... revise";
@@ -97,7 +100,7 @@ public class reclamoDB {
 
     private int Idpersona(Connection cn) {
         int r = 0;
-        String sql = "select IFNULL(max(idPersona),0)+1 codigo from persona";
+        String sql = "select IFNULL(max(idPersona),0) codigo from persona";
 
         try {
             PreparedStatement pst = cn.prepareCall(sql);
@@ -126,15 +129,15 @@ public class reclamoDB {
     public String RegistrarCliente(Connection cn) {
 
         String resultado = null;
-       
         String sql = "insert into cliente(idpersona) values (?)";
 
         try {
            
             PreparedStatement ps = cn.prepareStatement(sql);
 
+            
             int id = Idpersona(cn);
- 
+            System.out.println("esta acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+ id);
             ps.setInt(1, id);
 
             int contador = ps.executeUpdate();
