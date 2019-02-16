@@ -22,9 +22,9 @@ public class conexion {
     }
     
    
-   private static final String url ="jdbc:mysql://localhost:3306/sowad?useTimezone=true&serverTimezone=UTC&useSSL=false";
+   private static final String url ="jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false";
     private static final String user="root";
-    private static final String password="varvon1995";
+    private static final String password="database";
     
     public static synchronized Connection getConexion(){
         Connection cn=null;
