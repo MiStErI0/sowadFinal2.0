@@ -9,7 +9,7 @@ package modelo;
  *
  * @author User
  */
-public class reclamos {
+public class reclamos extends persona {
 
     private Integer idreclamos;
     private String condigoR;
@@ -19,11 +19,21 @@ public class reclamos {
     private Integer categoria_idcategoria;
     private Integer Estado_idEstado;
     private Integer area_idarea;
+    private String funcionario;
+    
+    private String nombreestado;
+    private String nombrecategoria;
 
     public reclamos() {
     }
 
-    public reclamos(Integer idreclamos, String condigoR, String fechahecho, String descripcion, Integer Persona_idPersona, Integer categoria_idcategoria, Integer Estado_idEstado, Integer area_idarea) {
+    public reclamos(Integer idreclamos, String condigoR, String fechahecho,
+            String descripcion, Integer Persona_idPersona, Integer categoria_idcategoria,
+            Integer Estado_idEstado, Integer area_idarea, String funcionario, String nombreestado,String nombrecategoria, String nombreP,
+            String paternoP,String maternoP,Integer tipodocumento,String num_documento,String correo) {
+        
+        super(nombreP,paternoP,maternoP,tipodocumento,num_documento,correo);
+
         this.idreclamos = idreclamos;
         this.condigoR = condigoR;
         this.fechahecho = fechahecho;
@@ -32,6 +42,26 @@ public class reclamos {
         this.categoria_idcategoria = categoria_idcategoria;
         this.Estado_idEstado = Estado_idEstado;
         this.area_idarea = area_idarea;
+        this.funcionario = funcionario;
+        this.nombreestado = nombreestado;
+        this.nombrecategoria = nombrecategoria;
+    }
+
+    public String getNombrecategoria() {
+        return nombrecategoria;
+    }
+
+    public void setNombrecategoria(String nombrecategoria) {
+        this.nombrecategoria = nombrecategoria;
+    }
+
+    
+    public String getNombreestado() {
+        return nombreestado;
+    }
+
+    public void setNombreestado(String nombreestado) {
+        this.nombreestado = nombreestado;
     }
 
     public Integer getIdreclamos() {
@@ -96,5 +126,14 @@ public class reclamos {
 
     public void setArea_idarea(Integer area_idarea) {
         this.area_idarea = area_idarea;
-    }   
+    }
+
+    public String getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(String funcionario) {
+        this.funcionario = funcionario;
+    }
+
 }

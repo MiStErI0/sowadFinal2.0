@@ -4,9 +4,9 @@
 <sql:setDataSource 
     var="conexion3" 
     driver="com.mysql.jdbc.Driver"
-    url="jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false"
+    url="jdbc:mysql://localhost:3306/sowad?useTimezone=true&serverTimezone=UTC&useSSL=false"
     user="root"
-    password="database"/>
+    password="varvon1995"/>
 <sql:query var="sqldist" dataSource="${conexion3}">
     select idDistrito, distrito from distrito where Provincia_Departamento_idDepartamento = ? and Provincia_idProvincia = ?
     <sql:param value="${param.dpto}"/>

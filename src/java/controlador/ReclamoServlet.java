@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.departamento;
+import modelo.direccion;
 import modelo.distrito;
 import modelo.persona;
 import modelo.provincia;
 import modelo.reclamos;
+import modelo.telefono;
 import modelo.tipotelefono;
 
 /**
@@ -25,88 +27,105 @@ import modelo.tipotelefono;
  * @author User
  */
 public class ReclamoServlet extends HttpServlet {
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String accion = request.getParameter("accion");
         System.out.println(" accion " + accion);
         reclamoDB proDB = new reclamoDB();
         List<reclamos> listaA = null;
-       
-        
+
         if (accion.equals("LISTAR")) {
-            
+
             listaA = proDB.ListaReclamos();
             if (listaA.size() == 0) {
                 System.out.println("no hay datos");
-                
+
             } else {
-                
+
                 System.out.println(" la lista de automoviles tiene " + listaA.size() + " elementos");
-                
+
             }
             request.getSession().setAttribute("listaA", listaA);
             response.sendRedirect("ListarReclamos.jsp");
-            
+
         } else if (accion.equals("REGISTRAR")) {
-            
+
             response.sendRedirect("RegistrarReclamo.jsp");
-            
-        }else if (accion.equals("REGISTRARBD")) {
+
+        } else if (accion.equals("REGISTRARBD")) {
 
             /*reclamos*/
             String fechahecho = request.getParameter("fecha");
             String descripcion = request.getParameter("descripcion");
+            String funcionario = request.getParameter("funcionario");
+
             /*persona*/
             String nombre = request.getParameter("nombre");
             String paterno = request.getParameter("paterno");
             String materno = request.getParameter("materno");
             Integer tipodoc = Integer.valueOf(request.getParameter("tipodoc"));
             String documento = request.getParameter("documento");
+            String correo = request.getParameter("correo");
+
+            /*Direccion*/
+            String direccion = request.getParameter("direccion");
+            Integer iddistrito = Integer.valueOf(request.getParameter("distrito"));
+            Integer idprovincia = Integer.valueOf(request.getParameter("provincia"));
+            Integer iddepartamento = Integer.valueOf(request.getParameter("departamento"));
             
+            /*Telefono*/
+            String fono = request.getParameter("telefono");
+            Integer idtipotelefono = Integer.valueOf(request.getParameter("tipotelefono"));
+            Integer idoperador = Integer.valueOf(request.getParameter("operador"));
             
-            reclamos reclamo = new reclamos();
-            reclamo.setFechahecho(fechahecho);
-            reclamo.setDescripcion(descripcion);
-            
+            telefono telefonos = new telefono();
+            telefonos.setNumero(fono);
+            telefonos.setIdTipo_telefono(idtipotelefono);
+            telefonos.setIdOperador(idoperador);
+
             persona personas = new persona();
             personas.setNombreP(nombre);
             personas.setPaternoP(paterno);
             personas.setMaternoP(materno);
             personas.setTipodocumento(tipodoc);
             personas.setNum_documento(documento);
-            
-            
-            
-            
-           String resultado = proDB.RegistrarReclamo(reclamo);
-           String resultado2 = proDB.RegistrarPersona(personas);
-           
-           
-           
-           
-           
-            if (resultado==null || resultado2==null ) {
+            personas.setCorreo(correo);
+
+            reclamos reclamo = new reclamos();
+            reclamo.setFechahecho(fechahecho);
+            reclamo.setDescripcion(descripcion);
+            reclamo.setFuncionario(funcionario);
+                       
+            direccion direcciones = new direccion();
+            direcciones.setDireccion(direccion);
+            direcciones.setIdProvincia(idprovincia);
+            direcciones.setIdDistrito(iddistrito);
+            direcciones.setIdDepartamento(iddepartamento);
+
+            String resultado4 = proDB.RegistroTelefono(telefonos);
+            String resultado3 = proDB.RegistroDireccion(direcciones);
+            String resultado2 = proDB.RegistrarPersona(personas);
+            String resultado = proDB.RegistrarReclamo(reclamo);
+
+            if (resultado == null || resultado2 == null || resultado3 == null || resultado4 == null) {
                 System.out.println("lo inserto correctamente");
-                
+
                 /*listaA = proDB.ListaReclamos();*/
-                
                 request.getSession().setAttribute("listaA", listaA);
                 response.sendRedirect("ListarReclamos.jsp");
-                
+
             } else {
-                
-              System.out.println(" no lo inserto :( ");
+
+                System.out.println(" no lo inserto :( ");
             }
-            
+
             System.out.println(" estoy en registrar BD");
-            
-            
-           
+
         }
-        
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
