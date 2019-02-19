@@ -145,7 +145,7 @@
 
             <td>
                 <a href="ProductoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
-                <a href="ProductoServlet?accion=MODIFICAR&id=<%=f.getIdreclamos()%>">EDITAR</a>
+                <a href="ReclamoServlet?accion=MODIFICAR&id=<%=f.getIdreclamos()%>">EDITAR</a>
                 <a href="ProductoServlet?accion=ELIMINAR&id=<%=f.getIdreclamos()%>">SEGUIMIENTO</a></td>
 
         </tr>  

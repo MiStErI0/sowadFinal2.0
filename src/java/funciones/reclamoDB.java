@@ -324,5 +324,35 @@ public class reclamoDB {
 
         return r;
     }
+    
+    public reclamos reclamoGET(int id) {
+        reclamos f = new reclamos();
+        Connection cn = null;
+        String sql = "select r.idReclamos,r.fechahecho,r.descripcion,p.nombreP,p.paternoP,p.maternoP,e.nombreEs,ca.categoria from reclamos as r \n"
+                + "inner join cliente as c on r.idcliente=c.idcliente\n"
+                + "inner join persona as p on c.idpersona=p.idPersona\n"
+                + "inner join estado as e on e.idEstado=r.Estado_idEstado\n"
+                + "inner join categoria as ca on ca.idcategoria=r.categoria_idcategoria where idReclamos=? ";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                f.setIdreclamos(rs.getInt(1));
+                f.setNombreP(rs.getString(4));
+                
+            }
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error la conseguir el automovil " + e.getMessage());
+        }
+
+        return f;
+    }
 
 }

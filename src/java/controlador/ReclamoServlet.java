@@ -124,7 +124,40 @@ public class ReclamoServlet extends HttpServlet {
 
             System.out.println(" estoy en registrar BD");
 
-        }
+        }else if(accion.equals("MODIFICAR")){
+            
+        reclamos reclamo =proDB.reclamoGET(Integer.valueOf(request.getParameter("id")));
+            //automovil.imprime();
+            
+            request.getSession().setAttribute("reclamo",reclamo);
+            
+            response.sendRedirect("modal.jsp");
+            
+        }/*else if(accion.equals("MODIFICARBD")){
+            
+            producto producto =(producto)request.getSession().getAttribute("producto");
+            System.out.println(" el id del producto a cambiar es "+ producto.getIdProducto());
+            producto.setNombre(request.getParameter("nombre"));
+            producto.setCategoria(request.getParameter("categoria"));
+            producto.setPrecio(Double.valueOf(request.getParameter("precio")));
+            producto.setMarca(request.getParameter("marca"));
+            producto.setDescripcion(request.getParameter("descripcion"));
+            producto.setDescuento(Integer.valueOf(request.getParameter("descuento")));
+            producto.setStock(Integer.valueOf(request.getParameter("stock")));
+            producto.setFoto(request.getParameter("foto"));
+            
+            
+            System.out.println(" Datos del producto actualizo ");
+            
+            //automovil.imprime();
+            
+            String resultado = proBD.productoUPD(producto);
+            listaA = proBD.listarProducto();
+            request.getSession().setAttribute("listaA", listaA);
+            
+            response.sendRedirect("listarproducto.jsp");
+            
+        }*/
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
