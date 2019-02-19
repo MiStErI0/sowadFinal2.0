@@ -378,9 +378,9 @@ public final class RegistrarReclamo_jsp extends org.apache.jasper.runtime.HttpJs
     _jspx_th_sql_setDataSource_0.setParent(null);
     _jspx_th_sql_setDataSource_0.setVar("conexion");
     _jspx_th_sql_setDataSource_0.setDriver("com.mysql.jdbc.Driver");
-    _jspx_th_sql_setDataSource_0.setUrl("jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false");
+    _jspx_th_sql_setDataSource_0.setUrl("jdbc:mysql://localhost:3306/sowad?useTimezone=true&serverTimezone=UTC&useSSL=false");
     _jspx_th_sql_setDataSource_0.setUser("root");
-    _jspx_th_sql_setDataSource_0.setPassword("database");
+    _jspx_th_sql_setDataSource_0.setPassword("varvon1995");
     int _jspx_eval_sql_setDataSource_0 = _jspx_th_sql_setDataSource_0.doStartTag();
     if (_jspx_th_sql_setDataSource_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
       _jspx_tagPool_sql_setDataSource_var_user_url_password_driver_nobody.reuse(_jspx_th_sql_setDataSource_0);

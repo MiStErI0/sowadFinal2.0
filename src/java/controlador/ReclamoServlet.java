@@ -26,7 +26,7 @@ import modelo.tipotelefono;
  *
  * @author User
  */
-public class ReclamoServlet extends HttpServlet {
+    public class ReclamoServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -8,6 +8,14 @@
         <servlet-name>ReclamoServlet</servlet-name>
         <url-pattern>/ReclamoServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>usuarioServlet</servlet-name>
+        <servlet-class>controlador.usuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>usuarioServlet</servlet-name>
+        <url-pattern>/usuario</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
