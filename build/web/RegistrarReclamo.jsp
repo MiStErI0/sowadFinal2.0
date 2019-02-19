@@ -253,11 +253,13 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h2 class="modal-title">ALEXIS CABRITO FOR EVER</h2>
+                                                        <h2 class="modal-title">modal</h2>
                                                         <button class="close" type="button" data-dismiss="modal" aria-hidden="true"></button> 
                                                     </div>
+                                                    
                                                     <div class="modal-body">
-                                                        <p>YA LES DIJISTE A TUS PADRES QUE ERES GAY??</p>
+                                                        
+                                                        <jsp:include page="modal.jsp"/>
 
                                                     </div>
 
