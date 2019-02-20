@@ -17,9 +17,10 @@
 <sql:setDataSource 
     var="conexion" 
     driver="com.mysql.jdbc.Driver"
-    url="jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false"
+    url="jdbc:mysql://localhost:3306/sowad?useTimezone=true&serverTimezone=UTC&useSSL=false"
     user="root"
-    password="database"/>
+    password="varvon1995"/>
+
 <sql:query var="sqlDep" dataSource="${conexion}">
     select idDepartamento, departamento from departamento
 </sql:query>
@@ -154,6 +155,7 @@
                                         </select>
                                     </div>      
                                 </div> 
+                                
                                 <div class="col-sm-4">				
                                     <div class="form-group">
                                         <label>Distrito</label>
@@ -259,7 +261,7 @@
                                                     
                                                     <div class="modal-body">
                                                         
-                                                        <jsp:include page="modal.jsp"/>
+                                                        hola
 
                                                     </div>
 
@@ -269,12 +271,11 @@
                                                             <button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
                                                         </div>
                                                     </div>
-
+                                                        
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -282,7 +283,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    
 
 
     <jsp:include page="footer.html" />

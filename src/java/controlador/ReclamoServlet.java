@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.departamento;
 import modelo.direccion;
 import modelo.distrito;
+import modelo.funcionario;
 import modelo.persona;
 import modelo.provincia;
 import modelo.reclamos;
@@ -60,7 +61,7 @@ import modelo.tipotelefono;
             /*reclamos*/
             String fechahecho = request.getParameter("fecha");
             String descripcion = request.getParameter("descripcion");
-            String funcionario = request.getParameter("funcionario");
+            
 
             /*persona*/
             String nombre = request.getParameter("nombre");
@@ -81,11 +82,21 @@ import modelo.tipotelefono;
             Integer idtipotelefono = Integer.valueOf(request.getParameter("tipotelefono"));
             Integer idoperador = Integer.valueOf(request.getParameter("operador"));
             
+            /*Funcionario*/
+            String funcionario = request.getParameter("funcionario");
+                    
+            
+            
+            funcionario funcionarios= new funcionario();
+            funcionarios.setNombresF(funcionario);
+            
+            
             telefono telefonos = new telefono();
             telefonos.setNumero(fono);
             telefonos.setIdTipo_telefono(idtipotelefono);
             telefonos.setIdOperador(idoperador);
-
+            
+                  
             persona personas = new persona();
             personas.setNombreP(nombre);
             personas.setPaternoP(paterno);
@@ -93,11 +104,12 @@ import modelo.tipotelefono;
             personas.setTipodocumento(tipodoc);
             personas.setNum_documento(documento);
             personas.setCorreo(correo);
+            
 
             reclamos reclamo = new reclamos();
             reclamo.setFechahecho(fechahecho);
             reclamo.setDescripcion(descripcion);
-            reclamo.setFuncionario(funcionario);
+            
                        
             direccion direcciones = new direccion();
             direcciones.setDireccion(direccion);
@@ -105,6 +117,8 @@ import modelo.tipotelefono;
             direcciones.setIdDistrito(iddistrito);
             direcciones.setIdDepartamento(iddepartamento);
 
+            
+            String resultado5 = proDB.RegistrarFuncionario(funcionarios);
             String resultado4 = proDB.RegistroTelefono(telefonos);
             String resultado3 = proDB.RegistroDireccion(direcciones);
             String resultado2 = proDB.RegistrarPersona(personas);
@@ -131,33 +145,38 @@ import modelo.tipotelefono;
             
             request.getSession().setAttribute("reclamo",reclamo);
             
-            response.sendRedirect("modal.jsp");
+            response.sendRedirect("editar.jsp");
             
-        }/*else if(accion.equals("MODIFICARBD")){
+        }else if(accion.equals("VER")){
             
-            producto producto =(producto)request.getSession().getAttribute("producto");
-            System.out.println(" el id del producto a cambiar es "+ producto.getIdProducto());
-            producto.setNombre(request.getParameter("nombre"));
-            producto.setCategoria(request.getParameter("categoria"));
-            producto.setPrecio(Double.valueOf(request.getParameter("precio")));
-            producto.setMarca(request.getParameter("marca"));
-            producto.setDescripcion(request.getParameter("descripcion"));
-            producto.setDescuento(Integer.valueOf(request.getParameter("descuento")));
-            producto.setStock(Integer.valueOf(request.getParameter("stock")));
-            producto.setFoto(request.getParameter("foto"));
-            
-            
-            System.out.println(" Datos del producto actualizo ");
-            
+        reclamos reclamo =proDB.reclamoGET(Integer.valueOf(request.getParameter("id")));
             //automovil.imprime();
             
-            String resultado = proBD.productoUPD(producto);
-            listaA = proBD.listarProducto();
+            request.getSession().setAttribute("reclamo",reclamo);
+            
+            response.sendRedirect("ver.jsp");
+            
+        }else if(accion.equals("MODIFICARBD")){
+            
+            reclamos reclamo =(reclamos)request.getSession().getAttribute("reclamo");
+            
+            System.out.println(" el id del reclamo a cambiar es "+ reclamo.getIdreclamos());
+            reclamo.setDescripcion(request.getParameter("descripcion"));
+            reclamo.setNombreP(request.getParameter("nombre"));
+            
+            
+            
+            System.out.println(" Datos se actulizaron ");
+            
+            
+            
+            String resultado = proDB.reclamosUDP(reclamo);
+            listaA = proDB.ListaReclamos();
             request.getSession().setAttribute("listaA", listaA);
             
-            response.sendRedirect("listarproducto.jsp");
+            response.sendRedirect("ListarReclamos.jsp");
             
-        }*/
+        }
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */

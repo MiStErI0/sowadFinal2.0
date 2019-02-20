@@ -11,10 +11,20 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
 
   private static java.util.List<String> _jspx_dependants;
 
+  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_out_value_nobody;
+
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
 
   public java.util.List<String> getDependants() {
     return _jspx_dependants;
+  }
+
+  public void _jspInit() {
+    _jspx_tagPool_c_out_value_nobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+  }
+
+  public void _jspDestroy() {
+    _jspx_tagPool_c_out_value_nobody.release();
   }
 
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
@@ -41,94 +51,101 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("<!DOCTYPE html>\n");
-      out.write("<html>\n");
-      out.write("    <head>\n");
-      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("        <title>Login</title>\n");
-      out.write("        <script src=\"resource/vendors/bootstrap/dist/js/bootstrap.min.js\"></script>\n");
-      out.write("        <link href=\"resource/vendors/bootstrap/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\n");
-      out.write("        <style>\n");
-      out.write("            body {\n");
-      out.write("                background: url(source/fondo-login.jpg);\n");
-      out.write("                background-size: cover;\n");
-      out.write("                background-attachment: fixed;\n");
-      out.write("                \n");
-      out.write("            }\n");
-      out.write("            .login-container{\n");
-      out.write("               \n");
-      out.write("                margin-top: 15%;\n");
-      out.write("                margin-left: 26%;\n");
-      out.write("            }\n");
-      out.write("            .login-form-1{\n");
-      out.write("                padding: 1%;\n");
-      out.write("                box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);\n");
-      out.write("                background-color: #fff; \n");
-      out.write("            }\n");
-      out.write("            .login-form-1 h3{\n");
-      out.write("                text-align: center;\n");
-      out.write("                color: #333;\n");
-      out.write("                font: bold 300% sans-serif;\n");
-      out.write("                \n");
-      out.write("            }\n");
-      out.write("            .login-container form{\n");
-      out.write("                padding: 1%;\n");
-      out.write("            }\n");
-      out.write("            .btnSubmit\n");
-      out.write("            {\n");
-      out.write("                width: 50%;\n");
-      out.write("                border-radius: 1rem;\n");
-      out.write("                padding: 1%;\n");
-      out.write("                border: none;\n");
-      out.write("                cursor: pointer;\n");
-      out.write("            }\n");
-      out.write("            .login-form-1 .btnSubmit{\n");
-      out.write("                font-weight: 600;\n");
-      out.write("                color: #fff;\n");
-      out.write("                background-color: #2a3f54;\n");
-      out.write("                margin-left: 26%;\n");
-      out.write("            }\n");
-      out.write("\n");
-      out.write("            .login-form-1 .ForgetPwd{\n");
-      out.write("                color: #2a3f54;\n");
-      out.write("                font-weight: 600;\n");
-      out.write("                text-decoration: none;\n");
-      out.write("                margin-left: 35%\n");
-      out.write("            }\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("        </style>\n");
-      out.write("\n");
-      out.write("    </head>\n");
-      out.write("    <body>\n");
-      out.write("        <div>\n");
-      out.write("            <div class=\"container login-container\">\n");
-      out.write("                <div class=\"row\">\n");
-      out.write("                    <div class=\"col-md-7 login-form-1\">\n");
-      out.write("                        <h3>Bienvenidos</h3>\n");
-      out.write("                        <form action=\"usuario\" method=\"post\">\n");
-      out.write("                            <div class=\"form-group\">\n");
-      out.write("                                <input type=\"text\" class=\"form-control\" placeholder=\"Usuario *\" value=\"\" name=\"usuario\" required/>\n");
-      out.write("                            </div>\n");
-      out.write("                            <div class=\"form-group\">\n");
-      out.write("                                <input type=\"password\" class=\"form-control\" placeholder=\"Contraseña *\" value=\"\" name=\"pass\" required/>\n");
-      out.write("                            </div>\n");
-      out.write("                            <div class=\"form-group\">\n");
-      out.write("                                <input type=\"submit\" class=\"btnSubmit\" value=\"Login\"/>\n");
-      out.write("                            </div>\n");
-      out.write("                            <div class=\"form-group\">\n");
-      out.write("                                <a href=\"#\" class=\"ForgetPwd\">Olvido la Contraseña?</a>\n");
-      out.write("                            </div>\n");
-      out.write("                        </form>\n");
-      out.write("                    </div>\n");
-      out.write("                </div>\n");
-      out.write("            </div>\n");
-      out.write("        </div>\n");
-      out.write("    </body>\n");
-      out.write("</html>\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("<!DOCTYPE html>\r\n");
+      out.write("<html>\r\n");
+      out.write("    <head>\r\n");
+      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
+      out.write("        <title>Login</title>\r\n");
+      out.write("        <script src=\"resource/vendors/bootstrap/dist/js/bootstrap.min.js\"></script>\r\n");
+      out.write("        <link href=\"resource/vendors/bootstrap/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\r\n");
+      out.write("        <style>\r\n");
+      out.write("            body {\r\n");
+      out.write("                background: url(source/fondo-login.jpg);\r\n");
+      out.write("                background-size: cover;\r\n");
+      out.write("                background-attachment: fixed;\r\n");
+      out.write("                \r\n");
+      out.write("            }\r\n");
+      out.write("            .login-container{\r\n");
+      out.write("               \r\n");
+      out.write("                margin-top: 15%;\r\n");
+      out.write("                margin-left: 26%;\r\n");
+      out.write("            }\r\n");
+      out.write("            .login-form-1{\r\n");
+      out.write("                padding: 1%;\r\n");
+      out.write("                box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);\r\n");
+      out.write("                background-color: #fff; \r\n");
+      out.write("            }\r\n");
+      out.write("            .login-form-1 h3{\r\n");
+      out.write("                text-align: center;\r\n");
+      out.write("                color: #333;\r\n");
+      out.write("                font: bold 300% sans-serif;\r\n");
+      out.write("                \r\n");
+      out.write("            }\r\n");
+      out.write("            .login-container form{\r\n");
+      out.write("                padding: 1%;\r\n");
+      out.write("            }\r\n");
+      out.write("            .btnSubmit\r\n");
+      out.write("            {\r\n");
+      out.write("                width: 50%;\r\n");
+      out.write("                border-radius: 1rem;\r\n");
+      out.write("                padding: 1%;\r\n");
+      out.write("                border: none;\r\n");
+      out.write("                cursor: pointer;\r\n");
+      out.write("            }\r\n");
+      out.write("            .login-form-1 .btnSubmit{\r\n");
+      out.write("                font-weight: 600;\r\n");
+      out.write("                color: #fff;\r\n");
+      out.write("                background-color: #2a3f54;\r\n");
+      out.write("                margin-left: 25%;\r\n");
+      out.write("            }\r\n");
+      out.write("\r\n");
+      out.write("            .login-form-1 .ForgetPwd{\r\n");
+      out.write("                color: #2a3f54;\r\n");
+      out.write("                font-weight: 600;\r\n");
+      out.write("                text-decoration: none;\r\n");
+      out.write("                margin-left: 38.5%\r\n");
+      out.write("            }\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("        </style>\r\n");
+      out.write("\r\n");
+      out.write("    </head>\r\n");
+      out.write("    <body>\r\n");
+      out.write("        <div>\r\n");
+      out.write("            <div class=\"container login-container\">\r\n");
+      out.write("                <div class=\"row\">\r\n");
+      out.write("                    <div class=\"col-md-7 login-form-1\">\r\n");
+      out.write("                        <h3>Bienvenidos</h3>\r\n");
+      out.write("                        <form action=\"usuario\" method=\"post\">\r\n");
+      out.write("                            <div class=\"form-group\">\r\n");
+      out.write("                                <input type=\"text\" class=\"form-control\" placeholder=\"Usuario *\" value=\"\" name=\"usuario\" />\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                            <div class=\"form-group\">\r\n");
+      out.write("                                <input type=\"password\" class=\"form-control\" placeholder=\"Contraseña *\" value=\"\" name=\"pass\" />\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                            <div class=\"form-group\">\r\n");
+      out.write("                                <input type=\"submit\" class=\"btnSubmit\"  value=\"Login\"/>\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                            <div class=\"form-group\">\r\n");
+      out.write("                                <a href=\"#\" class=\"ForgetPwd\">Olvido la Contraseña?</a>\r\n");
+      out.write("                                <h4 style=\"color:#ff0000; text-align: center; font-weight: bold; font-size:200% ; \">");
+      if (_jspx_meth_c_out_0(_jspx_page_context))
+        return;
+      out.write("</h4>\r\n");
+      out.write("                                \r\n");
+      out.write("                                \r\n");
+      out.write("                            </div>\r\n");
+      out.write("                        </form>\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                </div>\r\n");
+      out.write("            </div>\r\n");
+      out.write("        </div>\r\n");
+      out.write("    </body>\r\n");
+      out.write("</html>\r\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;
@@ -140,5 +157,23 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
     } finally {
       _jspxFactory.releasePageContext(_jspx_page_context);
     }
+  }
+
+  private boolean _jspx_meth_c_out_0(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:out
+    org.apache.taglibs.standard.tag.rt.core.OutTag _jspx_th_c_out_0 = (org.apache.taglibs.standard.tag.rt.core.OutTag) _jspx_tagPool_c_out_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.OutTag.class);
+    _jspx_th_c_out_0.setPageContext(_jspx_page_context);
+    _jspx_th_c_out_0.setParent(null);
+    _jspx_th_c_out_0.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${respuesta}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    int _jspx_eval_c_out_0 = _jspx_th_c_out_0.doStartTag();
+    if (_jspx_th_c_out_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_out_value_nobody.reuse(_jspx_th_c_out_0);
+      return true;
+    }
+    _jspx_tagPool_c_out_value_nobody.reuse(_jspx_th_c_out_0);
+    return false;
   }
 }

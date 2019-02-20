@@ -23,14 +23,19 @@ public class reclamos extends persona {
     
     private String nombreestado;
     private String nombrecategoria;
+    private String telefono;
+    private String ubigeo;
+    private String direccion;
+    
 
     public reclamos() {
     }
 
     public reclamos(Integer idreclamos, String condigoR, String fechahecho,
             String descripcion, Integer Persona_idPersona, Integer categoria_idcategoria,
-            Integer Estado_idEstado, Integer area_idarea, String funcionario, String nombreestado,String nombrecategoria, String nombreP,
-            String paternoP,String maternoP,Integer tipodocumento,String num_documento,String correo) {
+            Integer Estado_idEstado, Integer area_idarea, String funcionario, String nombreestado,String nombrecategoria,
+            String ubigeo,String direccion,String telefono,String nombreP,String paternoP,String maternoP,
+            Integer tipodocumento,String num_documento,String correo) {
         
         super(nombreP,paternoP,maternoP,tipodocumento,num_documento,correo);
 
@@ -45,7 +50,35 @@ public class reclamos extends persona {
         this.funcionario = funcionario;
         this.nombreestado = nombreestado;
         this.nombrecategoria = nombrecategoria;
+        this.telefono = telefono;
+        this.ubigeo = ubigeo;
+        this.direccion = direccion;
     }
+
+    public String getUbigeo() {
+        return ubigeo;
+    }
+
+    public void setUbigeo(String ubigeo) {
+        this.ubigeo = ubigeo;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
 
     public String getNombrecategoria() {
         return nombrecategoria;

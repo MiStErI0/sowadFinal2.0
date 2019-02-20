@@ -6,7 +6,7 @@
     driver="com.mysql.jdbc.Driver"
     url="jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false"
     user="root"
-    password="database"/>
+    password="varvon1995"/>
 
 <sql:query var="sqlprov" dataSource="${conexion2}">
     select idProvincia, provincia from provincia where Departamento_idDepartamento = ?
