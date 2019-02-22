@@ -32,7 +32,7 @@
     <body>
 
 
-        <form action="ProductoServlet?accion=MODIFICARBD" method="post">
+        <form action="ReclamoServlet?accion=MODIFICARBD" method="post">
 
 
 
@@ -147,6 +147,8 @@
                                         <div class="form-group">
                                             <label>Descripcion de la Denuncia</label>
                                             <input type="text" name="descripcion" class="form-control" value="<%=reclamo.getDescripcion()%>">
+                                            <input type="hidden" name="areaOrigen" class="form-control" value="<%=reclamo.getArea_idarea()%>">
+                                            <input type="hidden" name="idrec" class="form-control" value="<%=reclamo.getIdreclamos()%>">
                                         </div>
                                     </div>
 
@@ -206,12 +208,12 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Detalle</label>
-                                            <textarea type="text" name="cnro_documento" id="cnro_documento" class="form-control" > </textarea>
+                                            <textarea type="text" name="detalle" id="iddetalle" class="form-control" > </textarea>
                                         </div>
                                     </div>
                                     <div>
-                                        <input type="submit" value="Rechazar Denuncia">
                                         
+                                        <a type="btn" href="ReclamoServlet?accion=RECHAZAR&id=<%=reclamo.getIdreclamos()%>">Rechazar Denuncia</a>
                                         <input type="submit" value="Aceptar y derivar denuncia">
                                     </div>
 

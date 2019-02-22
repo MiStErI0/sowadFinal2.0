@@ -12,8 +12,10 @@ import java.util.logging.Logger;
 import modelo.conexion;
 import modelo.conexion;
 import modelo.departamento;
+import modelo.detallereclamos;
 import modelo.direccion;
 import modelo.distrito;
+import modelo.estadoreclamos;
 import modelo.funcionario;
 import modelo.persona;
 import modelo.provincia;
@@ -164,8 +166,100 @@ public class reclamoDB {
         return resultado;
 
     }
+
+    private int IdReclamos(Connection cn) {
+        int r = 0;
+        String sql = "select IFNULL(max(idReclamos),0) codigo from reclamos";
+
+        try {
+            PreparedStatement pst = cn.prepareCall(sql);
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                r = rs.getInt("codigo");
+            }
+
+            rs.close();
+            rs = null;
+
+            pst.close();
+            pst = null;
+
+            //c.close();
+            //c=null;
+        } catch (SQLException e) {
+            System.out.println(" error al obtener id" + e.getMessage());
+            conexion.CierraConexion(cn);
+        }
+
+        return r;
+    }
+
+    public String RegistrarEstadoR(Connection cn) {
+
+        
+        String resultado = null;
+        String sql = "insert into reclamoestado(Reclamos_idReclamos,fecharegistro,Usuario_idUsuario,Estado_idEstado) values (?,now(),1,1)";
+
+        try {
+
+            PreparedStatement ps = cn.prepareStatement(sql);
+
+            int id = IdReclamos(cn);
+
+            ps.setInt(1, id);
+            
+            int contador = ps.executeUpdate();
+
+            if (contador == 0) {
+
+                resultado = "CERO filas insertadas... revise";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" se produjo error en la insercion " + e.getMessage());
+        }
+        return resultado;
+
+    }
     
-     public String RegistrarFuncionario(funcionario f) {
+    public String RegistrarEstadoR2(estadoreclamos f) {
+
+        String resultado = null;
+        Connection cn = null;
+        String sql = "insert into reclamoestado(Reclamos_idReclamos,fecharegistro,Usuario_idUsuario,Estado_idEstado) values (?,now(),1,2)";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+
+            ps.setInt(1, f.getReclamos_idReclamos());
+            
+
+            int contador = ps.executeUpdate();
+
+            
+
+            if (contador == 0) {
+
+                resultado = "CERO filas insertadas... revise 2";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" se produjo error en la insercion 2 " + e.getMessage());
+        }
+        return resultado;
+
+    }
+    
+    public String RegistrarFuncionario(funcionario f) {
 
         String resultado = null;
         Connection cn = null;
@@ -177,7 +271,6 @@ public class reclamoDB {
             int id = IdFuncionaario(cn);
             ps.setInt(1, id);
             ps.setString(2, f.getNombresF());
-            
 
             int contador = ps.executeUpdate();
 
@@ -197,7 +290,6 @@ public class reclamoDB {
         return resultado;
 
     }
-
 
     private int Idcliente(Connection cn) {
         int r = 0;
@@ -225,7 +317,7 @@ public class reclamoDB {
 
         return r;
     }
-    
+
     private int IdFuncionaario(Connection cn) {
         int r = 0;
         String sql = "select IFNULL(max(idfuncionario),0)+1 codigo from funcionario";
@@ -252,7 +344,7 @@ public class reclamoDB {
 
         return r;
     }
-    
+
     private int IdNuevoFuncionario(Connection cn) {
         int r = 0;
         String sql = "select IFNULL(max(idfuncionario),0) codigo from funcionario";
@@ -261,6 +353,7 @@ public class reclamoDB {
             PreparedStatement pst = cn.prepareCall(sql);
 
             ResultSet rs = pst.executeQuery();
+
             if (rs.next()) {
                 r = rs.getInt("codigo");
             }
@@ -303,6 +396,72 @@ public class reclamoDB {
             ps.setInt(5, id3);
 
             int contador = ps.executeUpdate();
+            
+            RegistrarEstadoR(cn);
+
+            if (contador == 0) {
+
+                resultado = "CERO filas insertadas... revise";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" se produjo error en la insercion " + e.getMessage());
+        }
+        return resultado;
+
+    }
+
+    public String RegistrarDetalleReclamo(detallereclamos f) {
+
+        String resultado = null;
+        Connection cn = null;
+        String sql = "insert into detalle_reclamos(Reclamos_idReclamos,detalle,fecha_asignacion,codigoareaorigen,"
+                + "codigoareadestino)"
+                + "values(?,?,now(),?,?)";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+
+            ps.setInt(1, f.getReclamos_idReclamos());
+            ps.setString(2, f.getDetalle());
+            ps.setInt(3, f.getOrigen());
+            ps.setInt(4, f.getDestino());
+
+            int contador = ps.executeUpdate();
+
+            if (contador == 0) {
+
+                resultado = "CERO filas insertadas... revise";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" se produjo error en la insercion " + e.getMessage());
+        }
+        return resultado;
+
+    }
+
+    public String funcionarioarea(Connection cn) {
+
+        String resultado = null;
+        String sql = "insert into funcionario_area(funcionario_idfuncionario,area_idarea)values(?,4)";
+
+        try {
+
+            PreparedStatement ps = cn.prepareStatement(sql);
+
+            int id = IdNuevoFuncionario(cn);
+
+            ps.setInt(1, id);
+
+            int contador = ps.executeUpdate();
 
             if (contador == 0) {
 
@@ -339,6 +498,8 @@ public class reclamoDB {
             ps.setInt(5, id2);
 
             int contador = ps.executeUpdate();
+
+            funcionarioarea(cn);
 
             if (contador == 0) {
 
@@ -421,7 +582,7 @@ public class reclamoDB {
         Connection cn = null;
         String sql = "select r.idReclamos,r.fechahecho,r.descripcion,r.funcionario,p.nombreP,p.paternoP,\n"
                 + "p.maternoP,p.num_documento,p.correo,e.nombreEs,ca.categoria,t.numero,d.direccion,\n"
-                + "concat(de.departamento,' / ',pro.provincia,' / ',dis.distrito) as ubi,e.nombreEs from reclamos as r \n"
+                + "concat(de.departamento,' / ',pro.provincia,' / ',dis.distrito) as ubi,e.nombreEs,r.area_idarea from reclamos as r \n"
                 + "inner join cliente as c on r.idcliente=c.idcliente\n"
                 + "inner join persona as p on c.idpersona=p.idPersona\n"
                 + "inner join estado as e on e.idEstado=r.Estado_idEstado\n"
@@ -452,6 +613,7 @@ public class reclamoDB {
                 f.setDireccion(rs.getString(13));
                 f.setUbigeo(rs.getString(14));
                 f.setNombreestado(rs.getString(15));
+                f.setArea_idarea(rs.getInt(16));
 
             }
             conexion.CierraConexion(cn);
@@ -468,20 +630,27 @@ public class reclamoDB {
         String resultado = null;
         Connection cn = null;
         String sql = "UPDATE reclamos as r \n"
-                + " inner join cliente as c on r.idcliente=c.idcliente\n"
-                + " inner join persona as p on p.idPersona=c.idpersona\n"
-                + " set r.descripcion=? ,p.nombreP=?\n"
-                + " where r.idReclamos=?";
+                + "inner join funcionario as f on f.idfuncionario=r.idfuncion\n"
+                + "inner join funcionario_area as fa on fa.funcionario_idfuncionario=f.idfuncionario\n"
+                + "set r.categoria_idcategoria=? ,r.area_idarea=?,r.Estado_idEstado=2,\n"
+                + "fa.area_idarea=? where r.idReclamos=?";
 
         try {
             cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
-
-            ps.setString(1, f.getDescripcion());
-            ps.setString(2, f.getNombreP());
             
+            System.out.println("aaaaaaaaaaaaaaaaa"+f.getCategoria_idcategoria());
+            System.out.println("aaaaaaaaaaaaaaaaa"+f.getArea_idarea());
+            System.out.println("aaaaaaaaaaaaaaaaa"+f.getArea_funcionario());
+            System.out.println("aaaaaaaaaaaaaaaaa"+f.getIdreclamos());
+
+            ps.setInt(1, f.getCategoria_idcategoria());
+            ps.setInt(2, f.getArea_idarea());
+            ps.setInt(3, f.getArea_funcionario());
+            ps.setInt(4, f.getIdreclamos());
 
             int contador = ps.executeUpdate();
+            
             if (contador == 0) {
                 System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
                 resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
@@ -498,4 +667,27 @@ public class reclamoDB {
 
     }
 
+    public String reclamoDEL(int id) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "UPDATE reclamos set Estado_idEstado=5 where idReclamos=?";
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int contador = ps.executeUpdate();
+            if (contador == 0) {
+                resultado = "NO LOGRO ELIMINAR REVISELO ...";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error al eliminar " + e.getMessage());
+            resultado = e.getMessage();
+        }
+        return resultado;
+    }
 }

@@ -12,24 +12,47 @@ package modelo;
 public class detallereclamos {
     
    private Integer Reclamos_idReclamos; 
+    
    private String categoria; 
    private String deriva_area; 
    private String detalle; 
    private String respuesta; 
    private String fecha_asignacion; 
+   private Integer origen; 
+   private Integer destino;
 
     public detallereclamos() {
     }
 
-    public detallereclamos(Integer Reclamos_idReclamos, String categoria, String deriva_area, String detalle, String respuesta, String fecha_asignacion) {
+    public detallereclamos(Integer Reclamos_idReclamos, String categoria, String deriva_area, String detalle, String respuesta, String fecha_asignacion,Integer origen,Integer destino) {
         this.Reclamos_idReclamos = Reclamos_idReclamos;
         this.categoria = categoria;
         this.deriva_area = deriva_area;
         this.detalle = detalle;
         this.respuesta = respuesta;
         this.fecha_asignacion = fecha_asignacion;
+        this.origen = origen;
+        this.destino = destino;
     }
 
+    public Integer getOrigen() {
+        return origen;
+    }
+
+    public void setOrigen(Integer origen) {
+        this.origen = origen;
+    }
+
+    public Integer getDestino() {
+        return destino;
+    }
+
+    public void setDestino(Integer destino) {
+        this.destino = destino;
+    }
+
+    
+    
     public Integer getReclamos_idReclamos() {
         return Reclamos_idReclamos;
     }
