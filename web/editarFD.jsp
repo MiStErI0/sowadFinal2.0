@@ -32,7 +32,7 @@
     <body>
 
 
-        <form action="ReclamoServlet?accion=MODIFICARBD" method="post">
+        <form action="ReclamoServlet?accion=MODIFICARBDFD" method="post">
 
 
 
@@ -123,10 +123,10 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Area</label>
-                                            <select id="idarea2" name="area2" class="form-control">
+                                            <select id="idarea2" disabled name="area2" class="form-control">
                                                 <option value="00">.: Seleccione Area :.</option>
                                                 <c:forEach var="fila" items="${sqlAr.rows}">
-                                                    <option value="${fila.idarea}">${fila.area}</option>
+                                                    <option disabled value="${fila.idarea}">${fila.area}</option>
                                                 </c:forEach>
                                             </select> 
                                         </div>
@@ -172,39 +172,36 @@
 
 
                                 <div class="row">
-
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                            <label>Categoria</label>
-                                            <select id="idcategoria" name="categoria" class="form-control">
-                                                <option value="00">.: Seleccione Categoria :.</option>
-                                                <c:forEach var="fila" items="${sqlCat.rows}">
-                                                    <option value="${fila.idcategoria}">${fila.categoria}</option>
-                                                </c:forEach>
-                                            </select> 
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label>Derivar Area</label>
-                                            <select id="idarea" name="area" class="form-control">
-                                                <option value="00">.: Seleccione Area :.</option>
-                                                <c:forEach var="fila" items="${sqlAr.rows}">
-                                                    <option value="${fila.idarea}">${fila.area}</option>
-                                                </c:forEach>
-                                            </select>  
-                                        </div>
-                                    </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Detalle</label>
-                                            <textarea type="text" name="detalle" id="iddetalle" class="form-control" > </textarea>
+                                            <input type="text" disabled name="detalle" id="iddetalle" class="form-control" value="<%=reclamo.getDetalle() %>" > 
                                         </div>
                                     </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Fecha de Asignacion</label>
+                                            <input type="text" disabled name="fechasig" class="form-control" value="<%=reclamo.getFecha_asignacion()%>">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Categoria</label>
+                                            <input type="text" disabled name="fechasig" class="form-control" value="<%=reclamo.getCategoria()%>">
+                                        </div>
+                                    </div>
+                                        
+                                        <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Respuesta</label>
+                                            <textarea type="text" name="respuesta" id="idrespuesta" class="form-control" > </textarea>
+                                        </div>
+                                    </div>
+                                    
                                     <div>
                                         
-                                        <a type="btn" href="ReclamoServlet?accion=RECHAZAR&id=<%=reclamo.getIdreclamos()%>">Rechazar Denuncia</a>
-                                        <input type="submit" value="Aceptar y derivar denuncia">
+                                        <a type="btn" href="ReclamoServlet?accion=DEVOLVER&id=<%=reclamo.getIdreclamos()%>">Devolver Denuncia</a>
+                                        <input type="submit" value="Finalizar Denuncia">
                                     </div>
 
                                 </div>

@@ -27,7 +27,10 @@ public class reclamos extends persona {
     private String ubigeo;
     private String direccion;
     private String detalle;
-    private Integer area_funcionario;
+    private Integer id_fun;
+    private String fecha_asignacion;
+    private String categoria;
+    private String respuesta;
     
 
     public reclamos() {
@@ -36,7 +39,8 @@ public class reclamos extends persona {
     public reclamos(Integer idreclamos, String condigoR, String fechahecho,
             String descripcion, Integer Persona_idPersona, Integer categoria_idcategoria,
             Integer Estado_idEstado, Integer area_idarea, String funcionario, String nombreestado,String nombrecategoria,
-            String ubigeo,String direccion, String detalle, Integer area_funcionario,String telefono,String nombreP,String paternoP,String maternoP,
+            String ubigeo,String direccion, String detalle, Integer id_fun, String fecha_asignacion, String categoria, String respuesta,
+            String telefono,String nombreP,String paternoP,String maternoP,
             Integer tipodocumento,String num_documento,String correo) {
         
         super(nombreP,paternoP,maternoP,tipodocumento,num_documento,correo);
@@ -56,16 +60,48 @@ public class reclamos extends persona {
         this.ubigeo = ubigeo;
         this.direccion = direccion;
         this.detalle = detalle;
-        this.area_funcionario = area_funcionario;
+        this.id_fun = id_fun;
+        this.fecha_asignacion = fecha_asignacion;
+        this.categoria = categoria;
+        this.respuesta = respuesta;
     }
 
-    public Integer getArea_funcionario() {
-        return area_funcionario;
+    public String getRespuesta() {
+        return respuesta;
     }
 
-    public void setArea_funcionario(Integer area_funcionario) {
-        this.area_funcionario = area_funcionario;
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
     }
+
+    
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    
+    
+    public String getFecha_asignacion() {
+        return fecha_asignacion;
+    }
+
+    public void setFecha_asignacion(String fecha_asignacion) {
+        this.fecha_asignacion = fecha_asignacion;
+    }
+
+    public Integer getId_fun() {
+        return id_fun;
+    }
+
+    public void setId_fun(Integer id_fun) {
+        this.id_fun = id_fun;
+    }
+
+    
  
     
     

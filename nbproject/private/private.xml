@@ -4,11 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Computer/Documents/GitHub/SowadVeranito/src/java/controlador/ReclamoServlet.java</file>
-            <file>file:/C:/Users/Computer/Documents/GitHub/SowadVeranito/src/java/modelo/estadoreclamos.java</file>
             <file>file:/C:/Users/Computer/Documents/GitHub/SowadVeranito/web/editar.jsp</file>
-            <file>file:/C:/Users/Computer/Documents/GitHub/SowadVeranito/src/java/modelo/detallereclamos.java</file>
             <file>file:/C:/Users/Computer/Documents/GitHub/SowadVeranito/src/java/funciones/reclamoDB.java</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/SowadVeranito/web/ListarReclamos.jsp</file>
             <file>file:/C:/Users/Computer/Documents/GitHub/SowadVeranito/src/java/modelo/reclamos.java</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/SowadVeranito/web/ver.jsp</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/SowadVeranito/web/editarFD.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -17,6 +17,7 @@ import modelo.direccion;
 import modelo.distrito;
 import modelo.estadoreclamos;
 import modelo.funcionario;
+import modelo.funcionarioarea;
 import modelo.persona;
 import modelo.provincia;
 import modelo.reclamos;
@@ -198,9 +199,9 @@ public class reclamoDB {
 
     public String RegistrarEstadoR(Connection cn) {
 
-        
         String resultado = null;
-        String sql = "insert into reclamoestado(Reclamos_idReclamos,fecharegistro,Usuario_idUsuario,Estado_idEstado) values (?,now(),1,1)";
+        String sql = "insert into reclamoestado(Reclamos_idReclamos,fecharegistro,Usuario_idUsuario,Estado_idEstado)"
+                + "values (?,now(),1,1)";
 
         try {
 
@@ -209,7 +210,7 @@ public class reclamoDB {
             int id = IdReclamos(cn);
 
             ps.setInt(1, id);
-            
+
             int contador = ps.executeUpdate();
 
             if (contador == 0) {
@@ -226,23 +227,20 @@ public class reclamoDB {
         return resultado;
 
     }
-    
+
     public String RegistrarEstadoR2(estadoreclamos f) {
 
         String resultado = null;
         Connection cn = null;
-        String sql = "insert into reclamoestado(Reclamos_idReclamos,fecharegistro,Usuario_idUsuario,Estado_idEstado) values (?,now(),1,2)";
+        String sql = "insert into reclamoestado(Reclamos_idReclamos,fecharegistro,Usuario_idUsuario,Estado_idEstado) values (?,now(),1,3)";
 
         try {
             cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
 
             ps.setInt(1, f.getReclamos_idReclamos());
-            
 
             int contador = ps.executeUpdate();
-
-            
 
             if (contador == 0) {
 
@@ -258,7 +256,7 @@ public class reclamoDB {
         return resultado;
 
     }
-    
+
     public String RegistrarFuncionario(funcionario f) {
 
         String resultado = null;
@@ -269,6 +267,7 @@ public class reclamoDB {
             cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
             int id = IdFuncionaario(cn);
+
             ps.setInt(1, id);
             ps.setString(2, f.getNombresF());
 
@@ -396,7 +395,7 @@ public class reclamoDB {
             ps.setInt(5, id3);
 
             int contador = ps.executeUpdate();
-            
+
             RegistrarEstadoR(cn);
 
             if (contador == 0) {
@@ -448,18 +447,18 @@ public class reclamoDB {
 
     }
 
-    public String funcionarioarea(Connection cn) {
+    public String funcionarioarea(funcionarioarea f) {
 
         String resultado = null;
-        String sql = "insert into funcionario_area(funcionario_idfuncionario,area_idarea)values(?,4)";
+        Connection cn = null;
+        String sql = "insert into funcionario_area(funcionario_idfuncionario,area_idarea,fechafunc)values(?,?,now())";
 
         try {
-
+            cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
 
-            int id = IdNuevoFuncionario(cn);
-
-            ps.setInt(1, id);
+            ps.setInt(1, f.getFuncionario_idfuncionario());
+            ps.setInt(2, f.getArea_idarea());
 
             int contador = ps.executeUpdate();
 
@@ -494,12 +493,9 @@ public class reclamoDB {
             ps.setInt(2, f.getIdDistrito());
             ps.setInt(3, f.getIdProvincia());
             ps.setInt(4, f.getIdDepartamento());
-
             ps.setInt(5, id2);
 
             int contador = ps.executeUpdate();
-
-            funcionarioarea(cn);
 
             if (contador == 0) {
 
@@ -580,9 +576,12 @@ public class reclamoDB {
     public reclamos reclamoGET(int id) {
         reclamos f = new reclamos();
         Connection cn = null;
-        String sql = "select r.idReclamos,r.fechahecho,r.descripcion,r.funcionario,p.nombreP,p.paternoP,\n"
+        String sql = "select r.idReclamos,r.fechahecho,r.descripcion,fun.nombresF,p.nombreP,p.paternoP,\n"
                 + "p.maternoP,p.num_documento,p.correo,e.nombreEs,ca.categoria,t.numero,d.direccion,\n"
-                + "concat(de.departamento,' / ',pro.provincia,' / ',dis.distrito) as ubi,e.nombreEs,r.area_idarea from reclamos as r \n"
+                + "concat(de.departamento,' / ',pro.provincia,' / ',dis.distrito) as ubi,e.nombreEs,"
+                + "r.idfuncion,r.area_idarea,der.detalle,der.fecha_asignacion from reclamos as r \n"
+                + "inner join detalle_reclamos as der on der.Reclamos_idReclamos=r.idReclamos\n"
+                + "inner join funcionario as fun on fun.idfuncionario=r.idfuncion\n"
                 + "inner join cliente as c on r.idcliente=c.idcliente\n"
                 + "inner join persona as p on c.idpersona=p.idPersona\n"
                 + "inner join estado as e on e.idEstado=r.Estado_idEstado\n"
@@ -609,11 +608,15 @@ public class reclamoDB {
                 f.setMaternoP(rs.getString(7));
                 f.setNum_documento(rs.getString(8));
                 f.setCorreo(rs.getString(9));
+                f.setCategoria(rs.getString(11));
                 f.setTelefono(rs.getString(12));
                 f.setDireccion(rs.getString(13));
                 f.setUbigeo(rs.getString(14));
                 f.setNombreestado(rs.getString(15));
-                f.setArea_idarea(rs.getInt(16));
+                f.setId_fun(rs.getInt(16));
+                f.setArea_idarea(rs.getInt(17));
+                f.setDetalle(rs.getString(18));
+                f.setFecha_asignacion(rs.getString(19));
 
             }
             conexion.CierraConexion(cn);
@@ -629,28 +632,23 @@ public class reclamoDB {
     public String reclamosUDP(reclamos f) {
         String resultado = null;
         Connection cn = null;
-        String sql = "UPDATE reclamos as r \n"
-                + "inner join funcionario as f on f.idfuncionario=r.idfuncion\n"
-                + "inner join funcionario_area as fa on fa.funcionario_idfuncionario=f.idfuncionario\n"
-                + "set r.categoria_idcategoria=? ,r.area_idarea=?,r.Estado_idEstado=2,\n"
-                + "fa.area_idarea=? where r.idReclamos=?";
+        String sql = "UPDATE reclamos as r set r.categoria_idcategoria=?, "
+                + "Estado_idEstado=3, r.area_idarea=? where r.idReclamos=?";
 
         try {
             cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
-            
-            System.out.println("aaaaaaaaaaaaaaaaa"+f.getCategoria_idcategoria());
-            System.out.println("aaaaaaaaaaaaaaaaa"+f.getArea_idarea());
-            System.out.println("aaaaaaaaaaaaaaaaa"+f.getArea_funcionario());
-            System.out.println("aaaaaaaaaaaaaaaaa"+f.getIdreclamos());
+
+            System.out.println("aaaaaaaaaaaaaaaaa" + f.getCategoria_idcategoria());
+            System.out.println("aaaaaaaaaaaaaaaaa" + f.getArea_idarea());
+            System.out.println("aaaaaaaaaaaaaaaaa" + f.getIdreclamos());
 
             ps.setInt(1, f.getCategoria_idcategoria());
             ps.setInt(2, f.getArea_idarea());
-            ps.setInt(3, f.getArea_funcionario());
-            ps.setInt(4, f.getIdreclamos());
+            ps.setInt(3, f.getIdreclamos());
 
             int contador = ps.executeUpdate();
-            
+
             if (contador == 0) {
                 System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
                 resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
@@ -689,5 +687,94 @@ public class reclamoDB {
             resultado = e.getMessage();
         }
         return resultado;
+    }
+
+    public String Devolver(int id) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "UPDATE reclamos set Estado_idEstado=2 where idReclamos=?";
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int contador = ps.executeUpdate();
+            if (contador == 0) {
+                resultado = "NO LOGRO ELIMINAR REVISELO ...";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error al eliminar " + e.getMessage());
+            resultado = e.getMessage();
+        }
+        return resultado;
+    }
+    
+    public String FinalizarR(reclamos f) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "update reclamos set respuesta=? ,Estado_idEstado=4 where idReclamos=?";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+
+            System.out.println("aaaaaaaaaaaaaaaaa" + f.getRespuesta());
+            System.out.println("aaaaaaaaaaaaaaaaa" + f.getIdreclamos());
+
+            ps.setString(1, f.getRespuesta());
+            ps.setInt(2, f.getIdreclamos());
+
+
+            int contador = ps.executeUpdate();
+
+            if (contador == 0) {
+                System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
+                resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
+            }
+
+            conexion.CierraConexion(cn);
+        } catch (Exception e) {
+            conexion.getConexion();
+            System.out.println(" error en la actualizacion " + e.getMessage());
+            resultado = e.getMessage();
+        }
+
+        return resultado;
+
+    }
+    public List<detallereclamos> ListaDetalleReclamos() {
+        List<detallereclamos> lista = null;
+        Connection cn = null;
+        reclamos f = null;
+        String sql = "select dr.fecha_asignacion,a.area, a2.area,dr.detalle from detalle_reclamos as dr\n"
+                + "inner join area as a on a.idarea=dr.codigoareaorigen\n"
+                + "inner join area as a2 on a2.idarea=dr.codigoareadestino order by idDetalle_Reclamos";
+
+        try {
+            cn = new conexion().getConexion();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            lista = new ArrayList<detallereclamos>();
+
+            while (rs.next()) {
+
+                detallereclamos e = new detallereclamos();
+                e.setFecha_asignacion(rs.getString(1));
+                e.setOrigennombre(rs.getString(2));
+                e.setDestinonombre(rs.getString(3));
+                e.setDetalle(rs.getString(4));
+               
+                lista.add(e);
+            }
+            conexion.CierraConexion(cn);
+        } catch (Exception e) {
+            System.out.println(" error al ingreso de reclamos" + e.getMessage());
+            conexion.CierraConexion(cn);
+        }
+        return lista;
     }
 }

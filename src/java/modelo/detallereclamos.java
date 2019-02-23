@@ -21,10 +21,14 @@ public class detallereclamos {
    private Integer origen; 
    private Integer destino;
 
+   
+   private String origennombre; 
+   private String destinonombre;
+
     public detallereclamos() {
     }
 
-    public detallereclamos(Integer Reclamos_idReclamos, String categoria, String deriva_area, String detalle, String respuesta, String fecha_asignacion,Integer origen,Integer destino) {
+    public detallereclamos(Integer Reclamos_idReclamos, String categoria, String deriva_area, String detalle, String respuesta, String fecha_asignacion,Integer origen,Integer destino,String origennombre,String destinonombre) {
         this.Reclamos_idReclamos = Reclamos_idReclamos;
         this.categoria = categoria;
         this.deriva_area = deriva_area;
@@ -33,8 +37,28 @@ public class detallereclamos {
         this.fecha_asignacion = fecha_asignacion;
         this.origen = origen;
         this.destino = destino;
+        this.origennombre = origennombre;
+        this.destinonombre = destinonombre;
     }
 
+    public String getOrigennombre() {
+        return origennombre;
+    }
+
+    public void setOrigennombre(String origennombre) {
+        this.origennombre = origennombre;
+    }
+
+    public String getDestinonombre() {
+        return destinonombre;
+    }
+
+    public void setDestinonombre(String destinonombre) {
+        this.destinonombre = destinonombre;
+    }
+
+    
+    
     public Integer getOrigen() {
         return origen;
     }

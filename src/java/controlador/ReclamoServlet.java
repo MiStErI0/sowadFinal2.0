@@ -19,6 +19,7 @@ import modelo.direccion;
 import modelo.distrito;
 import modelo.estadoreclamos;
 import modelo.funcionario;
+import modelo.funcionarioarea;
 import modelo.persona;
 import modelo.provincia;
 import modelo.reclamos;
@@ -39,6 +40,7 @@ public class ReclamoServlet extends HttpServlet {
         System.out.println(" accion " + accion);
         reclamoDB proDB = new reclamoDB();
         List<reclamos> listaA = null;
+        List<detallereclamos> listaB = null;
 
         if (accion.equals("LISTAR")) {
 
@@ -102,7 +104,7 @@ public class ReclamoServlet extends HttpServlet {
             personas.setTipodocumento(tipodoc);
             personas.setNum_documento(documento);
             personas.setCorreo(correo);
-            
+
             reclamos reclamo = new reclamos();
             reclamo.setFechahecho(fechahecho);
             reclamo.setDescripcion(descripcion);
@@ -142,6 +144,43 @@ public class ReclamoServlet extends HttpServlet {
 
             response.sendRedirect("ver.jsp");
 
+        } else if (accion.equals("SEGUIR")) {
+
+            reclamos reclamo = proDB.reclamoGET(Integer.valueOf(request.getParameter("id")));
+
+            listaB = proDB.ListaDetalleReclamos();
+            request.getSession().setAttribute("listaB", listaB);
+            request.getSession().setAttribute("reclamo", reclamo);
+
+            response.sendRedirect("seguimiento.jsp");
+
+        } else if (accion.equals("MODIFICARFD")) {
+
+            reclamos reclamo = proDB.reclamoGET(Integer.valueOf(request.getParameter("id")));
+            //automovil.imprime();
+
+            request.getSession().setAttribute("reclamo", reclamo);
+
+            response.sendRedirect("editarFD.jsp");
+
+        }else if (accion.equals("MODIFICARBDFD")) {
+
+            reclamos reclamo = (reclamos) request.getSession().getAttribute("reclamo");
+
+            System.out.println(" el id del reclamo a cambiar es " + reclamo.getIdreclamos());
+
+            reclamo.setRespuesta(request.getParameter("respuesta"));
+
+            System.out.println(" Datos se actulizaron ");
+
+            String resultado = proDB.FinalizarR(reclamo);
+            
+
+            listaA = proDB.ListaReclamos();
+            request.getSession().setAttribute("listaA", listaA);
+
+            response.sendRedirect("ListarReclamos.jsp");
+
         } else if (accion.equals("MODIFICAR")) {
 
             reclamos reclamo = proDB.reclamoGET(Integer.valueOf(request.getParameter("id")));
@@ -159,53 +198,60 @@ public class ReclamoServlet extends HttpServlet {
 
             reclamo.setCategoria_idcategoria(Integer.valueOf(request.getParameter("categoria")));
             reclamo.setArea_idarea(Integer.valueOf(request.getParameter("area")));
-            reclamo.setArea_funcionario(Integer.valueOf(request.getParameter("area2")));
-            
-            
-            
+
             Integer idreclamo = Integer.valueOf(request.getParameter("idrec"));
             Integer areadestino = Integer.valueOf(request.getParameter("area"));
+            Integer areadestino2 = Integer.valueOf(request.getParameter("area2"));
             Integer areaorigen = Integer.valueOf(request.getParameter("areaOrigen"));
             String detalle = request.getParameter("detalle");
-            
-            
-            
+            Integer idfuncion = Integer.valueOf(request.getParameter("idfun"));
+
+            funcionarioarea fa = new funcionarioarea();
+            fa.setFuncionario_idfuncionario(idfuncion);
+            fa.setArea_idarea(areadestino2);
+
             estadoreclamos er = new estadoreclamos();
             er.setReclamos_idReclamos(idreclamo);
-            
 
             detallereclamos dr = new detallereclamos();
             dr.setReclamos_idReclamos(idreclamo);
             dr.setDetalle(detalle);
             dr.setOrigen(areaorigen);
             dr.setDestino(areadestino);
-            
-            
 
             System.out.println(" Datos se actulizaron ");
-            
+
+            String resultado = proDB.reclamosUDP(reclamo);
             String resultado6 = proDB.RegistrarDetalleReclamo(dr);
             String resultado7 = proDB.RegistrarEstadoR2(er);
-            String resultado = proDB.reclamosUDP(reclamo);
+            String resultado8 = proDB.funcionarioarea(fa);
+
             listaA = proDB.ListaReclamos();
             request.getSession().setAttribute("listaA", listaA);
 
             response.sendRedirect("ListarReclamos.jsp");
 
-        }else if(accion.equals("RECHAZAR")){
-            
-            String resultado =proDB.reclamoDEL(Integer.valueOf(request.getParameter("id")));
-            if(resultado ==null){
+        } else if (accion.equals("RECHAZAR")) {
+
+            String resultado = proDB.reclamoDEL(Integer.valueOf(request.getParameter("id")));
+            if (resultado == null) {
                 System.out.println(" se denego");
                 listaA = proDB.ListaReclamos();
                 request.getSession().setAttribute("listaA", listaA);
                 response.sendRedirect("ListarReclamos.jsp");
-            }    
-            
-            
-        
-    
-    }
+            }
+
+        } else if (accion.equals("DEVOLVER")) {
+
+            String resultado = proDB.Devolver(Integer.valueOf(request.getParameter("id")));
+            if (resultado == null) {
+                System.out.println(" se Devolvio la Denuncia");
+                listaA = proDB.ListaReclamos();
+                request.getSession().setAttribute("listaA", listaA);
+                response.sendRedirect("ListarReclamos.jsp");
+            }
+
+        }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");

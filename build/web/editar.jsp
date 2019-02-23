@@ -11,7 +11,7 @@
 <sql:setDataSource 
     var="conexion" 
     driver="com.mysql.jdbc.Driver"
-    url="jdbc:mysql://localhost:3306/sowad?useTimezone=true&serverTimezone=UTC&useSSL=false"
+    url="jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false"
     user="root"
     password="varvon1995"/>
 <sql:query var="sqlCat" dataSource="${conexion}">
@@ -71,7 +71,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Apeliidos y nombres</label>
-                                            <input type="text"  name="nombre" class="form-control" value="<%=reclamo.getNombreP()%>">
+                                            <input type="text" disabled name="nombre" class="form-control" value="<%=reclamo.getNombreP()%>">
                                         </div>
                                     </div>
                                 </div>
@@ -131,12 +131,19 @@
                                             </select> 
                                         </div>
                                     </div>
+                                    
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Archivos Adjuntos</label>
+                                            <textarea type="text" disabled name="cnro_documento" id="cnro_documento" class="form-control" > </textarea>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="panel panel-default panel-shadow">
                             <div class="panel-body">
 
@@ -146,9 +153,10 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Descripcion de la Denuncia</label>
-                                            <input type="text" name="descripcion" class="form-control" value="<%=reclamo.getDescripcion()%>">
+                                            <input type="text" disabled name="descripcion" class="form-control" value="<%=reclamo.getDescripcion()%>">
                                             <input type="hidden" name="areaOrigen" class="form-control" value="<%=reclamo.getArea_idarea()%>">
                                             <input type="hidden" name="idrec" class="form-control" value="<%=reclamo.getIdreclamos()%>">
+                                            <input type="hidden" name="idfun" class="form-control" value="<%=reclamo.getId_fun() %>">
                                         </div>
                                     </div>
 
@@ -157,25 +165,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-default panel-shadow">
-                            <div class="panel-body">
-
-
-                                <div class="row">
-
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Archivos Adjuntos</label>
-                                            <textarea type="text" disabled name="cnro_documento" id="cnro_documento" class="form-control" > </textarea>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="col-md-12">
                         <div class="panel panel-default panel-shadow">
                             <div class="panel-body">
