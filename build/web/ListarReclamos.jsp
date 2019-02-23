@@ -12,58 +12,7 @@
 <html>
     <jsp:include page="head.html" />
     <style>
-        html,body {
-
-            background-color: white;
-            margin: 0;
-            padding: 0;
-            display: block;
-        }
-        .title{
-            background-color: white;
-            -webkit-box-shadow: inset 0px 9px 59px -11px rgba(0,0,0,0.77);
-            -moz-box-shadow: inset 0px 9px 59px -11px rgba(0,0,0,0.77);
-            box-shadow: inset 0px 9px 59px -11px rgba(0,0,0,0.77);
-        }
-        .title h3{
-            text-align: center;
-            padding: 10px;
-            font-family: 'ZCOOL QingKe HuangYou', cursive;
-            font-size: 45px;
-        }
-        .container{
-            width: 100%;
-            background-color: yellow;   
-        }
-
-        .row{
-            width: 50%;
-            float: left;
-            display: inline-block;
-            vertical-align: middle;
-
-            margin-top: 40px;
-
-        }
-
-        .row h5 a{
-            text-decoration: none;
-        }
-
-        .color{
-            color: white;
-            font-size: 22px;
-        }
-
-        footer {
-            background-color: white;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
-            color: black;
-            text-align: center;
-        }
+        
         #customers {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
             border-collapse: collapse;
@@ -86,21 +35,7 @@
             background-color: #4CAF50;
             color: white;
         }
-        button{
-            background-color: green;
-            width: 100px;
-            padding: 10px;
-            color: white;
-            border:1px solid white;
-            border-radius: 5px;
-            margin-left: auto;
-            margin-right: auto;
-
-        }
-        .color{
-            color: white;
-            font-size: 15px;
-        }
+       
     </style>
 
     <jsp:include page="body.html" />

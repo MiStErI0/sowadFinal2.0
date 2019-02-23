@@ -146,9 +146,10 @@ public class ReclamoServlet extends HttpServlet {
 
         } else if (accion.equals("SEGUIR")) {
 
-            reclamos reclamo = proDB.reclamoGET(Integer.valueOf(request.getParameter("id")));
-
-            listaB = proDB.ListaDetalleReclamos();
+            reclamos reclamo = proDB.reclamoGET2(Integer.valueOf(request.getParameter("id")));
+            int idReclamo = Integer.parseInt(request.getParameter("id"));
+            System.out.println("safsdfsadfsafd"+idReclamo);
+            listaB = proDB.ListaDetalleReclamos(idReclamo);
             request.getSession().setAttribute("listaB", listaB);
             request.getSession().setAttribute("reclamo", reclamo);
 
@@ -156,10 +157,12 @@ public class ReclamoServlet extends HttpServlet {
 
         } else if (accion.equals("MODIFICARFD")) {
 
-            reclamos reclamo = proDB.reclamoGET(Integer.valueOf(request.getParameter("id")));
+            reclamos reclamo = proDB.reclamoGET2(Integer.valueOf(request.getParameter("id")));
+            reclamos reclamo2 = proDB.detallerec(Integer.valueOf(request.getParameter("id")));
             //automovil.imprime();
 
             request.getSession().setAttribute("reclamo", reclamo);
+            request.getSession().setAttribute("reclamo2", reclamo2);
 
             response.sendRedirect("editarFD.jsp");
 

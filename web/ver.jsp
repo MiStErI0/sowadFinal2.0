@@ -71,7 +71,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Apeliidos y nombres</label>
-                                            <input type="text" disabled name="nombre" class="form-control" value="<%=reclamo.getNombreP()%>">
+                                            <input type="text" disabled name="nombre" class="form-control" value="<%=reclamo.getNombreP()%> <%=reclamo.getPaternoP()%> <%=reclamo.getMaternoP()%>">
                                         </div>
                                     </div>
                                 </div>

@@ -28,7 +28,9 @@
     <%
         reclamos reclamo = (reclamos) request.getSession().getAttribute("reclamo");
     %>
-
+    <%
+        reclamos reclamo2 = (reclamos) request.getSession().getAttribute("reclamo2");
+    %>
     <body>
 
 
@@ -71,7 +73,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Apeliidos y nombres</label>
-                                            <input type="text" disabled name="nombre" class="form-control" value="<%=reclamo.getNombreP()%>">
+                                            <input type="text" disabled name="nombre" class="form-control" value="<%=reclamo.getNombreP()%> <%=reclamo.getPaternoP()%> <%=reclamo.getMaternoP()%>">
                                         </div>
                                     </div>
                                 </div>
@@ -175,13 +177,13 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Detalle</label>
-                                            <input type="text" disabled name="detalle" id="iddetalle" class="form-control" value="<%=reclamo.getDetalle() %>" > 
+                                            <input type="text" disabled name="detalle" id="iddetalle" class="form-control" value="<%=reclamo2.getDetalle()%>" > 
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Fecha de Asignacion</label>
-                                            <input type="text" disabled name="fechasig" class="form-control" value="<%=reclamo.getFecha_asignacion()%>">
+                                            <input type="text" disabled name="fechasig" class="form-control" value="<%=reclamo2.getFecha_asignacion() %>">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">

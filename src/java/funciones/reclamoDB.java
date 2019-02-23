@@ -579,6 +579,61 @@ public class reclamoDB {
         String sql = "select r.idReclamos,r.fechahecho,r.descripcion,fun.nombresF,p.nombreP,p.paternoP,\n"
                 + "p.maternoP,p.num_documento,p.correo,e.nombreEs,ca.categoria,t.numero,d.direccion,\n"
                 + "concat(de.departamento,' / ',pro.provincia,' / ',dis.distrito) as ubi,e.nombreEs,"
+                + "r.idfuncion,r.area_idarea from reclamos as r \n"
+                + "inner join funcionario as fun on fun.idfuncionario=r.idfuncion\n"
+                + "inner join cliente as c on r.idcliente=c.idcliente\n"
+                + "inner join persona as p on c.idpersona=p.idPersona\n"
+                + "inner join estado as e on e.idEstado=r.Estado_idEstado\n"
+                + "inner join categoria as ca on ca.idcategoria=r.categoria_idcategoria\n"
+                + "inner join telefono as t on c.idcliente = t.idcliente\n"
+                + "inner join direccion as d on d.idcliente = c.idcliente\n"
+                + "inner join departamento as de on de.idDepartamento = d.Distrito_Provincia_Departamento_idDepartamento\n"
+                + "inner join provincia as pro on pro.idProvincia = d.Distrito_Provincia_idProvincia\n"
+                + "inner join distrito as dis on dis.idDistrito = d.Distrito_idDistrito where idReclamos=? ";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                f.setIdreclamos(rs.getInt(1));
+                f.setFechahecho(rs.getString(2));
+                f.setDescripcion(rs.getString(3));
+                f.setFuncionario(rs.getString(4));
+                f.setNombreP(rs.getString(5));
+                f.setPaternoP(rs.getString(6));
+                f.setMaternoP(rs.getString(7));
+                f.setNum_documento(rs.getString(8));
+                f.setCorreo(rs.getString(9));
+                f.setCategoria(rs.getString(11));
+                f.setTelefono(rs.getString(12));
+                f.setDireccion(rs.getString(13));
+                f.setUbigeo(rs.getString(14));
+                f.setNombreestado(rs.getString(15));
+                f.setId_fun(rs.getInt(16));
+                f.setArea_idarea(rs.getInt(17));
+                f.setDetalle(rs.getString(18));
+                f.setFecha_asignacion(rs.getString(19));
+
+            }
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error la conseguir el automovil " + e.getMessage());
+        }
+
+        return f;
+    }
+    
+    public reclamos reclamoGET2(int id) {
+        reclamos f = new reclamos();
+        Connection cn = null;
+        String sql = "select r.idReclamos,r.fechahecho,r.descripcion,fun.nombresF,p.nombreP,p.paternoP,\n"
+                + "p.maternoP,p.num_documento,p.correo,e.nombreEs,ca.categoria,t.numero,d.direccion,\n"
+                + "concat(de.departamento,' / ',pro.provincia,' / ',dis.distrito) as ubi,e.nombreEs,"
                 + "r.idfuncion,r.area_idarea,der.detalle,der.fecha_asignacion from reclamos as r \n"
                 + "inner join detalle_reclamos as der on der.Reclamos_idReclamos=r.idReclamos\n"
                 + "inner join funcionario as fun on fun.idfuncionario=r.idfuncion\n"
@@ -746,18 +801,23 @@ public class reclamoDB {
         return resultado;
 
     }
-    public List<detallereclamos> ListaDetalleReclamos() {
+    
+    public List<detallereclamos> ListaDetalleReclamos(int reclamo) {
         List<detallereclamos> lista = null;
         Connection cn = null;
         reclamos f = null;
         String sql = "select dr.fecha_asignacion,a.area, a2.area,dr.detalle from detalle_reclamos as dr\n"
                 + "inner join area as a on a.idarea=dr.codigoareaorigen\n"
-                + "inner join area as a2 on a2.idarea=dr.codigoareadestino order by idDetalle_Reclamos";
+                + "inner join area as a2 on a2.idarea=dr.codigoareadestino where dr.Reclamos_idReclamos = ?";
 
         try {
-            cn = new conexion().getConexion();
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            
+            ps.setInt(1,reclamo);
+            
+            ResultSet rs = ps.executeQuery();
+            
             lista = new ArrayList<detallereclamos>();
 
             while (rs.next()) {
@@ -777,4 +837,37 @@ public class reclamoDB {
         }
         return lista;
     }
+    
+    public reclamos detallerec(int id) {
+        reclamos f = new reclamos();
+        Connection cn = null;
+        String sql = "SELECT dr.fecha_asignacion,dr.detalle from detalle_reclamos as dr\n" +
+"                WHERE idDetalle_Reclamos = (SELECT MAX(idDetalle_Reclamos) \n" +
+"                FROM detalle_reclamos where Reclamos_idReclamos=?)\n" +
+"                and Reclamos_idReclamos=?";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.setInt(2, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                f.setFecha_asignacion(rs.getString(1));
+                f.setDetalle(rs.getString(2));
+                
+
+            }
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error la conseguir el automovil " + e.getMessage());
+        }
+
+        return f;
+    }
+    
+    
 }
