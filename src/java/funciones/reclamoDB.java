@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.area;
 import modelo.conexion;
 import modelo.conexion;
 import modelo.departamento;
@@ -627,7 +628,7 @@ public class reclamoDB {
 
         return f;
     }
-    
+
     public reclamos reclamoGET2(int id) {
         reclamos f = new reclamos();
         Connection cn = null;
@@ -767,7 +768,7 @@ public class reclamoDB {
         }
         return resultado;
     }
-    
+
     public String FinalizarR(reclamos f) {
         String resultado = null;
         Connection cn = null;
@@ -782,7 +783,6 @@ public class reclamoDB {
 
             ps.setString(1, f.getRespuesta());
             ps.setInt(2, f.getIdreclamos());
-
 
             int contador = ps.executeUpdate();
 
@@ -801,7 +801,7 @@ public class reclamoDB {
         return resultado;
 
     }
-    
+
     public List<detallereclamos> ListaDetalleReclamos(int reclamo) {
         List<detallereclamos> lista = null;
         Connection cn = null;
@@ -813,11 +813,11 @@ public class reclamoDB {
         try {
             cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
-            
-            ps.setInt(1,reclamo);
-            
+
+            ps.setInt(1, reclamo);
+
             ResultSet rs = ps.executeQuery();
-            
+
             lista = new ArrayList<detallereclamos>();
 
             while (rs.next()) {
@@ -827,7 +827,7 @@ public class reclamoDB {
                 e.setOrigennombre(rs.getString(2));
                 e.setDestinonombre(rs.getString(3));
                 e.setDetalle(rs.getString(4));
-               
+
                 lista.add(e);
             }
             conexion.CierraConexion(cn);
@@ -837,14 +837,14 @@ public class reclamoDB {
         }
         return lista;
     }
-    
+
     public reclamos detallerec(int id) {
         reclamos f = new reclamos();
         Connection cn = null;
-        String sql = "SELECT dr.fecha_asignacion,dr.detalle from detalle_reclamos as dr\n" +
-"                WHERE idDetalle_Reclamos = (SELECT MAX(idDetalle_Reclamos) \n" +
-"                FROM detalle_reclamos where Reclamos_idReclamos=?)\n" +
-"                and Reclamos_idReclamos=?";
+        String sql = "SELECT dr.fecha_asignacion,dr.detalle from detalle_reclamos as dr\n"
+                + "                WHERE idDetalle_Reclamos = (SELECT MAX(idDetalle_Reclamos) \n"
+                + "                FROM detalle_reclamos where Reclamos_idReclamos=?)\n"
+                + "                and Reclamos_idReclamos=?";
 
         try {
             cn = conexion.getConexion();
@@ -856,7 +856,6 @@ public class reclamoDB {
             if (rs.next()) {
                 f.setFecha_asignacion(rs.getString(1));
                 f.setDetalle(rs.getString(2));
-                
 
             }
             conexion.CierraConexion(cn);
@@ -868,6 +867,39 @@ public class reclamoDB {
 
         return f;
     }
-    
-    
+
+    public String RegistroArea(area a) {
+
+        String resultado = null;
+        Connection cn = null;
+
+        String sql = "insert into area (area)values(?)";
+
+        try {
+
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            pst.setString(1, a.getArea());
+
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+
+                resultado = "no se inserto nada revisar";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (SQLException ex) {
+
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+
+            System.out.println(" se produjo error en la insercion " + ex.getMessage());
+        }
+
+        return resultado;
+    }
+
 }

@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.area;
 import modelo.departamento;
 import modelo.detallereclamos;
 import modelo.direccion;
@@ -144,6 +145,15 @@ public class ReclamoServlet extends HttpServlet {
 
             response.sendRedirect("ver.jsp");
 
+        }else if (accion.equals("PRUEBA")) {
+
+            reclamos reclamo = proDB.reclamoGET(Integer.valueOf(request.getParameter("id")));
+            //automovil.imprime();
+
+            request.getSession().setAttribute("reclamo", reclamo);
+
+            response.sendRedirect("prueba.jsp");
+
         } else if (accion.equals("SEGUIR")) {
 
             reclamos reclamo = proDB.reclamoGET2(Integer.valueOf(request.getParameter("id")));
@@ -254,6 +264,36 @@ public class ReclamoServlet extends HttpServlet {
                 response.sendRedirect("ListarReclamos.jsp");
             }
 
+        }else if(accion.equals("AREA")){
+            
+            
+            
+            response.sendRedirect("area.jsp");
+        
+        
+        }else if(accion.equals("REGISTROAREA")){
+            
+            String areas = request.getParameter("area");
+                    
+            area a =new area();
+            a.setArea(areas);
+            
+            String resultado = proDB.RegistroArea(a);
+            
+            if (resultado == null ) {
+                System.out.println("lo inserto correctamente");
+
+                
+                
+                response.sendRedirect("Principal.jsp");
+
+            } else {
+
+                System.out.println(" no lo inserto :( ");
+            }
+            
+          
+             
         }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
