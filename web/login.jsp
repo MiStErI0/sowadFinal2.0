@@ -3,26 +3,29 @@
     Created on : 18/02/2019, 02:47:09 PM
     Author     : johan07
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
         <script src="resource/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         <link href="resource/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="resource/vendors/jquery/dist/jquery.min.js"></script>
+        <script src="resource/vendors/jquery/dist/jquery.js"></script>
+        <script src="validar/validaciones.js" type="text/javascript"></script>
         <style>
             body {
                 background: url(source/fondo-login.jpg);
                 background-size: cover;
                 background-attachment: fixed;
-                
+
             }
             .login-container{
-               
-                margin-top: 15%;
+
+                margin-top: 10%;
                 margin-left: 26%;
             }
             .login-form-1{
@@ -34,7 +37,7 @@
                 text-align: center;
                 color: #333;
                 font: bold 300% sans-serif;
-                
+
             }
             .login-container form{
                 padding: 1%;
@@ -61,36 +64,126 @@
                 margin-left: 38.5%
             }
 
+            .toggle {
+                position: absolute;
+                top: 10px;
+                right: 7px;
+                width: 130px;
+                height: 30px;
+                font-size: 12px;
+                line-height: 25px;
+                text-align: center;
+                border-top: 2px solid #2a3f54;
+                border-bottom: 2px solid #2a3f54;
+                cursor: pointer;
+                transition: all .5s ease;
+            }
+            .toggle:hover {
+                border-top: 2px solid #00b3ee;
+                border-bottom: 2px solid #00b3ee;
+            }
 
+            .contenedor-form .toggle span {
+                letter-spacing: 1px;
+            }
+            .formulario{
+                display: none;
+            }
+            .formulario:nth-child(2) {
+                display: block;
+            }
         </style>
+        <script>
+            function carga()
+            {
+                titulo = "Cambiar Contraseña";
+                document.getElementById('prueba').innerHTML = titulo;
+            }
+        </script>
 
     </head>
-    <body>
+    <body onload="carga()">
         <div>
             <div class="container login-container">
-                <div class="row">
-                    <div class="col-md-7 login-form-1">
+
+                <div class="col-md-7 login-form-1">
+                    <div class="toggle">
+
+                        <span id="prueba"  ></span>
+                    </div>  
+                    <div class="formulario">
                         <h3>Bienvenidos</h3>
-                        <form action="usuario" method="post">
+                        <form action="usuario?accion=iniciarU" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Usuario *" value="" name="usuario" />
+                                <input type="text" id="nom" class="form-control" placeholder="Usuario *" onkeypress="return soloLetras(event,this.value,10)" value="" name="usuario" />
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Contraseña *" value="" name="pass" />
+                                <input type="password" class="form-control" placeholder="Contraseña *" onkeypress="return soloNumeros(event)" value="" name="pass" />
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btnSubmit"  value="Login"/>
                             </div>
                             <div class="form-group">
-                                <a href="#" class="ForgetPwd">Olvido la Contraseña?</a>
-                                <h4 style="color:#ff0000; text-align: center; font-weight: bold; font-size:200% ; "><c:out value="${respuesta}"/></h4>
-                                
-                                
+                                <a href="#" class="col-md-4">Olvido la Contraseña?</a>
+                                <a href="#" class="col-md-4 col-md-offset-4">Seguimiento de Ticket</a><br/>
                             </div>
+                            <div class="form-group">
+                                <h4 style="color:#ff0000; text-align: center; font-weight: bold; font-size:200% ; "><c:out value="${respuesta}"/></h4>    
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="formulario">
+                        <h3>Cambiar contraseña</h3>
+                        <form action="usuario?accion=cambiarCon" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Usuario *" value="" name="usuarioCam" />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Antigua Contraseña *" value="" name="oldpass" />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Nueva Contraseña *" value="" name="newpass" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btnSubmit"  value="Cambiar Contraseña"/>
+                            </div>
+                            <div class="form-group">
+                                <a href="#" class="col-md-4">Olvido la Contraseña?</a>
+                                <a href="#" class="col-md-4 col-md-offset-4">Seguimiento de Ticket</a><br/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <h4 style="color:#ff0000; text-align: center; font-weight: bold; font-size:200% ; "><c:out value="${respuesta1}"/></h4>    
+                            </div>
+                            
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
+
+
+        <script>
+            $('.toggle').click(function () {
+                $('.formulario').animate({
+                    height: "toggle",
+                    'padding-top': 'toggle',
+                    'padding-bottom': 'toggle',
+                    opacity: 'toggle'
+                }, "slow");
+                var titulo = document.getElementById('prueba').innerHTML;
+                if (titulo === "iniciar Sesion")
+                {
+                    titulo = "Cambiar contraseña";
+                    document.getElementById('prueba').innerHTML = titulo;
+                } else {
+                    titulo = "iniciar Sesion";
+                    document.getElementById('prueba').innerHTML = titulo;
+                }
+            });
+        </script>
     </body>
 </html>

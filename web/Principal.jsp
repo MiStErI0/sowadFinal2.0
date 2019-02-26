@@ -4,10 +4,19 @@ Created on : 10/01/2019, 02:36:51 PM
 Author     : User
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+    
+    <script>
+        function usuario(){
+        var fsfd=document.getElementById("peru").innerHTML;
+        alert(fsfd);
+        document.getElementById("hola").innerHTML=fsfd;
+        }       
+    </script>
     <jsp:include page="head.html" />
 
 
@@ -21,6 +30,7 @@ Author     : User
         {
             $("#mostrarmodal").modal("show");
         });
+        
     </script>
     <div class="modal fade" id="mostrarmodal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
       <div class="modal-dialog modal-sm">
@@ -29,8 +39,8 @@ Author     : User
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
            </div>
            <div class="modal-body">
-               <h3 class="text" style="text-align: center">Bienvenido <c:out value="${respuesta}"/></h3>
-       </div>
+               <h3 class="text" style="text-align: center" id="peru">Bienvenido <c:out value="${respuesta}"/></h3>
+           </div>
            <div class="modal-footer">
           <a href="#" data-dismiss="modal" class="btn btn-danger">Cerrar</a>
            </div>

@@ -55,8 +55,17 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write("\r\n");
       out.write("<!DOCTYPE html>\r\n");
       out.write("<html>\r\n");
+      out.write("    \r\n");
+      out.write("    <script>\r\n");
+      out.write("        function usuario(){\r\n");
+      out.write("        var fsfd=document.getElementById(\"peru\").innerHTML;\r\n");
+      out.write("        alert(fsfd);\r\n");
+      out.write("        document.getElementById(\"hola\").innerHTML=fsfd;\r\n");
+      out.write("        }       \r\n");
+      out.write("    </script>\r\n");
       out.write("    ");
       org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "head.html", out, false);
       out.write("\r\n");
@@ -76,6 +85,7 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        {\r\n");
       out.write("            $(\"#mostrarmodal\").modal(\"show\");\r\n");
       out.write("        });\r\n");
+      out.write("        \r\n");
       out.write("    </script>\r\n");
       out.write("    <div class=\"modal fade\" id=\"mostrarmodal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"basicModal\" aria-hidden=\"true\">\r\n");
       out.write("      <div class=\"modal-dialog modal-sm\">\r\n");
@@ -84,11 +94,11 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\r\n");
       out.write("           </div>\r\n");
       out.write("           <div class=\"modal-body\">\r\n");
-      out.write("               <h3 class=\"text\" style=\"text-align: center\">Bienvenido ");
+      out.write("               <h3 class=\"text\" style=\"text-align: center\" id=\"peru\">Bienvenido ");
       if (_jspx_meth_c_out_0(_jspx_page_context))
         return;
       out.write("</h3>\r\n");
-      out.write("       </div>\r\n");
+      out.write("           </div>\r\n");
       out.write("           <div class=\"modal-footer\">\r\n");
       out.write("          <a href=\"#\" data-dismiss=\"modal\" class=\"btn btn-danger\">Cerrar</a>\r\n");
       out.write("           </div>\r\n");

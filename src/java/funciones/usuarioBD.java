@@ -28,14 +28,15 @@ public class usuarioBD {
         Connection c = null;
         try {
             c = new conexion().getConexion();
-            ResultSet rs=null;
+            ResultSet rs = null;
             PreparedStatement pst = c.prepareCall(sql);
-                rs = pst.executeQuery();
-                while (rs.next()) {
-                    usuario e = new usuario(rs.getInt("idUsuario"), rs.getString("user"), rs.getString("clave"), rs.getInt("estado"), rs.getInt("empelado_idempelado"));
-                    lista.add(e);
-                }   rs.close();
-            
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                usuario e = new usuario(rs.getInt("idUsuario"), rs.getString("user"), rs.getString("clave"), rs.getInt("estado"), rs.getInt("empelado_idempelado"));
+                lista.add(e);
+            }
+            rs.close();
+
             rs = null;
             c.close();
             c = null;
@@ -77,4 +78,49 @@ public class usuarioBD {
         }
 
     }
+
+    public String updateContra( String user, String oldpass, String newpass) {
+        String sql = "UPDATE usuario set clave=? where idUsuario=? and user=? and clave=?",r;
+        r=null;
+        Connection c = null;
+        List<usuario> l = getUsuario();
+        try {
+            c = new conexion().getConexion();
+
+            PreparedStatement pst = c.prepareCall(sql);
+            for (usuario e : l) {
+                if (e.getUsuario().equals(user) && e.getContraseña().equals(oldpass)) {
+                    
+                    pst.setString(1, newpass);
+                    pst.setInt(2, e.getIdUsuario());
+                    pst.setString(3, e.getUsuario());
+                    pst.setString(4, oldpass);
+                    int rs = pst.executeUpdate();
+                }else if(e.getUsuario().equals(user) && !e.getContraseña().equals(oldpass))
+                {
+                    return "La antigua contraseña es incorrecta"; 
+                }
+            }
+            
+
+            
+            c.close();
+            c = null;
+            return "Exito";
+        } catch (SQLException ex) {
+            Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                c.close();
+                c = null;
+                return "Error al cambiar la clave";
+            } catch (SQLException ex1) {
+                Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex1);
+                return "Error al cambiar la clave";
+            }
+        }
+        
+
+        
+    }
+
 }

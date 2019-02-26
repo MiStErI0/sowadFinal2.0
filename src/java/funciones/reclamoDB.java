@@ -949,18 +949,16 @@ public class reclamoDB {
         Connection cn = null;
         String sql = "insert into usuario(user,clave,estado,empelado_idempelado)values(?,?,1,?)";
         try {
-            
-            cn=conexion.getConexion();
+
+            cn = conexion.getConexion();
 
             PreparedStatement ps = cn.prepareStatement(sql);
-            
-             int id = Idempelado(cn);
-            
-            System.out.println("aaaaaaaaaaaaaaaaaaa"+u.getUsuario());
-            System.out.println("aaaaaaaaaaaaaaaaaaa"+u.getContraseña());
-            System.out.println("aaaaaaaaaaaaaaaaaaa"+id);
 
-           
+            int id = Idempelado(cn);
+
+            System.out.println("aaaaaaaaaaaaaaaaaaa" + u.getUsuario());
+            System.out.println("aaaaaaaaaaaaaaaaaaa" + u.getContraseña());
+            System.out.println("aaaaaaaaaaaaaaaaaaa" + id);
 
             ps.setString(1, u.getUsuario());
             ps.setString(2, u.getContraseña());
@@ -976,8 +974,8 @@ public class reclamoDB {
             conexion.CierraConexion(cn);
 
         } catch (Exception e) {
-            
-           conexion.CierraConexion(cn);
+
+            conexion.CierraConexion(cn);
             Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, e);
 
             System.out.println(" se produjo error en la insercion usuario" + e.getMessage());
@@ -1073,6 +1071,88 @@ public class reclamoDB {
         }
 
         return r;
+    }
+
+    public String EliminarArea(int id) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "UPDATE area set estadoA=0 where idarea=?";
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int contador = ps.executeUpdate();
+            if (contador == 0) {
+                resultado = "NO LOGRO ELIMINAR REVISELO ...";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error al eliminar " + e.getMessage());
+            resultado = e.getMessage();
+        }
+        return resultado;
+    }
+
+    public String areaUPD(area a) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "Update area set area=? where idarea=?";
+
+        try {
+
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+            
+            pst.setString(1, a.getArea());
+            pst.setInt(2, a.getIdarea());
+            
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+                System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
+                resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
+            }
+            
+            
+            conexion.CierraConexion(cn);
+        } catch (SQLException ex) {
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(" error en la actualizacion " + ex.getMessage());
+            resultado = ex.getMessage();
+        }
+        return resultado;
+    }
+    
+     public area areaGET(int id){
+        area f = new area();
+        Connection cn =null;
+        String sql = "select idarea,area from area where idarea=? ";
+        
+        try {
+            cn =conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs =ps.executeQuery();
+            
+            if(rs.next()){
+                f.setIdarea(rs.getInt(1));
+                f.setArea(rs.getString(2));
+                
+            }
+            conexion.CierraConexion(cn);
+                    
+            
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error la conseguir el area "+ e.getMessage());
+        }
+        
+        return f;
     }
 
 }

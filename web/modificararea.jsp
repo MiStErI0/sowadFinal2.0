@@ -4,6 +4,7 @@
     Author     : Computer
 --%>
 
+<%@page import="modelo.area"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
@@ -17,9 +18,6 @@
 <sql:query var="sqlAr" dataSource="${conexion}">
     select idarea, area from area where estadoA = 1
 </sql:query>
-    
-<html>
-    <jsp:include page="head.html" />
     
     <style>
         
@@ -49,11 +47,16 @@
     </style>
 
 
-
+<html>
+    <jsp:include page="head.html" />
+    
+     <%
+        area area = (area) request.getSession().getAttribute("area");
+    %>
 
 
     <jsp:include page="body.html" />
-    <form id="formarea" method="Post" action="ReclamoServlet?accion=REGISTROAREA">
+    <form id="formarea" method="Post" action="ReclamoServlet?accion=MODIFICARAREA2">
 
         <div class="box-body bg-gray-c">
             <div class="row">
@@ -65,14 +68,15 @@
                                     <div class="form-group"> 
                                         <label>Ingrese Nueva area</label>
 
-                                        <input type="text" name="area" class="form-control" placeholder="ingrese area...">
+                                        <input type="text" name="area" class="form-control" value="<%=area.getArea()%>">
+                                        <input type="hidden" name="idarea" class="form-control" value="<%=area.getIdarea()%>">
 
 
                                     </div>
                                 </div>
                                 <div class="col-sm-4">				
                                     <div class="form-group"> 
-                                        <input type="submit" value="registrar">
+                                        <input type="submit" value="Modificar">
 
 
                                     </div>

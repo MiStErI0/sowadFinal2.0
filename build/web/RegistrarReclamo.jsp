@@ -17,7 +17,7 @@
 <sql:setDataSource 
     var="conexion" 
     driver="com.mysql.jdbc.Driver"
-    url="jdbc:mysql://localhost:3306/sowad?useTimezone=true&serverTimezone=UTC&useSSL=false"
+    url="jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false"
     user="root"
     password="varvon1995"/>
 
@@ -95,7 +95,7 @@
                                 <div class="col-sm-6">				
                                     <div class="form-group">
                                         <label>Tipo Documento</label>
-                                        <select id="idtipodoc" name="tipodoc" class="form-control">
+                                        <select id="idtipodoc"  name="tipodoc" class="form-control">
                                             <option value="00">.: Seleccione Tipo doc :.</option>
                                             <c:forEach var="fila" items="${sqlTD.rows}">
                                                 <option value="${fila.idtipo_documento}">${fila.tipodoc}</option>
@@ -239,7 +239,7 @@
                                 <div class="col-sm-10">
                                     <div class="form-group">
                                         <label>Adjuntar archivos</label> 
-                                        <input id="idarchivo" type="file" name="archivo" class="form-control" placeholder="Ingrese archivo">	
+                                        <input id="idarchivo" type="file" name="file" class="form-control" placeholder="Ingrese archivo">	
                                     </div>  												
                                 </div>
                                 <div style="margin-top: 23px" class="col-sm-2">
@@ -285,6 +285,6 @@
         </div>
     
 
-
+    </form>
     <jsp:include page="footer.html" />
 </html>

@@ -34,42 +34,77 @@ public class usuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-            String usuario=request.getParameter("usuario");
-            String pass=request.getParameter("pass");
-            
-            String resp;
-            
-            usuarioBD usu= new usuarioBD();
-            
-            if(usuario.equals("") && pass.equals(""))
-            {
-               request.setAttribute("respuesta","Campos Usuario y Contraseña estan vacios");
-               
-               request.getRequestDispatcher("login.jsp").forward(request, response);
-            }else if(usuario.equals(""))
-            {
-               request.setAttribute("respuesta","Campo Usuario esta vacio");
-               request.getRequestDispatcher("login.jsp").forward(request, response);
-            }if(pass.equals(""))
-            {
-               request.setAttribute("respuesta","Campo Contraseña esta vacio");
-               request.getRequestDispatcher("login.jsp").forward(request, response);
-            }else
-            {
-               resp=usu.existeUsuario(usuario, pass);
-               request.setAttribute("respuesta",resp);
-                if (resp.equals("Bienvenido")) {
-                    request.setAttribute("respuesta",usuario);
-                    request.getRequestDispatcher("Principal.jsp").forward(request, response);
-                }else
-                    
+
+            String accion = request.getParameter("accion");
+
+            if (accion.equals("iniciarU")) {
+                String usuario = request.getParameter("usuario");
+                String pass = request.getParameter("pass");
+
+                String resp;
+
+                usuarioBD usu = new usuarioBD();
+
+                if (usuario.equals("") && pass.equals("")) {
+                    request.setAttribute("respuesta", "Campos Usuario y Contraseña estan vacios");
+
                     request.getRequestDispatcher("login.jsp").forward(request, response);
-            
+                } else if (usuario.equals("")) {
+                    request.setAttribute("respuesta", "Campo Usuario esta vacio");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                }
+                if (pass.equals("")) {
+                    request.setAttribute("respuesta", "Campo Contraseña esta vacio");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                } else {
+                    resp = usu.existeUsuario(usuario, pass);
+                    request.setAttribute("respuesta", resp);
+                    if (resp.equals("Bienvenido")) {
+                        request.setAttribute("respuesta", usuario);
+                        
+                        request.getRequestDispatcher("Principal.jsp").forward(request, response);
+                    } else {
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                    }
+                }
             }
-            
-            
-            
+            if (accion.equals("cambiarCon")) {
+                String usuario = request.getParameter("usuarioCam");
+                String oldpass = request.getParameter("oldpass");
+                String newpass = request.getParameter("newpass");
+                String resp;
+                
+                usuarioBD usu = new usuarioBD();
+
+                if (usuario.equals("") && oldpass.equals("") && newpass.equals("")) {
+                    request.setAttribute("respuesta1", "Todos los campos estan vacios");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                } else if (usuario.equals("")) {
+                    request.setAttribute("respuesta1", "Campo Usuario esta vacio");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                } else if (oldpass.equals("")) {
+                    request.setAttribute("respuesta1", "Campo Antigua contraseña esta vacio");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                } else if (newpass.equals("")) {
+                    request.setAttribute("respuesta1", "Campo nueva contraseña esta vacio");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                } else {
+                    resp = usu.updateContra(usuario, oldpass, newpass);
+                    if (resp.equals("Exito")) {
+                        request.setAttribute("respuesta", resp);
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                    }if (resp.equals("La antigua contraseña es incorrecta")) {
+                        request.setAttribute("respuesta1", resp);
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                    } else {
+                        request.setAttribute("respuesta1", resp);
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                    }
+
+                }
+
+            }
+
             /* TODO output your page here. You may use following sample code.
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -80,7 +115,7 @@ public class usuarioServlet extends HttpServlet {
             out.println("<h1>Servlet usuarioServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-            */
+             */
         }
     }
 

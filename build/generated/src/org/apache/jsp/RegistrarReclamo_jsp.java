@@ -78,8 +78,8 @@ public final class RegistrarReclamo_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("\r\n");
       if (_jspx_meth_sql_setDataSource_0(_jspx_page_context))
         return;
-      out.write('\r');
-      out.write('\n');
+      out.write("\r\n");
+      out.write("\r\n");
       if (_jspx_meth_sql_query_0(_jspx_page_context))
         return;
       out.write("\r\n");
@@ -158,7 +158,7 @@ public final class RegistrarReclamo_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                                <div class=\"col-sm-6\">\t\t\t\t\r\n");
       out.write("                                    <div class=\"form-group\">\r\n");
       out.write("                                        <label>Tipo Documento</label>\r\n");
-      out.write("                                        <select id=\"idtipodoc\" name=\"tipodoc\" class=\"form-control\">\r\n");
+      out.write("                                        <select id=\"idtipodoc\"  name=\"tipodoc\" class=\"form-control\">\r\n");
       out.write("                                            <option value=\"00\">.: Seleccione Tipo doc :.</option>\r\n");
       out.write("                                            ");
       if (_jspx_meth_c_forEach_0(_jspx_page_context))
@@ -220,6 +220,7 @@ public final class RegistrarReclamo_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                                        </select>\r\n");
       out.write("                                    </div>      \r\n");
       out.write("                                </div> \r\n");
+      out.write("                                \r\n");
       out.write("                                <div class=\"col-sm-4\">\t\t\t\t\r\n");
       out.write("                                    <div class=\"form-group\">\r\n");
       out.write("                                        <label>Distrito</label>\r\n");
@@ -305,7 +306,7 @@ public final class RegistrarReclamo_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                                <div class=\"col-sm-10\">\r\n");
       out.write("                                    <div class=\"form-group\">\r\n");
       out.write("                                        <label>Adjuntar archivos</label> \r\n");
-      out.write("                                        <input id=\"idarchivo\" type=\"file\" name=\"archivo\" class=\"form-control\" placeholder=\"Ingrese archivo\">\t\r\n");
+      out.write("                                        <input id=\"idarchivo\" type=\"file\" name=\"file\" class=\"form-control\" placeholder=\"Ingrese archivo\">\t\r\n");
       out.write("                                    </div>  \t\t\t\t\t\t\t\t\t\t\t\t\r\n");
       out.write("                                </div>\r\n");
       out.write("                                <div style=\"margin-top: 23px\" class=\"col-sm-2\">\r\n");
@@ -321,11 +322,13 @@ public final class RegistrarReclamo_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                                            <div class=\"modal-dialog\">\r\n");
       out.write("                                                <div class=\"modal-content\">\r\n");
       out.write("                                                    <div class=\"modal-header\">\r\n");
-      out.write("                                                        <h2 class=\"modal-title\">ALEXIS CABRITO FOR EVER</h2>\r\n");
+      out.write("                                                        <h2 class=\"modal-title\">modal</h2>\r\n");
       out.write("                                                        <button class=\"close\" type=\"button\" data-dismiss=\"modal\" aria-hidden=\"true\"></button> \r\n");
       out.write("                                                    </div>\r\n");
+      out.write("                                                    \r\n");
       out.write("                                                    <div class=\"modal-body\">\r\n");
-      out.write("                                                        <p>YA LES DIJISTE A TUS PADRES QUE ERES GAY??</p>\r\n");
+      out.write("                                                        \r\n");
+      out.write("                                                        hola\r\n");
       out.write("\r\n");
       out.write("                                                    </div>\r\n");
       out.write("\r\n");
@@ -335,12 +338,11 @@ public final class RegistrarReclamo_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                                                            <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">NO</button>\r\n");
       out.write("                                                        </div>\r\n");
       out.write("                                                    </div>\r\n");
-      out.write("\r\n");
+      out.write("                                                        \r\n");
       out.write("                                                </div>\r\n");
       out.write("                                            </div>\r\n");
       out.write("                                        </div>\r\n");
       out.write("                                    </div>\r\n");
-      out.write("\r\n");
       out.write("                                </div>\r\n");
       out.write("                            </div>\r\n");
       out.write("                        </div>\r\n");
@@ -348,9 +350,9 @@ public final class RegistrarReclamo_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                </div>\r\n");
       out.write("            </div>\r\n");
       out.write("        </div>\r\n");
+      out.write("    \r\n");
+      out.write("\r\n");
       out.write("    </form>\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
       out.write("    ");
       org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "footer.html", out, false);
       out.write("\r\n");
@@ -378,9 +380,9 @@ public final class RegistrarReclamo_jsp extends org.apache.jasper.runtime.HttpJs
     _jspx_th_sql_setDataSource_0.setParent(null);
     _jspx_th_sql_setDataSource_0.setVar("conexion");
     _jspx_th_sql_setDataSource_0.setDriver("com.mysql.jdbc.Driver");
-    _jspx_th_sql_setDataSource_0.setUrl("jdbc:mysql://localhost:3306/sowad?useTimezone=true&serverTimezone=UTC&useSSL=false");
+    _jspx_th_sql_setDataSource_0.setUrl("jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false");
     _jspx_th_sql_setDataSource_0.setUser("root");
-    _jspx_th_sql_setDataSource_0.setPassword("varvon1995");
+    _jspx_th_sql_setDataSource_0.setPassword("database");
     int _jspx_eval_sql_setDataSource_0 = _jspx_th_sql_setDataSource_0.doStartTag();
     if (_jspx_th_sql_setDataSource_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
       _jspx_tagPool_sql_setDataSource_var_user_url_password_driver_nobody.reuse(_jspx_th_sql_setDataSource_0);
