@@ -10,12 +10,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.area;
+import modelo.cargo_area;
 import modelo.conexion;
 import modelo.conexion;
 import modelo.departamento;
 import modelo.detallereclamos;
 import modelo.direccion;
 import modelo.distrito;
+import modelo.empleado;
 import modelo.estadoreclamos;
 import modelo.funcionario;
 import modelo.funcionarioarea;
@@ -25,6 +27,7 @@ import modelo.reclamos;
 import modelo.reclamos;
 import modelo.telefono;
 import modelo.tipotelefono;
+import modelo.usuario;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -900,6 +903,176 @@ public class reclamoDB {
         }
 
         return resultado;
+    }
+
+    public String RegistrarEmpleado(empleado e) {
+
+        String resultado = null;
+        Connection cn = null;
+        String sql = "insert into empelado(idPersona,fechainicio,sueldo,fechafin,idearea)values(?,?,?,?,?)";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            int id = Idpersona(cn);
+
+            pst.setInt(1, id);
+            pst.setString(2, e.getFechainicio());
+            pst.setString(3, e.getSueldo());
+            pst.setString(4, e.getFechafin());
+            pst.setInt(5, e.getIdearea());
+
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+                resultado = "no inserto nada";
+
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (SQLException ex) {
+
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+
+            System.out.println(" se produjo error en la insercion " + ex.getMessage());
+        }
+
+        return resultado;
+    }
+
+    public String RegistroUsuario(usuario u) {
+
+        String resultado = null;
+        Connection cn = null;
+        String sql = "insert into usuario(user,clave,estado,empelado_idempelado)values(?,?,1,?)";
+        try {
+            
+            cn=conexion.getConexion();
+
+            PreparedStatement ps = cn.prepareStatement(sql);
+            
+             int id = Idempelado(cn);
+            
+            System.out.println("aaaaaaaaaaaaaaaaaaa"+u.getUsuario());
+            System.out.println("aaaaaaaaaaaaaaaaaaa"+u.getContraseña());
+            System.out.println("aaaaaaaaaaaaaaaaaaa"+id);
+
+           
+
+            ps.setString(1, u.getUsuario());
+            ps.setString(2, u.getContraseña());
+            ps.setInt(3, id);
+
+            int contador = ps.executeUpdate();
+
+            if (contador == 0) {
+
+                resultado = "CERO filas insertadas... revise";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            
+           conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, e);
+
+            System.out.println(" se produjo error en la insercion usuario" + e.getMessage());
+        }
+
+        return resultado;
+
+    }
+
+    private int Idempelado(Connection cn) {
+        int r = 0;
+        String sql = "select IFNULL(max(idempelado),0) codigo from empelado";
+
+        try {
+            PreparedStatement pst = cn.prepareCall(sql);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                r = rs.getInt("codigo");
+            }
+            rs.close();
+            rs = null;
+
+            pst.close();
+            pst = null;
+
+            //c.close();
+            //c=null;
+        } catch (SQLException e) {
+            System.out.println(" error al obtener id" + e.getMessage());
+            conexion.CierraConexion(cn);
+        }
+
+        return r;
+    }
+
+    public String RegistrarCargoUsuario(cargo_area ca) {
+
+        String resultado = null;
+        Connection cn = null;
+        String sql = "insert into cargo_has_usuario(cargo_idcargo,Usuario_idUsuario) values (?,?)";
+
+        try {
+
+            cn = conexion.getConexion();
+
+            PreparedStatement ps = cn.prepareStatement(sql);
+
+            int id = Idusuario(cn);
+
+            ps.setInt(1, ca.getCargo_idcargo());
+            ps.setInt(2, id);
+
+            int contador = ps.executeUpdate();
+
+            if (contador == 0) {
+
+                resultado = "CERO filas insertadas... revise";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" se produjo error en la insercion Cargo Usuario" + e.getMessage());
+        }
+        return resultado;
+
+    }
+
+    private int Idusuario(Connection cn) {
+        int r = 0;
+        String sql = "select IFNULL(max(idUsuario),0) codigo from usuario";
+
+        try {
+            PreparedStatement pst = cn.prepareCall(sql);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                r = rs.getInt("codigo");
+            }
+            rs.close();
+            rs = null;
+
+            pst.close();
+            pst = null;
+
+            //c.close();
+            //c=null;
+        } catch (SQLException e) {
+            System.out.println(" error al obtener id" + e.getMessage());
+            conexion.CierraConexion(cn);
+        }
+
+        return r;
     }
 
 }

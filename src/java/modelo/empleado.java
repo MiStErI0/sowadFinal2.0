@@ -17,17 +17,29 @@ private String fechainicio;
 private String sueldo; 
 private String fechafin;
 private Integer idearea;
+private Integer idcargo;
 
     public empleado() {
     }
 
-    public empleado(Integer idPersona, String fechainicio, String sueldo, String fechafin, Integer idearea) {
+    public empleado(Integer idPersona, String fechainicio, String sueldo, String fechafin, Integer idearea, Integer idcargo) {
         this.idPersona = idPersona;
         this.fechainicio = fechainicio;
         this.sueldo = sueldo;
         this.fechafin = fechafin;
         this.idearea = idearea;
+        this.idcargo = idcargo;
     }
+
+    public Integer getIdcargo() {
+        return idcargo;
+    }
+
+    public void setIdcargo(Integer idcargo) {
+        this.idcargo = idcargo;
+    }
+    
+    
 
     public Integer getIdPersona() {
         return idPersona;
