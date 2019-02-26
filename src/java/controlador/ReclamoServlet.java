@@ -355,7 +355,11 @@ public class ReclamoServlet extends HttpServlet {
 
             response.sendRedirect("empleado.jsp");
 
-        } else if (accion.equals("REGISTRAREMP")) {
+        }else if (accion.equals("LISTAEMPLEADO")) {
+
+            response.sendRedirect("ListaEmpleados.jsp");
+
+        }else if (accion.equals("REGISTRAREMP")) {
 
             Integer iddoc = Integer.valueOf(request.getParameter("tipodoc"));
             String documento = request.getParameter("documento");
@@ -411,12 +415,25 @@ public class ReclamoServlet extends HttpServlet {
             ca.setCargo_idcargo(cargo);
 
             String resultado1 = proDB.RegistrarPersona(p);
-            String resultado2 = proDB.RegistroTelefono(t);
-            String resultado3 = proDB.RegistroDireccion(d);
+            String resultado2 = proDB.RegistroTelefonoE(t);
+            String resultado3 = proDB.RegistroDireccionE(d);
             String resultado4 = proDB.RegistrarEmpleado(e);
             String resultado5 = proDB.RegistroUsuario(u);
             String resultado6 = proDB.RegistrarCargoUsuario(ca);
-        } else if (accion.equals("AJUSTES")) {
+            
+            
+            response.sendRedirect("ListaEmpelados");
+            
+        }else if (accion.equals("ELIMINAEMP")) {
+
+            String resultado = proDB.EliminarEmpleado(Integer.valueOf(request.getParameter("id")));
+            if (resultado == null) {
+                System.out.println(" se elimino");
+
+                response.sendRedirect("ListaEmpleados.jsp");
+            }
+
+        }else if (accion.equals("AJUSTES")) {
 
             response.sendRedirect("ajustes.jsp");
 

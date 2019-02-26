@@ -276,7 +276,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>contraseña</label>
-                                        <input id="idcontraseña" type="password" name="contraseña" class="form-control"  placeholder="ingrese contraseña...">	
+                                        <input id="idcontraseña" type="text" name="contraseña" class="form-control"  placeholder="ingrese contraseña...">	
                                     </div>													
                                 </div>
                                 <div class="col-sm-12">

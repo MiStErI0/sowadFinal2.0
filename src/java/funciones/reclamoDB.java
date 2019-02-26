@@ -515,6 +515,41 @@ public class reclamoDB {
         return resultado;
 
     }
+    
+    public String RegistroDireccionE(direccion f) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "insert into direccione(direccion,Distrito_idDistrito,Distrito_Provincia_idProvincia,Distrito_Provincia_Departamento_idDepartamento,idempleado)"
+                + "values(?,?,?,?,?)";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+
+            int id2 = Idempelado(cn);
+
+            ps.setString(1, f.getDireccion());
+            ps.setInt(2, f.getIdDistrito());
+            ps.setInt(3, f.getIdProvincia());
+            ps.setInt(4, f.getIdDepartamento());
+            ps.setInt(5, id2);
+
+            int contador = ps.executeUpdate();
+
+            if (contador == 0) {
+
+                resultado = "CERO filas insertadas... revise";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" se produjo error en la insercion " + e.getMessage());
+        }
+        return resultado;
+
+    }
 
     public String RegistroTelefono(telefono f) {
         String resultado = null;
@@ -527,6 +562,40 @@ public class reclamoDB {
             PreparedStatement ps = cn.prepareStatement(sql);
 
             int id2 = Idcliente(cn);
+
+            ps.setString(1, f.getNumero());
+            ps.setInt(2, id2);
+            ps.setInt(3, f.getIdOperador());
+            ps.setInt(4, f.getIdTipo_telefono());
+
+            int contador = ps.executeUpdate();
+
+            if (contador == 0) {
+
+                resultado = "CERO filas insertadas... revise";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" se produjo error en la insercion " + e.getMessage());
+        }
+        return resultado;
+
+    }
+    
+    public String RegistroTelefonoE(telefono f) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "insert into telefonoe(numero,estadoT,idempleado,Operador_idOperador,Tipo_telefono_idTipo_telefono)"
+                + "values(?,1,?,?,?)";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+
+            int id2 = Idempelado(cn);
 
             ps.setString(1, f.getNumero());
             ps.setInt(2, id2);
@@ -876,7 +945,7 @@ public class reclamoDB {
         String resultado = null;
         Connection cn = null;
 
-        String sql = "insert into area (area)values(?)";
+        String sql = "insert into area (area,estadoA)values(?,1)";
 
         try {
 
@@ -909,7 +978,7 @@ public class reclamoDB {
 
         String resultado = null;
         Connection cn = null;
-        String sql = "insert into empelado(idPersona,fechainicio,sueldo,fechafin,idearea)values(?,?,?,?,?)";
+        String sql = "insert into empelado(idPersona,fechainicio,sueldo,fechafin,idearea,estadoEmp)values(?,?,?,?,?,1)";
 
         try {
             cn = conexion.getConexion();
@@ -1010,6 +1079,30 @@ public class reclamoDB {
         }
 
         return r;
+    }
+    
+    public String EliminarEmpleado(int id) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "UPDATE empelado set estadoEmp=0 where idempelado=?";
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int contador = ps.executeUpdate();
+            if (contador == 0) {
+                resultado = "NO LOGRO ELIMINAR REVISELO ...";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error al eliminar " + e.getMessage());
+            resultado = e.getMessage();
+        }
+        return resultado;
     }
 
     public String RegistrarCargoUsuario(cargo_area ca) {

@@ -37,7 +37,7 @@
 					                        <h4 class="list-group-item-heading">Configuración Categoria</h4>
 					                        <p class="list-group-item-text">Creación, modificación.</p>
 					                    </a>
-					                    <a class="list-group-item" href="ReclamoServlet?accion=EMPLEADO">
+					                    <a class="list-group-item" href="ReclamoServlet?accion=LISTAEMPLEADO">
 					                        <h4 class="list-group-item-heading">Configuración Empleado</h4>
 					                        <p class="list-group-item-text">Creación, modificación.</p>
 					                    </a>						              
