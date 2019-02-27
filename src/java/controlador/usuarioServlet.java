@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.usuario;
 
 /**
  *
@@ -57,11 +58,19 @@ public class usuarioServlet extends HttpServlet {
                     request.setAttribute("respuesta", "Campo Contraseña esta vacio");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 } else {
+
                     resp = usu.existeUsuario(usuario, pass);
+
                     request.setAttribute("respuesta", resp);
                     if (resp.equals("Bienvenido")) {
+
+                        int id = usu.obtenerUsuario(usuario, pass);
+                        usuario e = new usuario();
+                        e.setIdUsuario(id);
+                        e.setUsuario(usuario);
+                        usu.Sesion(e, "Iniciar");
                         request.setAttribute("respuesta", usuario);
-                        
+
                         request.getRequestDispatcher("Principal.jsp").forward(request, response);
                     } else {
                         request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -73,7 +82,7 @@ public class usuarioServlet extends HttpServlet {
                 String oldpass = request.getParameter("oldpass");
                 String newpass = request.getParameter("newpass");
                 String resp;
-                
+
                 usuarioBD usu = new usuarioBD();
 
                 if (usuario.equals("") && oldpass.equals("") && newpass.equals("")) {
@@ -93,7 +102,8 @@ public class usuarioServlet extends HttpServlet {
                     if (resp.equals("Exito")) {
                         request.setAttribute("respuesta", resp);
                         request.getRequestDispatcher("login.jsp").forward(request, response);
-                    }if (resp.equals("La antigua contraseña es incorrecta")) {
+                    }
+                    if (resp.equals("La antigua contraseña es incorrecta")) {
                         request.setAttribute("respuesta1", resp);
                         request.getRequestDispatcher("login.jsp").forward(request, response);
                     } else {

@@ -3,10 +3,21 @@
     Created on : 18/02/2019, 02:47:09 PM
     Author     : johan07
 --%>
+<%@page import="modelo.usuario"%>
+<%@page import="funciones.usuarioBD"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
+<%
+    usuarioBD usu = new usuarioBD();
+    
+    usuario e;
+    e=usu.usuActivo();
+    if(e.getEstado()== 2){
+    response.sendRedirect("Principal.jsp");
+    }
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -118,7 +129,7 @@
                                 <input type="text" id="nom" class="form-control" placeholder="Usuario *" onkeypress="return soloLetras(event,this.value,10)" value="" name="usuario" />
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Contraseña *" onkeypress="return soloNumeros(event)" value="" name="pass" />
+                                <input type="password" class="form-control" placeholder="Contraseña *" onkeypress="return soloNumeros(event,this.value,10)" value="" name="pass" />
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btnSubmit"  value="Login"/>

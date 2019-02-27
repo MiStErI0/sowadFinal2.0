@@ -53,6 +53,94 @@ public class usuarioBD {
         return lista;
     }
 
+    public usuario usuActivo() {
+        usuario e = new usuario();
+        String sql = "select * from usuario where estado=?";
+        Connection c = null;
+        try {
+            c = conexion.getConexion();
+
+            PreparedStatement pst = c.prepareCall(sql);
+            pst.setInt(1, 2);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                e.setIdUsuario(rs.getInt("idUsuario"));
+                e.setUsuario(rs.getString("user"));
+                e.setContraseña(rs.getString("clave"));
+                e.setEstado(rs.getInt("estado"));
+                e.setIdEmpleado(rs.getInt("empelado_idempelado"));
+            }else
+            {
+                e.setEstado(1);
+                return e;
+            }
+
+            System.out.println(rs.getString("user") + "fdcsfasdfdsfsdsdafsdfsdaf");
+            rs.close();
+
+            rs = null;
+            conexion.CierraConexion(c);
+            c = null;
+
+            System.out.println("funciono  dsadasdfasdfsdfsdafas");
+            return e;
+        } catch (SQLException ex) {
+            Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                c.close();
+                c = null;
+                System.out.println("noooooooooooooo funciono  dsadasdfasdfsdfsdafas");
+                return e = null;
+            } catch (SQLException ex1) {
+                Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex1);
+                System.out.println("asdfdsfsadfasdfsnoooooooooooooo funciono  dsadasdfasdfsdfsdafas");
+                return e = null;
+            }
+        }
+
+    }
+
+    public String nomUsuAc() {
+        String sql = "SELECT concat(p.nombreP ,' ',p.paternoP) nombre from persona as p \n"
+                + "INNER JOIN empelado as e on p.idPersona = e.idPersona\n"
+                + "INNER JOIN usuario as u on e.idempelado = u.empelado_idempelado\n"
+                + "where u.estado=?";
+        Connection c = null;
+        String r = null;
+        try {
+            c = conexion.getConexion();
+
+            PreparedStatement pst = c.prepareCall(sql);
+            pst.setInt(1, 2);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                r = rs.getString(1);
+            }
+
+            System.out.println(rs.getString("user") + "fdcsfasdfdsfsdsdafsdfsdaf");
+            rs.close();
+
+            rs = null;
+            conexion.CierraConexion(c);
+            c = null;
+
+            System.out.println("funciono nombre dsadasdfasdfsdfsdafas");
+            return r;
+        } catch (SQLException ex) {
+            Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                c.close();
+                c = null;
+                System.out.println("noooooooooooooo funciono nombre dsadasdfasdfsdfsdafas");
+                return r;
+            } catch (SQLException ex1) {
+                Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex1);
+                System.out.println("asdfdsfsadfasdfsnoooooooooooooo funciono nommdsa dsadasdfasdfsdfsdafas");
+                return r;
+            }
+        }
+    }
+
     public String existeUsuario(String usuario, String pass) {
 
         List<usuario> l = getUsuario();
@@ -79,9 +167,58 @@ public class usuarioBD {
 
     }
 
-    public String updateContra( String user, String oldpass, String newpass) {
-        String sql = "UPDATE usuario set clave=? where idUsuario=? and user=? and clave=?",r;
-        r=null;
+    public int obtenerUsuario(String usuario, String pass) {
+        List<usuario> l = getUsuario();
+        int x = 0;
+        for (usuario en : l) {
+            if (en.getUsuario().equals(usuario) && en.getContraseña().equals(pass)) {
+                x = en.getIdUsuario();
+            } else {
+                x = -1;
+            }
+        }
+        return x;
+    }
+
+    public void Sesion(usuario e, String activo) {
+        String sql = "UPDATE usuario set estado=? where idUsuario=? and user=?", r;
+        r = null;
+        Connection c = null;
+
+        try {
+            c = new conexion().getConexion();
+
+            PreparedStatement pst = c.prepareCall(sql);
+            if (activo.equals("Iniciar")) {
+                pst.setInt(1, 2);
+                pst.setInt(2, e.getIdUsuario());
+                pst.setString(3, e.getUsuario());
+            } else {
+                pst.setInt(1, 1);
+                pst.setInt(2, e.getIdUsuario());
+                pst.setString(3, e.getUsuario());
+            }
+            int rs = pst.executeUpdate();
+            c.close();
+            c = null;
+            System.out.println("sesion                     funciona ");
+        } catch (SQLException ex) {
+            Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                c.close();
+                c = null;
+                System.out.println("sesion           no          funciona ");
+            } catch (SQLException ex1) {
+                Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex1);
+                System.out.println("sesion           no          funciona ");
+
+            }
+        }
+    }
+
+    public String updateContra(String user, String oldpass, String newpass) {
+        String sql = "UPDATE usuario set clave=? where idUsuario=? and user=? and clave=?", r;
+        r = null;
         Connection c = null;
         List<usuario> l = getUsuario();
         try {
@@ -90,20 +227,17 @@ public class usuarioBD {
             PreparedStatement pst = c.prepareCall(sql);
             for (usuario e : l) {
                 if (e.getUsuario().equals(user) && e.getContraseña().equals(oldpass)) {
-                    
+
                     pst.setString(1, newpass);
                     pst.setInt(2, e.getIdUsuario());
                     pst.setString(3, e.getUsuario());
                     pst.setString(4, oldpass);
                     int rs = pst.executeUpdate();
-                }else if(e.getUsuario().equals(user) && !e.getContraseña().equals(oldpass))
-                {
-                    return "La antigua contraseña es incorrecta"; 
+                } else if (e.getUsuario().equals(user) && !e.getContraseña().equals(oldpass)) {
+                    return "La antigua contraseña es incorrecta";
                 }
             }
-            
 
-            
             c.close();
             c = null;
             return "Exito";
@@ -118,9 +252,7 @@ public class usuarioBD {
                 return "Error al cambiar la clave";
             }
         }
-        
 
-        
     }
 
 }

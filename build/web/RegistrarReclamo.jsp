@@ -11,6 +11,7 @@
 <%@page import="funciones.reclamoDB"%>
 <%@page import="modelo.departamento"%>
 <%@page import="java.util.List"%>
+<script src="validar/validaciones.js" type="text/javascript"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
@@ -106,7 +107,7 @@
                                 <div class="col-sm-6">				
                                     <div class="form-group">
                                         <label>Tipo Documento</label>
-                                        <input type="text" id="iddocumento" name="documento" class="form-control" placeholder="ingrese documento..." >
+                                        <input type="text" id="iddocumento" onkeypress="return soloNumeros(event,this.value,8)" name="documento" class="form-control" placeholder="ingrese documento..." >
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +186,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Telefono</label> 
-                                        <input id="idtelefono" type="text" name="telefono" class="form-control" placeholder="Ingrese telefono ...">	
+                                        <input id="idtelefono" type="text" name="telefono" class="form-control" onkeypress="return soloNumeros(event,this.value,9)" placeholder="Ingrese telefono ...">	
                                     </div>  												
                                 </div>
                                 <div class="col-sm-4">				
