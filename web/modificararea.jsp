@@ -50,7 +50,7 @@
 <html>
     <jsp:include page="head.html" />
     
-     <%
+    <%
         area area = (area) request.getSession().getAttribute("area");
     %>
 

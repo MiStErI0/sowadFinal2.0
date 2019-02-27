@@ -319,8 +319,7 @@ public class ReclamoServlet extends HttpServlet {
 
         } else if (accion.equals("MODIFICARAREA")) {
             
-             area area =proDB.areaGET(Integer.valueOf(request.getParameter("id")));
-            //automovil.imprime();
+            area area =proDB.areaGET(Integer.valueOf(request.getParameter("id")));
             
             request.getSession().setAttribute("area", area);
 
@@ -330,7 +329,7 @@ public class ReclamoServlet extends HttpServlet {
 
             area a = (area) request.getSession().getAttribute("area");
 
-            System.out.println(" el id del reclamo a cambiar es " + a.getIdarea());
+            System.out.println(" el id del area a cambiar es " + a.getIdarea());
 
             a.setArea(request.getParameter("area"));
             a.setIdarea(Integer.valueOf(request.getParameter("idarea")));
@@ -437,6 +436,10 @@ public class ReclamoServlet extends HttpServlet {
 
             response.sendRedirect("ajustes.jsp");
 
+        }else if(accion.equals("CATEGORIA")){
+        
+           response.sendRedirect("categoria.jsp");
+           
         }else if(accion.equals("CATEGORIA")){
         
            response.sendRedirect("categoria.jsp");

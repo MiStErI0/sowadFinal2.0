@@ -15,12 +15,15 @@
     password="varvon1995"/>
 
 <sql:query var="sqlEmp" dataSource="${conexion}">
+
     SELECT idempelado,fechainicio,nombreP,paternoP,maternoP,correo,numero,cargo FROM empelado as e 
-inner join persona as p on e.idPersona=p.idPersona
-inner join telefonoe as t on t.idempleado=e.idempelado
-inner join usuario as u on u.empelado_idempelado=e.idempelado
-inner join cargo_has_usuario as cu on cu.Usuario_idUsuario=u.idUsuario
-inner join cargo as ca on ca.idcargo=cu.cargo_idcargo where estadoEmp = 1
+    inner join persona as p on e.idPersona=p.idPersona
+    inner join telefonoe as t on t.idempleado=e.idempelado
+    inner join usuario as u on u.empelado_idempelado=e.idempelado
+    inner join cargo_has_usuario as cu on cu.Usuario_idUsuario=u.idUsuario
+    inner join cargo as ca on ca.idcargo=cu.cargo_idcargo where estadoEmp = 1
+
+
 </sql:query>
 
 <html>
@@ -63,9 +66,9 @@ inner join cargo as ca on ca.idcargo=cu.cargo_idcargo where estadoEmp = 1
     <div class="box-body bg-gray-c">
         <div class="row">
             <div class="col-md-12">
-                
+
                 <h3>Listado de Empleados</h3>
-                
+
                 <div class="panel panel-default panel-shadow">
                     <div class="panel-body">
                         <div class="row">
