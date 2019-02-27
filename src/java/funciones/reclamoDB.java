@@ -1044,8 +1044,8 @@ public class reclamoDB {
         empleado f = new empleado();
         Connection cn = null;
         String sql = "SELECT idempelado ,fechainicio ,nombreP ,paternoP ,maternoP ,correo ,numero ,cargo ,idcargo ,estadoEmp ,\n"
-                + "departamento,provincia,distrito,idDepartamento,idProvincia,idDistrito,tipodoc,idtipo_documento,\n"
-                + "num_documento,direccion,fechainicio,fechafin,sueldo,area,idarea,nombreO,idOperador FROM empelado as e \n"
+                + "departamento ,provincia ,distrito ,idDepartamento ,idProvincia ,idDistrito ,tipodoc ,idtipo_documento ,\n"
+                + "num_documento,direccion,fechafin,sueldo,area,idarea,nombreO,idOperador FROM empelado as e \n"
                 + "inner join persona as p on e.idPersona=p.idPersona\n"
                 + "inner join telefonoe as t on t.idempleado=e.idempelado\n"
                 + "inner join operador as o on o.idOperador=t.Operador_idOperador\n"
@@ -1083,15 +1083,26 @@ public class reclamoDB {
                 f.setIdDepartamento(rs.getInt(14));
                 f.setIdProvincia(rs.getInt(15));
                 f.setIdDistrito(rs.getInt(16));
-                f.setDetalle(rs.getString(17));
-                f.setFecha_asignacion(rs.getString(18));
+                f.setTipodoc(rs.getString(17));
+                f.setIdtipo_documento(rs.getInt(18));
+                
+                f.setNum_documento(rs.getString(19));
+                f.setDireccion(rs.getString(20));
+                f.setFechafin(rs.getString(21));
+                f.setSueldo(rs.getString(22));
+                f.setArea(rs.getString(23));
+                f.setIdearea(rs.getInt(24));
+                f.setNombreO(rs.getString(25));
+                f.setIdOperador(rs.getInt(26));
+                
+                
 
             }
             conexion.CierraConexion(cn);
 
         } catch (Exception e) {
             conexion.CierraConexion(cn);
-            System.out.println(" error la conseguir el automovil " + e.getMessage());
+            System.out.println(" error la conseguir el empleado " + e.getMessage());
         }
 
         return f;

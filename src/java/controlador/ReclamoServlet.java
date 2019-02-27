@@ -424,24 +424,24 @@ public class ReclamoServlet extends HttpServlet {
 
         } else if (accion.equals("MODIFICAREMP")) {
 
-            categoria categoria = proDB.categoriaGET(Integer.valueOf(request.getParameter("id")));
+            empleado empleado = proDB.empleadoGET(Integer.valueOf(request.getParameter("id")));
 
-            request.getSession().setAttribute("categoria", categoria);
+            request.getSession().setAttribute("empleado", empleado);
 
-            response.sendRedirect("modificarcategoria.jsp");
+            response.sendRedirect("modificarempleado.jsp");
 
         } else if (accion.equals("MODIFICAREMP2")) {
 
-            categoria c = (categoria) request.getSession().getAttribute("categoria");
+            empleado e = (empleado) request.getSession().getAttribute("empleado");
 
-            System.out.println(" el id del area a cambiar es " + c.getIdcategoria());
+            System.out.println(" el id del empleado a cambiar es " + e.getIdempelado());
 
-            c.setCategoria(request.getParameter("categoria"));
-            c.setIdcategoria(Integer.valueOf(request.getParameter("idcategoria")));
+           /* e.setCategoria(request.getParameter("categoria"));
+            e.setIdcategoria(Integer.valueOf(request.getParameter("idcategoria")));*/
 
-            String resultado = proDB.categoriaUPD(c);
+            //String resultado = proDB.categoriaUPD(e);
 
-            response.sendRedirect("categoria.jsp");
+            response.sendRedirect("empleado.jsp");
 
         } else if (accion.equals("ELIMINAEMP")) {
 
