@@ -11,14 +11,36 @@ package modelo;
  */
 public class categoria {
     
+    private Integer idcategoria;
     private String categoria;
+    private Integer estadoCat;
 
     public categoria() {
     }
 
-    public categoria(String categoria) {
+    public categoria(Integer idcategoria, String categoria,Integer estadoCat) {
+        this.idcategoria = idcategoria;
         this.categoria = categoria;
+        this.estadoCat = estadoCat;
     }
+
+    public Integer getIdcategoria() {
+        return idcategoria;
+    }
+
+    public void setIdcategoria(Integer idcategoria) {
+        this.idcategoria = idcategoria;
+    }
+
+    public Integer getEstadoCat() {
+        return estadoCat;
+    }
+
+    public void setEstadoCat(Integer estadoCat) {
+        this.estadoCat = estadoCat;
+    }
+    
+    
 
     public String getCategoria() {
         return categoria;
