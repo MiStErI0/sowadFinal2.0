@@ -46,6 +46,36 @@
 					                        <h4 class="list-group-item-heading">Configuración Cargo/Ocupacion</h4>
 					                        <p class="list-group-item-text">Creación, modificación.</p>
 					                    </a>
+                                                             </div>
+					            </div>
+					        </div>
+					    </div>
+                                           <div class="col-sm-4">
+					        <div class="ibox">
+					            
+					            <div class="ibox-content no-padding">
+					                <div class="list-group">
+                                                            
+                                                            <a class="list-group-item" href="ReclamoServlet?accion=OPERADOR">
+					                        <h4 class="list-group-item-heading">Configuración Operador</h4>
+					                        <p class="list-group-item-text">Creación, modificación.</p>
+					                    </a>
+                                                            
+                                                            <a class="list-group-item" href="ReclamoServlet?accion=ESTADO">
+					                        <h4 class="list-group-item-heading">Configuración Estado</h4>
+					                        <p class="list-group-item-text">Creación, modificación.</p>
+					                    </a>
+                                                            
+                                                            <a class="list-group-item" href="ReclamoServlet?accion=TIPODOC">
+					                        <h4 class="list-group-item-heading">Configuración Documento</h4>
+					                        <p class="list-group-item-text">Creación, modificación.</p>
+					                    </a>
+                                                            
+					                </div>
+					                </div>
+					                </div>
+					                </div>
+					                
 					                </div>
 					            </div>
 					        </div>

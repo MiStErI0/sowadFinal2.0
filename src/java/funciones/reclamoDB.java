@@ -20,14 +20,17 @@ import modelo.detallereclamos;
 import modelo.direccion;
 import modelo.distrito;
 import modelo.empleado;
+import modelo.estado;
 import modelo.estadoreclamos;
 import modelo.funcionario;
 import modelo.funcionarioarea;
+import modelo.operador;
 import modelo.persona;
 import modelo.provincia;
 import modelo.reclamos;
 import modelo.reclamos;
 import modelo.telefono;
+import modelo.tipodocumento;
 import modelo.tipotelefono;
 import modelo.usuario;
 
@@ -42,8 +45,7 @@ import modelo.usuario;
  */
 public class reclamoDB {
 
-   /*---------------------------------------------------------------Clientes----------------------------------------------------------------*/ 
-
+    /*---------------------------------------------------------------Clientes----------------------------------------------------------------*/
     public String RegistrarPersona(persona f) {
 
         String resultado = null;
@@ -165,8 +167,7 @@ public class reclamoDB {
         return r;
     }
 
-     /*---------------------------------------------------------------Funcionario----------------------------------------------------------------*/
-    
+    /*---------------------------------------------------------------Funcionario----------------------------------------------------------------*/
     private int IdFuncionaario(Connection cn) {
         int r = 0;
         String sql = "select IFNULL(max(idfuncionario),0)+1 codigo from funcionario";
@@ -251,7 +252,7 @@ public class reclamoDB {
         return resultado;
 
     }
-    
+
     public String RegistrarFuncionario(funcionario f) {
 
         String resultado = null;
@@ -284,9 +285,8 @@ public class reclamoDB {
         return resultado;
 
     }
-    
-    /*---------------------------------------------------------------Direcciones----------------------------------------------------------------*/
 
+    /*---------------------------------------------------------------Direcciones----------------------------------------------------------------*/
     public String RegistroDireccion(direccion f) {
         String resultado = null;
         Connection cn = null;
@@ -321,7 +321,7 @@ public class reclamoDB {
         return resultado;
 
     }
-    
+
     public String RegistroDireccionE(direccion f) {
         String resultado = null;
         Connection cn = null;
@@ -356,9 +356,8 @@ public class reclamoDB {
         return resultado;
 
     }
-    
-    /*-----------------------------------------------------------------Telefonos----------------------------------------------------------------*/
 
+    /*-----------------------------------------------------------------Telefonos----------------------------------------------------------------*/
     public String RegistroTelefono(telefono f) {
         String resultado = null;
         Connection cn = null;
@@ -392,7 +391,7 @@ public class reclamoDB {
         return resultado;
 
     }
-    
+
     public String RegistroTelefonoE(telefono f) {
         String resultado = null;
         Connection cn = null;
@@ -426,9 +425,8 @@ public class reclamoDB {
         return resultado;
 
     }
-    
-    /*------------------------------------------------------------------------Reclamos----------------------------------------------------------------*/
 
+    /*------------------------------------------------------------------------Reclamos----------------------------------------------------------------*/
     public List<reclamos> ListaReclamos() {
         List<reclamos> lista = null;
         Connection cn = null;
@@ -466,7 +464,7 @@ public class reclamoDB {
         }
         return lista;
     }
-    
+
     public String RegistrarReclamo(reclamos f) {
 
         String resultado = null;
@@ -541,7 +539,7 @@ public class reclamoDB {
         return resultado;
 
     }
-    
+
     private int nuevoId(Connection cn) {
         int r = 0;
         String sql = "select IFNULL(max(idReclamos),0)+1 codigo from reclamos";
@@ -862,8 +860,8 @@ public class reclamoDB {
 
         return f;
     }
-    
-     private int IdReclamos(Connection cn) {
+
+    private int IdReclamos(Connection cn) {
         int r = 0;
         String sql = "select IFNULL(max(idReclamos),0) codigo from reclamos";
 
@@ -951,9 +949,8 @@ public class reclamoDB {
         return resultado;
 
     }
-    
-    /*------------------------------------------------------------------------Empleado----------------------------------------------------------------*/
 
+    /*------------------------------------------------------------------------Empleado----------------------------------------------------------------*/
     public String RegistrarEmpleado(empleado e) {
 
         String resultado = null;
@@ -1018,7 +1015,7 @@ public class reclamoDB {
 
         return r;
     }
-    
+
     public String EliminarEmpleado(int id) {
         String resultado = null;
         Connection cn = null;
@@ -1042,9 +1039,65 @@ public class reclamoDB {
         }
         return resultado;
     }
-    
+
+    public empleado empleadoGET(int id) {
+        empleado f = new empleado();
+        Connection cn = null;
+        String sql = "SELECT idempelado ,fechainicio ,nombreP ,paternoP ,maternoP ,correo ,numero ,cargo ,idcargo ,estadoEmp ,\n"
+                + "departamento,provincia,distrito,idDepartamento,idProvincia,idDistrito,tipodoc,idtipo_documento,\n"
+                + "num_documento,direccion,fechainicio,fechafin,sueldo,area,idarea,nombreO,idOperador FROM empelado as e \n"
+                + "inner join persona as p on e.idPersona=p.idPersona\n"
+                + "inner join telefonoe as t on t.idempleado=e.idempelado\n"
+                + "inner join operador as o on o.idOperador=t.Operador_idOperador\n"
+                + "inner join tipo_documento td on td.idtipo_documento=p.tipo_documento_idtipo_documento\n"
+                + "inner join usuario as u on u.empelado_idempelado=e.idempelado\n"
+                + "inner join area as ar on ar.idarea=e.idearea\n"
+                + "inner join cargo_has_usuario as cu on cu.Usuario_idUsuario=u.idUsuario\n"
+                + "inner join cargo as ca on ca.idcargo=cu.cargo_idcargo\n"
+                + "inner join direccione as d on d.idempleado = e.idempelado\n"
+                + "inner join departamento as de on de.idDepartamento = d.Distrito_Provincia_Departamento_idDepartamento\n"
+                + "inner join provincia as pro on pro.idProvincia = d.Distrito_Provincia_idProvincia\n"
+                + "inner join distrito as dis on dis.idDistrito = d.Distrito_idDistrito where idempelado=?";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                f.setIdempelado(rs.getInt(1));
+                f.setFechainicio(rs.getString(2));
+                f.setNombreP(rs.getString(3));
+                f.setPaternoP(rs.getString(4));
+                f.setMaternoP(rs.getString(5));
+                f.setCorreo(rs.getString(6));
+                f.setNumero(rs.getString(7));
+                f.setCargo(rs.getString(8));
+                f.setIdcargo(rs.getInt(9));
+                f.setEstadoEmp(rs.getInt(10));
+                
+                f.setDepartamento(rs.getString(11));
+                f.setProvincia(rs.getString(12));
+                f.setDistrito(rs.getString(13));
+                f.setIdDepartamento(rs.getInt(14));
+                f.setIdProvincia(rs.getInt(15));
+                f.setIdDistrito(rs.getInt(16));
+                f.setDetalle(rs.getString(17));
+                f.setFecha_asignacion(rs.getString(18));
+
+            }
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error la conseguir el automovil " + e.getMessage());
+        }
+
+        return f;
+    }
+
     /*---------------------------------------------------------------------Usuario----------------------------------------------------------------*/
-    
     public String RegistroUsuario(usuario u) {
 
         String resultado = null;
@@ -1147,11 +1200,8 @@ public class reclamoDB {
         return resultado;
 
     }
-    
 
-    
     /*------------------------------------------------------------------------Area----------------------------------------------------------------*/
-    
     public String RegistroArea(area a) {
 
         String resultado = null;
@@ -1219,18 +1269,17 @@ public class reclamoDB {
 
             cn = conexion.getConexion();
             PreparedStatement pst = cn.prepareStatement(sql);
-            
+
             pst.setString(1, a.getArea());
             pst.setInt(2, a.getIdarea());
-            
+
             int contador = pst.executeUpdate();
 
             if (contador == 0) {
                 System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
                 resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
             }
-            
-            
+
             conexion.CierraConexion(cn);
         } catch (SQLException ex) {
             conexion.CierraConexion(cn);
@@ -1240,37 +1289,35 @@ public class reclamoDB {
         }
         return resultado;
     }
-    
-    public area areaGET(int id){
+
+    public area areaGET(int id) {
         area f = new area();
-        Connection cn =null;
+        Connection cn = null;
         String sql = "select idarea,area from area where idarea=? ";
-        
+
         try {
-            cn =conexion.getConexion();
+            cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setInt(1, id);
-            ResultSet rs =ps.executeQuery();
-            
-            if(rs.next()){
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
                 f.setIdarea(rs.getInt(1));
                 f.setArea(rs.getString(2));
-                
+
             }
             conexion.CierraConexion(cn);
-                    
-            
+
         } catch (Exception e) {
             conexion.CierraConexion(cn);
-            System.out.println(" error la conseguir el area "+ e.getMessage());
+            System.out.println(" error la conseguir el area " + e.getMessage());
         }
-        
+
         return f;
     }
-     
-     /*---------------------------------------------------------------------categoria-------------------------------------------------------------*/
-     
-     public String RegistroCategoria(categoria c) {
+
+    /*---------------------------------------------------------------------categoria-------------------------------------------------------------*/
+    public String RegistroCategoria(categoria c) {
 
         String resultado = null;
         Connection cn = null;
@@ -1303,8 +1350,8 @@ public class reclamoDB {
 
         return resultado;
     }
-     
-     public String EliminarCategoria(int id) {
+
+    public String EliminarCategoria(int id) {
         String resultado = null;
         Connection cn = null;
         String sql = "UPDATE categoria set estaCat=0 where idcategoria=?";
@@ -1327,8 +1374,8 @@ public class reclamoDB {
         }
         return resultado;
     }
-     
-     public String categoriaUPD(categoria c) {
+
+    public String categoriaUPD(categoria c) {
         String resultado = null;
         Connection cn = null;
         String sql = "Update categoria set categoria=? where idcategoria=?";
@@ -1337,18 +1384,17 @@ public class reclamoDB {
 
             cn = conexion.getConexion();
             PreparedStatement pst = cn.prepareStatement(sql);
-            
+
             pst.setString(1, c.getCategoria());
             pst.setInt(2, c.getIdcategoria());
-            
+
             int contador = pst.executeUpdate();
 
             if (contador == 0) {
                 System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
                 resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
             }
-            
-            
+
             conexion.CierraConexion(cn);
         } catch (SQLException ex) {
             conexion.CierraConexion(cn);
@@ -1358,37 +1404,35 @@ public class reclamoDB {
         }
         return resultado;
     }
-     
-     public categoria categoriaGET(int id){
+
+    public categoria categoriaGET(int id) {
         categoria f = new categoria();
-        Connection cn =null;
+        Connection cn = null;
         String sql = "select idcategoria,categoria from categoria where idcategoria=? ";
-        
+
         try {
-            cn =conexion.getConexion();
+            cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setInt(1, id);
-            ResultSet rs =ps.executeQuery();
-            
-            if(rs.next()){
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
                 f.setIdcategoria(rs.getInt(1));
                 f.setCategoria(rs.getString(2));
-                
+
             }
             conexion.CierraConexion(cn);
-                    
-            
+
         } catch (Exception e) {
             conexion.CierraConexion(cn);
-            System.out.println(" error la conseguir el categoria "+ e.getMessage());
+            System.out.println(" error la conseguir el categoria " + e.getMessage());
         }
-        
+
         return f;
     }
-     
-     /*---------------------------------------------------------------------Cargo-------------------------------------------------------------*/
-     
-     public String RegistroCargo(cargo c) {
+
+    /*---------------------------------------------------------------------Cargo-------------------------------------------------------------*/
+    public String RegistroCargo(cargo c) {
 
         String resultado = null;
         Connection cn = null;
@@ -1421,8 +1465,8 @@ public class reclamoDB {
 
         return resultado;
     }
-     
-     public String EliminarCargo(int id) {
+
+    public String EliminarCargo(int id) {
         String resultado = null;
         Connection cn = null;
         String sql = "UPDATE cargo set estadoCar=0 where idcargo=?";
@@ -1445,8 +1489,8 @@ public class reclamoDB {
         }
         return resultado;
     }
-     
-     public String cargoUPD(cargo c) {
+
+    public String cargoUPD(cargo c) {
         String resultado = null;
         Connection cn = null;
         String sql = "Update cargo set cargo=? where idcargo=?";
@@ -1455,18 +1499,17 @@ public class reclamoDB {
 
             cn = conexion.getConexion();
             PreparedStatement pst = cn.prepareStatement(sql);
-            
+
             pst.setString(1, c.getCargo());
             pst.setInt(2, c.getIdcargo());
-            
+
             int contador = pst.executeUpdate();
 
             if (contador == 0) {
                 System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
                 resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
             }
-            
-            
+
             conexion.CierraConexion(cn);
         } catch (SQLException ex) {
             conexion.CierraConexion(cn);
@@ -1476,31 +1519,375 @@ public class reclamoDB {
         }
         return resultado;
     }
-     
-     public cargo cargoGET(int id){
+
+    public cargo cargoGET(int id) {
         cargo f = new cargo();
-        Connection cn =null;
+        Connection cn = null;
         String sql = "select idcargo,cargo from cargo where idcargo=? ";
-        
+
         try {
-            cn =conexion.getConexion();
+            cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setInt(1, id);
-            ResultSet rs =ps.executeQuery();
-            
-            if(rs.next()){
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
                 f.setIdcargo(rs.getInt(1));
                 f.setCargo(rs.getString(2));
-                
+
             }
             conexion.CierraConexion(cn);
-                    
-            
+
         } catch (Exception e) {
             conexion.CierraConexion(cn);
-            System.out.println(" error la conseguir el categoria "+ e.getMessage());
+            System.out.println(" error la conseguir el categoria " + e.getMessage());
         }
-        
+
+        return f;
+    }
+
+    /*-----------------------------------------------------------------Operador-------------------------------------------------------------*/
+    public String RegistroOperador(operador c) {
+
+        String resultado = null;
+        Connection cn = null;
+
+        String sql = "insert into operador (nombreO,estadoOp)values(?,1)";
+
+        try {
+
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            pst.setString(1, c.getNombreO());
+
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+
+                resultado = "no se inserto nada en cargo";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (SQLException ex) {
+
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+
+            System.out.println(" se produjo error en la insercion en cargo " + ex.getMessage());
+        }
+
+        return resultado;
+    }
+
+    public String EliminarOperador(int id) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "UPDATE operador set estadoOp=0 where idOperador=?";
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int contador = ps.executeUpdate();
+            if (contador == 0) {
+                resultado = "NO LOGRO ELIMINAR REVISELO ...";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error al eliminar " + e.getMessage());
+            resultado = e.getMessage();
+        }
+        return resultado;
+    }
+
+    public String operadorUPD(operador c) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "Update operador set nombreO=? where idOperador=?";
+
+        try {
+
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            pst.setString(1, c.getNombreO());
+            pst.setInt(2, c.getIdOperador());
+
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+                System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
+                resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
+            }
+
+            conexion.CierraConexion(cn);
+        } catch (SQLException ex) {
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(" error en la actualizacion " + ex.getMessage());
+            resultado = ex.getMessage();
+        }
+        return resultado;
+    }
+
+    public operador operadorGET(int id) {
+        operador f = new operador();
+        Connection cn = null;
+        String sql = "select idOperador,nombreO from operador where idOperador=? ";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                f.setIdOperador(rs.getInt(1));
+                f.setNombreO(rs.getString(2));
+
+            }
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error la conseguir el categoria " + e.getMessage());
+        }
+
+        return f;
+    }
+
+    /*-----------------------------------------------------------------Estado-------------------------------------------------------------*/
+    public String RegistroEstado(estado c) {
+
+        String resultado = null;
+        Connection cn = null;
+
+        String sql = "insert into estado (nombreEs,tipoestado)values(?,1)";
+
+        try {
+
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            pst.setString(1, c.getNombreEs());
+
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+
+                resultado = "no se inserto nada en cargo";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (SQLException ex) {
+
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+
+            System.out.println(" se produjo error en la insercion en cargo " + ex.getMessage());
+        }
+
+        return resultado;
+    }
+
+    public String EliminarEstado(int id) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "UPDATE estado set tipoestado=0 where idEstado=?";
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int contador = ps.executeUpdate();
+            if (contador == 0) {
+                resultado = "NO LOGRO ELIMINAR REVISELO ...";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error al eliminar " + e.getMessage());
+            resultado = e.getMessage();
+        }
+        return resultado;
+    }
+
+    public String estadoUPD(estado c) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "Update estado set nombreEs=? where idEstado=?";
+
+        try {
+
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            pst.setString(1, c.getNombreEs());
+            pst.setInt(2, c.getIdEstado());
+
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+                System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
+                resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
+            }
+
+            conexion.CierraConexion(cn);
+        } catch (SQLException ex) {
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(" error en la actualizacion " + ex.getMessage());
+            resultado = ex.getMessage();
+        }
+        return resultado;
+    }
+
+    public estado estadoGET(int id) {
+        estado f = new estado();
+        Connection cn = null;
+        String sql = "select idEstado,nombreEs from estado where idEstado=? ";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                f.setIdEstado(rs.getInt(1));
+                f.setNombreEs(rs.getString(2));
+
+            }
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error la conseguir el categoria " + e.getMessage());
+        }
+
+        return f;
+    }
+
+    /*-----------------------------------------------------------------TipoDoc-------------------------------------------------------------*/
+    public String RegistroTipoDoc(tipodocumento t) {
+
+        String resultado = null;
+        Connection cn = null;
+
+        String sql = "insert into tipo_documento (tipodoc,estadoTD)values(?,1)";
+
+        try {
+
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            pst.setString(1, t.getTipodoc());
+
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+
+                resultado = "no se inserto nada en cargo";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (SQLException ex) {
+
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+
+            System.out.println(" se produjo error en la insercion en cargo " + ex.getMessage());
+        }
+
+        return resultado;
+    }
+
+    public String EliminarTipoDoc(int id) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "UPDATE tipo_documento set estadoTD=0 where idtipo_documento=?";
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int contador = ps.executeUpdate();
+            if (contador == 0) {
+                resultado = "NO LOGRO ELIMINAR REVISELO ...";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error al eliminar " + e.getMessage());
+            resultado = e.getMessage();
+        }
+        return resultado;
+    }
+
+    public String TipoDocUPD(tipodocumento c) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "Update tipo_documento set tipodoc=? where idtipo_documento=?";
+
+        try {
+
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            pst.setString(1, c.getTipodoc());
+            pst.setInt(2, c.getIdtipo_documento());
+
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+                System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
+                resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
+            }
+
+            conexion.CierraConexion(cn);
+        } catch (SQLException ex) {
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(" error en la actualizacion " + ex.getMessage());
+            resultado = ex.getMessage();
+        }
+        return resultado;
+    }
+
+    public tipodocumento TipoDocGET(int id) {
+        tipodocumento f = new tipodocumento();
+        Connection cn = null;
+        String sql = "select idtipo_documento,tipodoc from tipo_documento where idtipo_documento=? ";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                f.setIdtipo_documento(rs.getInt(1));
+                f.setTipodoc(rs.getString(2));
+
+            }
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error la conseguir el categoria " + e.getMessage());
+        }
+
         return f;
     }
 

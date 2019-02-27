@@ -4,6 +4,7 @@
     Author     : Computer
 --%>
 
+<%@page import="modelo.cargo"%>
 <%@page import="modelo.area"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -15,8 +16,8 @@
     user="root"
     password="varvon1995"/>
 
-<sql:query var="sqlAr" dataSource="${conexion}">
-    select idarea, area from area where estadoA = 1
+<sql:query var="sqlCar" dataSource="${conexion}">
+    select idcargo, cargo from cargo where estadoCar = 1
 </sql:query>
 
 <style>
@@ -51,26 +52,26 @@
     <jsp:include page="head.html" />
 
     <%
-        area area = (area) request.getSession().getAttribute("area");
+        cargo cargo = (cargo) request.getSession().getAttribute("cargo");
     %>
 
 
     <jsp:include page="body.html" />
-    <form id="formarea" method="Post" action="ReclamoServlet?accion=MODIFICARAREA2">
-<h3>Modificar Area</h3>
+    <form id="formarea" method="Post" action="ReclamoServlet?accion=MODIFICARCARGO2">
+        <h3>Modificar Cargo</h3>
         <div class="box-body bg-gray-c">
             <div class="row">
-                
+
                 <div class="col-md-5">
                     <div class="panel panel-default panel-shadow">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-12">				
                                     <div class="form-group"> 
-                                        <label>Area</label>
+                                        <label>Cargo</label>
 
-                                        <input type="text" name="area" class="form-control" value="<%=area.getArea()%>">
-                                        <input type="hidden" name="idarea" class="form-control" value="<%=area.getIdarea()%>">
+                                        <input type="text" name="cargo" class="form-control" value="<%=cargo.getCargo()%>">
+                                        <input type="hidden" name="idcargo" class="form-control" value="<%=cargo.getIdcargo()%>">
 
 
                                     </div>
@@ -94,15 +95,15 @@
                                     <table id="customers" >
                                         <tr>
                                             <td>Codigo</td>
-                                            <td>Area</td>
-                                            
+                                            <td>Cargo</td>
+
                                         </tr>
-                                        <c:forEach var="fila" items="${sqlAr.rows}">
+                                        <c:forEach var="fila" items="${sqlCar.rows}">
 
 
                                             <tr>
-                                                <td>${fila.idarea}</td>
-                                                <td>${fila.area}</td>
+                                                <td>${fila.idcargo}</td>
+                                                <td>${fila.cargo}</td>
 
                                             </tr>  
 

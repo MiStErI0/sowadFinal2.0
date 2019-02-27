@@ -4,6 +4,8 @@
     Author     : Computer
 --%>
 
+<%@page import="modelo.operador"%>
+<%@page import="modelo.cargo"%>
 <%@page import="modelo.area"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -15,8 +17,8 @@
     user="root"
     password="varvon1995"/>
 
-<sql:query var="sqlAr" dataSource="${conexion}">
-    select idarea, area from area where estadoA = 1
+<sql:query var="sqlOp" dataSource="${conexion}">
+    select idOperador, nombreO from operador where estadoOp = 1
 </sql:query>
 
 <style>
@@ -51,26 +53,26 @@
     <jsp:include page="head.html" />
 
     <%
-        area area = (area) request.getSession().getAttribute("area");
+        operador operador = (operador) request.getSession().getAttribute("operador");
     %>
 
 
     <jsp:include page="body.html" />
-    <form id="formarea" method="Post" action="ReclamoServlet?accion=MODIFICARAREA2">
-<h3>Modificar Area</h3>
+    <form id="formarea" method="Post" action="ReclamoServlet?accion=MODIFICAROPERADOR2">
+        <h3>Modificar Operador</h3>
         <div class="box-body bg-gray-c">
             <div class="row">
-                
+
                 <div class="col-md-5">
                     <div class="panel panel-default panel-shadow">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-12">				
                                     <div class="form-group"> 
-                                        <label>Area</label>
+                                        <label>Operador</label>
 
-                                        <input type="text" name="area" class="form-control" value="<%=area.getArea()%>">
-                                        <input type="hidden" name="idarea" class="form-control" value="<%=area.getIdarea()%>">
+                                        <input type="text" name="operador" class="form-control" value="<%=operador.getNombreO()%>">
+                                        <input type="hidden" name="idoperador" class="form-control" value="<%=operador.getIdOperador()%>">
 
 
                                     </div>
@@ -94,15 +96,15 @@
                                     <table id="customers" >
                                         <tr>
                                             <td>Codigo</td>
-                                            <td>Area</td>
-                                            
+                                            <td>Operador</td>
+
                                         </tr>
-                                        <c:forEach var="fila" items="${sqlAr.rows}">
+                                        <c:forEach var="fila" items="${sqlOp.rows}">
 
 
                                             <tr>
-                                                <td>${fila.idarea}</td>
-                                                <td>${fila.area}</td>
+                                                <td>${fila.idOperador}</td>
+                                                <td>${fila.nombreO}</td>
 
                                             </tr>  
 

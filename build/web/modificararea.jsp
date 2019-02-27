@@ -67,7 +67,7 @@
                             <div class="row">
                                 <div class="col-sm-12">				
                                     <div class="form-group"> 
-                                        <label>Ingrese Nueva area</label>
+                                        <label>Area</label>
 
                                         <input type="text" name="area" class="form-control" value="<%=area.getArea()%>">
                                         <input type="hidden" name="idarea" class="form-control" value="<%=area.getIdarea()%>">

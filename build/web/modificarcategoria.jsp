@@ -67,7 +67,7 @@
                             <div class="row">
                                 <div class="col-sm-12">				
                                     <div class="form-group"> 
-                                        <label>Ingrese Nueva Categoria</label>
+                                        <label>Categoria</label>
 
                                         <input type="text" name="categoria" class="form-control" value="<%=categoria.getCategoria()%>">
                                         <input type="hidden" name="idcategoria" class="form-control" value="<%=categoria.getIdcategoria()%>">

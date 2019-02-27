@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import modelo.area;
+import modelo.cargo;
 import modelo.cargo_area;
 import modelo.categoria;
 
@@ -29,13 +30,16 @@ import modelo.detallereclamos;
 import modelo.direccion;
 import modelo.distrito;
 import modelo.empleado;
+import modelo.estado;
 import modelo.estadoreclamos;
 import modelo.funcionario;
 import modelo.funcionarioarea;
+import modelo.operador;
 import modelo.persona;
 import modelo.provincia;
 import modelo.reclamos;
 import modelo.telefono;
+import modelo.tipodocumento;
 import modelo.tipotelefono;
 import modelo.usuario;
 
@@ -78,7 +82,7 @@ public class ReclamoServlet extends HttpServlet {
 
             } else {
 
-                System.out.println(" la lista de automoviles tiene " + listaA.size() + " elementos");
+                System.out.println(" la lista de empleados tiene " + listaA.size() + " elementos");
 
             }
             request.getSession().setAttribute("listaA", listaA);
@@ -418,6 +422,27 @@ public class ReclamoServlet extends HttpServlet {
 
             response.sendRedirect("ListaEmpelados");
 
+        } else if (accion.equals("MODIFICAREMP")) {
+
+            categoria categoria = proDB.categoriaGET(Integer.valueOf(request.getParameter("id")));
+
+            request.getSession().setAttribute("categoria", categoria);
+
+            response.sendRedirect("modificarcategoria.jsp");
+
+        } else if (accion.equals("MODIFICAREMP2")) {
+
+            categoria c = (categoria) request.getSession().getAttribute("categoria");
+
+            System.out.println(" el id del area a cambiar es " + c.getIdcategoria());
+
+            c.setCategoria(request.getParameter("categoria"));
+            c.setIdcategoria(Integer.valueOf(request.getParameter("idcategoria")));
+
+            String resultado = proDB.categoriaUPD(c);
+
+            response.sendRedirect("categoria.jsp");
+
         } else if (accion.equals("ELIMINAEMP")) {
 
             String resultado = proDB.EliminarEmpleado(Integer.valueOf(request.getParameter("id")));
@@ -435,8 +460,8 @@ public class ReclamoServlet extends HttpServlet {
 
             response.sendRedirect("categoria.jsp");
 
-        }else if(accion.equals("REGISTROCATEGORIA")){
-            
+        } else if (accion.equals("REGISTROCATEGORIA")) {
+
             String categorias = request.getParameter("categoria");
 
             categoria ca = new categoria();
@@ -453,7 +478,7 @@ public class ReclamoServlet extends HttpServlet {
 
                 System.out.println(" no lo inserto :( ");
             }
-        
+
         } else if (accion.equals("MODIFICARCATEGORIA")) {
 
             categoria categoria = proDB.categoriaGET(Integer.valueOf(request.getParameter("id")));
@@ -484,63 +509,220 @@ public class ReclamoServlet extends HttpServlet {
                 response.sendRedirect("categoria.jsp");
             }
 
-        }
-        
-        
-        else if (accion.equals("CARGO")) {
+        } else if (accion.equals("CARGO")) {
 
-            response.sendRedirect("CARGO.jsp");
+            response.sendRedirect("cargo.jsp");
 
-        }else if(accion.equals("REGISTROCARGO")){
-            
-            String categorias = request.getParameter("categoria");
+        } else if (accion.equals("REGISTROCARGO")) {
 
-            categoria ca = new categoria();
-            ca.setCategoria(categorias);
+            String cargo = request.getParameter("cargo");
 
-            String resultado = proDB.RegistroCategoria(ca);
+            cargo ca = new cargo();
+            ca.setCargo(cargo);
+
+            String resultado = proDB.RegistroCargo(ca);
 
             if (resultado == null) {
                 System.out.println("lo inserto correctamente");
 
-                response.sendRedirect("categoria.jsp");
+                response.sendRedirect("cargo.jsp");
 
             } else {
 
                 System.out.println(" no lo inserto :( ");
             }
-        
+
         } else if (accion.equals("MODIFICARCARGO")) {
 
-            categoria categoria = proDB.categoriaGET(Integer.valueOf(request.getParameter("id")));
+            cargo cargo = proDB.cargoGET(Integer.valueOf(request.getParameter("id")));
 
-            request.getSession().setAttribute("categoria", categoria);
+            request.getSession().setAttribute("cargo", cargo);
 
-            response.sendRedirect("modificarcategoria.jsp");
+            response.sendRedirect("modificarcargo.jsp");
 
         } else if (accion.equals("MODIFICARCARGO2")) {
 
-            categoria c = (categoria) request.getSession().getAttribute("categoria");
+            cargo c = (cargo) request.getSession().getAttribute("cargo");
 
-            System.out.println(" el id del area a cambiar es " + c.getIdcategoria());
+            System.out.println(" el id del cargo a cambiar es " + c.getIdcargo());
 
-            c.setCategoria(request.getParameter("categoria"));
-            c.setIdcategoria(Integer.valueOf(request.getParameter("idcategoria")));
+            c.setCargo(request.getParameter("cargo"));
+            c.setIdcargo(Integer.valueOf(request.getParameter("idcargo")));
 
-            String resultado = proDB.categoriaUPD(c);
+            String resultado = proDB.cargoUPD(c);
 
-            response.sendRedirect("categoria.jsp");
+            response.sendRedirect("cargo.jsp");
 
         } else if (accion.equals("ELIMINARCARGO")) {
 
-            String resultado = proDB.EliminarCategoria(Integer.valueOf(request.getParameter("id")));
+            String resultado = proDB.EliminarCargo(Integer.valueOf(request.getParameter("id")));
             if (resultado == null) {
                 System.out.println(" se elimino");
 
-                response.sendRedirect("categoria.jsp");
+                response.sendRedirect("cargo.jsp");
+            }
+
+        } else if (accion.equals("OPERADOR")) {
+
+            response.sendRedirect("operador.jsp");
+
+        } else if (accion.equals("REGISTROOPERADOR")) {
+
+            String operador = request.getParameter("operador");
+
+            operador ca = new operador();
+            ca.setNombreO(operador);
+
+            String resultado = proDB.RegistroOperador(ca);
+
+            if (resultado == null) {
+                System.out.println("lo inserto correctamente");
+
+                response.sendRedirect("operador.jsp");
+
+            } else {
+
+                System.out.println(" no lo inserto :( ");
+            }
+
+        } else if (accion.equals("MODIFICAROPERADOR")) {
+
+            operador operador = proDB.operadorGET(Integer.valueOf(request.getParameter("id")));
+
+            request.getSession().setAttribute("operador", operador);
+
+            response.sendRedirect("modificaroperador.jsp");
+
+        } else if (accion.equals("MODIFICAROPERADOR2")) {
+
+            operador o = (operador) request.getSession().getAttribute("operador");
+
+            System.out.println(" el id del operador a cambiar es " + o.getIdOperador());
+
+            o.setNombreO(request.getParameter("operador"));
+            o.setIdOperador(Integer.valueOf(request.getParameter("idoperador")));
+
+            String resultado = proDB.operadorUPD(o);
+
+            response.sendRedirect("operador.jsp");
+
+        } else if (accion.equals("ELIMINAROPERADOR")) {
+
+            String resultado = proDB.EliminarOperador(Integer.valueOf(request.getParameter("id")));
+            if (resultado == null) {
+                System.out.println(" se elimino");
+
+                response.sendRedirect("operador.jsp");
+            }
+
+        } else if (accion.equals("ESTADO")) {
+
+            response.sendRedirect("estado.jsp");
+
+        } else if (accion.equals("REGISTROESTADO")) {
+
+            String estado = request.getParameter("estado");
+
+            estado ca = new estado();
+            ca.setNombreEs(estado);
+
+            String resultado = proDB.RegistroEstado(ca);
+
+            if (resultado == null) {
+                System.out.println("lo inserto correctamente");
+
+                response.sendRedirect("estado.jsp");
+
+            } else {
+
+                System.out.println(" no lo inserto :( ");
+            }
+
+        } else if (accion.equals("MODIFICARESTADO")) {
+
+            estado estado = proDB.estadoGET(Integer.valueOf(request.getParameter("id")));
+
+            request.getSession().setAttribute("estado", estado);
+
+            response.sendRedirect("modificarestado.jsp");
+
+        } else if (accion.equals("MODIFICARESTADO2")) {
+
+            estado e = (estado) request.getSession().getAttribute("estado");
+
+            System.out.println(" el id del operador a cambiar es " + e.getIdEstado());
+
+            e.setNombreEs(request.getParameter("estado"));
+            e.setIdEstado(Integer.valueOf(request.getParameter("idestado")));
+
+            String resultado = proDB.estadoUPD(e);
+
+            response.sendRedirect("estado.jsp");
+
+        } else if (accion.equals("ELIMINARESTADO")) {
+
+            String resultado = proDB.EliminarEstado(Integer.valueOf(request.getParameter("id")));
+            if (resultado == null) {
+                System.out.println(" se elimino");
+
+                response.sendRedirect("estado.jsp");
+            }
+
+        } else if (accion.equals("TIPODOC")) {
+
+            response.sendRedirect("tipodoc.jsp");
+
+        } else if (accion.equals("REGISTROTIPODOC")) {
+
+            String tipodoc = request.getParameter("tipodoc");
+
+            tipodocumento td = new tipodocumento();
+            td.setTipodoc(tipodoc);
+
+            String resultado = proDB.RegistroTipoDoc(td);
+
+            if (resultado == null) {
+                System.out.println("lo inserto correctamente");
+
+                response.sendRedirect("tipodoc.jsp");
+
+            } else {
+
+                System.out.println(" no lo inserto :( ");
+            }
+
+        } else if (accion.equals("MODIFICARTIPODOC")) {
+
+            tipodocumento tipodoc = proDB.TipoDocGET(Integer.valueOf(request.getParameter("id")));
+
+            request.getSession().setAttribute("tipodoc", tipodoc);
+
+            response.sendRedirect("modificartipodoc.jsp");
+
+        } else if (accion.equals("MODIFICARTIPODOC2")) {
+
+            tipodocumento td = (tipodocumento) request.getSession().getAttribute("tipodoc");
+
+            System.out.println(" el id del operador a cambiar es " + td.getIdtipo_documento());
+
+            td.setTipodoc(request.getParameter("tipodoc"));
+            td.setIdtipo_documento(Integer.valueOf(request.getParameter("idtipodoc")));
+
+            String resultado = proDB.TipoDocUPD(td);
+
+            response.sendRedirect("tipodoc.jsp");
+
+        } else if (accion.equals("ELIMINARTIPODOC")) {
+
+            String resultado = proDB.EliminarTipoDoc(Integer.valueOf(request.getParameter("id")));
+            if (resultado == null) {
+                System.out.println(" se elimino");
+
+                response.sendRedirect("tipodoc.jsp");
             }
 
         }
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");

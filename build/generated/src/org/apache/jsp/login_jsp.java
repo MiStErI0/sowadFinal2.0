@@ -63,7 +63,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
 
     usuarioBD usu = new usuarioBD();
     
-    usuario e=null;
+    usuario e;
     e=usu.usuActivo();
     if(e.getEstado()== 2){
     response.sendRedirect("Principal.jsp");

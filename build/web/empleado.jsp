@@ -38,11 +38,11 @@
 </sql:query>
 
 <sql:query var="sqlAr" dataSource="${conexion}">
-    select idarea, area from area
+    select idarea, area from area where estadoA=1
 </sql:query>
 
 <sql:query var="sqlCa" dataSource="${conexion}">
-    select idcargo, cargo from cargo
+    select idcargo, cargo from cargo where estadoCar=1
 </sql:query>
 
 <!DOCTYPE html>
