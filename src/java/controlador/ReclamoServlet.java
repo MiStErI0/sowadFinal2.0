@@ -22,6 +22,7 @@ import javax.servlet.http.Part;
 
 import modelo.area;
 import modelo.cargo_area;
+import modelo.categoria;
 
 import modelo.departamento;
 import modelo.detallereclamos;
@@ -156,9 +157,7 @@ public class ReclamoServlet extends HttpServlet {
 
                 request.getRequestDispatcher("ListarReclamos.jsp").forward(request, response);
 
-
                 response.sendRedirect("ListarReclamos.jsp");
-      
 
             } else {
 
@@ -318,13 +317,13 @@ public class ReclamoServlet extends HttpServlet {
             }
 
         } else if (accion.equals("MODIFICARAREA")) {
-            
-            area area =proDB.areaGET(Integer.valueOf(request.getParameter("id")));
-            
+
+            area area = proDB.areaGET(Integer.valueOf(request.getParameter("id")));
+
             request.getSession().setAttribute("area", area);
 
             response.sendRedirect("modificararea.jsp");
-              
+
         } else if (accion.equals("MODIFICARAREA2")) {
 
             area a = (area) request.getSession().getAttribute("area");
@@ -336,10 +335,7 @@ public class ReclamoServlet extends HttpServlet {
 
             String resultado = proDB.areaUPD(a);
 
-            
-
-                response.sendRedirect("area.jsp");
-            
+            response.sendRedirect("area.jsp");
 
         } else if (accion.equals("ELIMINARAREA")) {
 
@@ -354,11 +350,11 @@ public class ReclamoServlet extends HttpServlet {
 
             response.sendRedirect("empleado.jsp");
 
-        }else if (accion.equals("LISTAEMPLEADO")) {
+        } else if (accion.equals("LISTAEMPLEADO")) {
 
             response.sendRedirect("ListaEmpleados.jsp");
 
-        }else if (accion.equals("REGISTRAREMP")) {
+        } else if (accion.equals("REGISTRAREMP")) {
 
             Integer iddoc = Integer.valueOf(request.getParameter("tipodoc"));
             String documento = request.getParameter("documento");
@@ -419,11 +415,10 @@ public class ReclamoServlet extends HttpServlet {
             String resultado4 = proDB.RegistrarEmpleado(e);
             String resultado5 = proDB.RegistroUsuario(u);
             String resultado6 = proDB.RegistrarCargoUsuario(ca);
-            
-            
+
             response.sendRedirect("ListaEmpelados");
-            
-        }else if (accion.equals("ELIMINAEMP")) {
+
+        } else if (accion.equals("ELIMINAEMP")) {
 
             String resultado = proDB.EliminarEmpleado(Integer.valueOf(request.getParameter("id")));
             if (resultado == null) {
@@ -432,17 +427,44 @@ public class ReclamoServlet extends HttpServlet {
                 response.sendRedirect("ListaEmpleados.jsp");
             }
 
-        }else if (accion.equals("AJUSTES")) {
+        } else if (accion.equals("AJUSTES")) {
 
             response.sendRedirect("ajustes.jsp");
 
-        }else if(accion.equals("CATEGORIA")){
-        
-           response.sendRedirect("categoria.jsp");
-           
-        }else if(accion.equals("CATEGORIA")){
-        
-           response.sendRedirect("categoria.jsp");
+        } else if (accion.equals("CATEGORIA")) {
+
+            response.sendRedirect("categoria.jsp");
+
+        } else if (accion.equals("MODIFICARCATEGORIA")) {
+
+            categoria categoria = proDB.categoriaGET(Integer.valueOf(request.getParameter("id")));
+
+            request.getSession().setAttribute("categoria", categoria);
+
+            response.sendRedirect("modificarcategoria.jsp");
+
+        } else if (accion.equals("MODIFICARCATEGORIA2")) {
+
+            categoria c = (categoria) request.getSession().getAttribute("categoria");
+
+            System.out.println(" el id del area a cambiar es " + c.getIdcategoria());
+
+            c.setCategoria(request.getParameter("categoria"));
+            c.setIdcategoria(Integer.valueOf(request.getParameter("idcategoria")));
+
+            String resultado = proDB.categoriaUPD(c);
+
+            response.sendRedirect("categoria.jsp");
+
+        } else if (accion.equals("ELIMINARCATEGORIA")) {
+
+            String resultado = proDB.EliminarCategoria(Integer.valueOf(request.getParameter("id")));
+            if (resultado == null) {
+                System.out.println(" se elimino");
+
+                response.sendRedirect("categoria.jsp");
+            }
+
         }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -457,7 +479,7 @@ public class ReclamoServlet extends HttpServlet {
             out.println("</html>");
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

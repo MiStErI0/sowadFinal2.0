@@ -54,13 +54,16 @@
 
     <jsp:include page="body.html" />
     <form id="formarea" method="Post" action="ReclamoServlet?accion=REGISTROAREA">
-
+<h3>Registro Area</h3>
         <div class="box-body bg-gray-c">
             <div class="row">
+                
                 <div class="col-md-5">
                     <div class="panel panel-default panel-shadow">
                         <div class="panel-body">
                             <div class="row">
+                                
+                                
                                 <div class="col-sm-12">				
                                     <div class="form-group"> 
                                         <label>Ingrese Nueva area</label>

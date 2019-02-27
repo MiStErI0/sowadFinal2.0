@@ -52,7 +52,7 @@
 
     <jsp:include page="body.html" />
     <form id="formarea" method="Post" action="ReclamoServlet?accion=REGISTROCATEGORIA">
-
+<h3>Registrar Categoria</h3>
         <div class="box-body bg-gray-c">
             <div class="row">
                 <div class="col-md-5">
@@ -101,8 +101,8 @@
 
             <td>
                 
-                <a href="ReclamoServlet?accion=MODIFICARAREA&id=${fila.idcategoria}">Editar</a>
-                <a href="ReclamoServlet?accion=ELIMINARAREA&id=${fila.idcategoria}">Eliminar</a>
+                <a href="ReclamoServlet?accion=MODIFICARCATEGORIA&id=${fila.idcategoria}">Editar</a>
+                <a href="ReclamoServlet?accion=ELIMINARCATEGORIA&id=${fila.idcategoria}">Eliminar</a>
                 
 
         </tr>  

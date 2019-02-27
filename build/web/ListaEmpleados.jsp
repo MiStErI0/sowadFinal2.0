@@ -65,9 +65,19 @@
 
     <div class="box-body bg-gray-c">
         <div class="row">
+
             <div class="col-md-12">
+                <div class="ibox-title-buttons pull-right">
+                    <a href="ReclamoServlet?accion=EMPLEADO" style="text-decoration: none !important">
+                        <button class="btn btn-block btn-success" style="background-color: #18A689 !important;">
+                            <i class="fas fa-plus-circle"></i> Nuevo Empleado
+                        </button></a>
+
+
+                </div>
 
                 <h3>Listado de Empleados</h3>
+
 
                 <div class="panel panel-default panel-shadow">
                     <div class="panel-body">
