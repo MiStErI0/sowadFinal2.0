@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.area;
+import modelo.cargo;
 import modelo.cargo_area;
 import modelo.categoria;
 import modelo.conexion;
@@ -1372,6 +1373,124 @@ public class reclamoDB {
             if(rs.next()){
                 f.setIdcategoria(rs.getInt(1));
                 f.setCategoria(rs.getString(2));
+                
+            }
+            conexion.CierraConexion(cn);
+                    
+            
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error la conseguir el categoria "+ e.getMessage());
+        }
+        
+        return f;
+    }
+     
+     /*---------------------------------------------------------------------Cargo-------------------------------------------------------------*/
+     
+     public String RegistroCargo(cargo c) {
+
+        String resultado = null;
+        Connection cn = null;
+
+        String sql = "insert into cargo (cargo,estadoCar)values(?,1)";
+
+        try {
+
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            pst.setString(1, c.getCargo());
+
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+
+                resultado = "no se inserto nada en cargo";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (SQLException ex) {
+
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+
+            System.out.println(" se produjo error en la insercion en cargo " + ex.getMessage());
+        }
+
+        return resultado;
+    }
+     
+     public String EliminarCargo(int id) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "UPDATE cargo set estadoCar=0 where idcargo=?";
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int contador = ps.executeUpdate();
+            if (contador == 0) {
+                resultado = "NO LOGRO ELIMINAR REVISELO ...";
+            }
+
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error al eliminar " + e.getMessage());
+            resultado = e.getMessage();
+        }
+        return resultado;
+    }
+     
+     public String cargoUPD(cargo c) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "Update cargo set cargo=? where idcargo=?";
+
+        try {
+
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+            
+            pst.setString(1, c.getCargo());
+            pst.setInt(2, c.getIdcargo());
+            
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+                System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
+                resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
+            }
+            
+            
+            conexion.CierraConexion(cn);
+        } catch (SQLException ex) {
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(" error en la actualizacion " + ex.getMessage());
+            resultado = ex.getMessage();
+        }
+        return resultado;
+    }
+     
+     public cargo cargoGET(int id){
+        cargo f = new cargo();
+        Connection cn =null;
+        String sql = "select idcargo,cargo from cargo where idcargo=? ";
+        
+        try {
+            cn =conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs =ps.executeQuery();
+            
+            if(rs.next()){
+                f.setIdcargo(rs.getInt(1));
+                f.setCargo(rs.getString(2));
                 
             }
             conexion.CierraConexion(cn);

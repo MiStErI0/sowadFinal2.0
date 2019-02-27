@@ -435,6 +435,25 @@ public class ReclamoServlet extends HttpServlet {
 
             response.sendRedirect("categoria.jsp");
 
+        }else if(accion.equals("REGISTROCATEGORIA")){
+            
+            String categorias = request.getParameter("categoria");
+
+            categoria ca = new categoria();
+            ca.setCategoria(categorias);
+
+            String resultado = proDB.RegistroCategoria(ca);
+
+            if (resultado == null) {
+                System.out.println("lo inserto correctamente");
+
+                response.sendRedirect("categoria.jsp");
+
+            } else {
+
+                System.out.println(" no lo inserto :( ");
+            }
+        
         } else if (accion.equals("MODIFICARCATEGORIA")) {
 
             categoria categoria = proDB.categoriaGET(Integer.valueOf(request.getParameter("id")));
@@ -457,6 +476,62 @@ public class ReclamoServlet extends HttpServlet {
             response.sendRedirect("categoria.jsp");
 
         } else if (accion.equals("ELIMINARCATEGORIA")) {
+
+            String resultado = proDB.EliminarCategoria(Integer.valueOf(request.getParameter("id")));
+            if (resultado == null) {
+                System.out.println(" se elimino");
+
+                response.sendRedirect("categoria.jsp");
+            }
+
+        }
+        
+        
+        else if (accion.equals("CARGO")) {
+
+            response.sendRedirect("CARGO.jsp");
+
+        }else if(accion.equals("REGISTROCARGO")){
+            
+            String categorias = request.getParameter("categoria");
+
+            categoria ca = new categoria();
+            ca.setCategoria(categorias);
+
+            String resultado = proDB.RegistroCategoria(ca);
+
+            if (resultado == null) {
+                System.out.println("lo inserto correctamente");
+
+                response.sendRedirect("categoria.jsp");
+
+            } else {
+
+                System.out.println(" no lo inserto :( ");
+            }
+        
+        } else if (accion.equals("MODIFICARCARGO")) {
+
+            categoria categoria = proDB.categoriaGET(Integer.valueOf(request.getParameter("id")));
+
+            request.getSession().setAttribute("categoria", categoria);
+
+            response.sendRedirect("modificarcategoria.jsp");
+
+        } else if (accion.equals("MODIFICARCARGO2")) {
+
+            categoria c = (categoria) request.getSession().getAttribute("categoria");
+
+            System.out.println(" el id del area a cambiar es " + c.getIdcategoria());
+
+            c.setCategoria(request.getParameter("categoria"));
+            c.setIdcategoria(Integer.valueOf(request.getParameter("idcategoria")));
+
+            String resultado = proDB.categoriaUPD(c);
+
+            response.sendRedirect("categoria.jsp");
+
+        } else if (accion.equals("ELIMINARCARGO")) {
 
             String resultado = proDB.EliminarCategoria(Integer.valueOf(request.getParameter("id")));
             if (resultado == null) {
