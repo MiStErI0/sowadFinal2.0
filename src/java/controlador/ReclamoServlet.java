@@ -437,6 +437,9 @@ public class ReclamoServlet extends HttpServlet {
 
             response.sendRedirect("ajustes.jsp");
 
+        }else if(accion.equals("CATEGORIA")){
+        
+           response.sendRedirect("categoria.jsp");
         }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */

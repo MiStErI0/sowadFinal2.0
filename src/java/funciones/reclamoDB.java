@@ -1274,7 +1274,7 @@ public class reclamoDB {
         String resultado = null;
         Connection cn = null;
 
-        String sql = "insert into categoria (categoria,estadoCat)values(?,1)";
+        String sql = "insert into categoria (categoria,estaCat)values(?,1)";
 
         try {
 
@@ -1306,7 +1306,7 @@ public class reclamoDB {
      public String EliminarCategoria(int id) {
         String resultado = null;
         Connection cn = null;
-        String sql = "UPDATE categoria set estadoCat=0 where idcategoria=?";
+        String sql = "UPDATE categoria set estaCat=0 where idcategoria=?";
         try {
             cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
