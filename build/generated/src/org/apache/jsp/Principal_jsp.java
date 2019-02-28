@@ -85,11 +85,11 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("    <script>\r\n");
       out.write("        function usuario() {\r\n");
-      out.write("            var fsfd = \"");
-      out.print( nombre);
+      out.write("            var fsfd = \"Bienvenido ");
+      out.print(nombre);
       out.write("\";\r\n");
       out.write("            document.getElementById(\"peru\").innerHTML = fsfd;\r\n");
-      out.write("            document.getElementById(\"hola\").innerHTML = fsfd;\r\n");
+      out.write("            document.getElementById(\"nomusuario\").innerHTML = fsfd;\r\n");
       out.write("        }\r\n");
       out.write("    </script>\r\n");
       out.write("    ");
@@ -106,7 +106,7 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <div class=\"col-md-3 left_col\">\r\n");
       out.write("                <div class=\"left_col scroll-view\">\r\n");
       out.write("                    <div class=\"navbar nav_title\"  style=\"border: 0;text-align: center; font-family: 'Federant', cursive;\">\r\n");
-      out.write("                        <a href=\"Home.htm\" class=\"site_title\"> <span>Sistema de Reclamos</span></a>\r\n");
+      out.write("                        <a href=\"#\" class=\"site_title\" onclick=\"Rendirect()\"> <span>Sistema de Reclamos</span></a>\r\n");
       out.write("                    </div>\r\n");
       out.write("\r\n");
       out.write("                    <div class=\"clearfix\"></div>\r\n");
@@ -175,7 +175,7 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        <ul class=\"nav navbar-nav navbar-right\">\r\n");
       out.write("                            <li class=\"\">\r\n");
       out.write("                                <a href=\"javascript:;\" class=\"user-profile dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\">\r\n");
-      out.write("                                    <img src=\"images/img.jpg\" alt=\"\"><label id=\"hola\" ></label>\r\n");
+      out.write("                                    <img src=\"images/img.jpg\" alt=\"\"><label id=\"nomusuario\" ></label>\r\n");
       out.write("                                    <span class=\" fa fa-angle-down\"></span>\r\n");
       out.write("                                </a>\r\n");
       out.write("                                <ul class=\"dropdown-menu dropdown-usermenu pull-right\">\r\n");

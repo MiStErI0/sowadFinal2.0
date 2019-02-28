@@ -6,7 +6,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title"  style="border: 0;text-align: center; font-family: 'Federant', cursive;">
-                        <a href="Home.htm" class="site_title"> <span>Sistema de Reclamos</span></a>
+                        <a href="Principal.jsp" class="site_title" > <span>Sistema de Reclamos</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -19,17 +19,18 @@
                             <ul class="nav side-menu">
 
 
-
+                                <% if(idCargo==2){ %>
                                 <li><a href="ReclamoServlet?accion=REGISTRAR">
                                         <i class="fa fa-pencil-square-o" style="font-size:20px"></i> Registrar Reclamo
                                     </a>
                                 </li>
+                                <%}%>
                                 <li><a href="ReclamoServlet?accion=LISTAR">
                                         <i class="fas fa-list" style='font-size:15px'></i> Lista de Reclamos
                                     </a>
                                 </li>
-                                
-                                 
+
+
                                 <li><a href="#">
                                         <i class='far fa-user' style='font-size:20px'></i> Usuarios
                                     </a>
@@ -75,7 +76,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="images/img.jpg" alt=""><label id="hola" ></label>
+                                    <img src="images/img.jpg" alt=""><label id="nomusuario" ></label>
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">

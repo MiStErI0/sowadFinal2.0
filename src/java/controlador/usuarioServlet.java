@@ -65,6 +65,7 @@ public class usuarioServlet extends HttpServlet {
                     if (resp.equals("Bienvenido")) {
 
                         int id = usu.obtenerUsuario(usuario, pass);
+                        System.out.println(id+"                    ddasdasasdasds");
                         usuario e = new usuario();
                         e.setIdUsuario(id);
                         e.setUsuario(usuario);

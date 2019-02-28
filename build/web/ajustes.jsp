@@ -4,13 +4,38 @@
     Author     : Computer
 --%>
 
+
+<%@page import="modelo.usuario"%>
+<%@page import="funciones.usuarioBD"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <%
+        usuarioBD usu = new usuarioBD();
+
+        usuario e;
+        String nombre = null;
+        int id=0;
+        e = usu.usuActivo();
+        if (e.getEstado() == 2) {
+            nombre = usu.nomUsuAc();
+            id=e.getIdUsuario();
+            
+            System.out.println(id +"               aaaaaaaaaaaa");
+        } else {
+            response.sendRedirect("login.jsp");
+        }
+    %>
+    <script>
+        function usuario() {
+            var fsfd = "Bienvenido <%=nombre%>";
+            document.getElementById("nomusuario").innerHTML = fsfd;
+        }
+    </script>
     <jsp:include page="head.html" />
 
 
-    <jsp:include page="body.html" />
+    <%@include file="body.html"%>
 
 
 	<div class="box-body bg-gray-c">

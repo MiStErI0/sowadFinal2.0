@@ -24,15 +24,16 @@ public class usuarioBD {
 
     public List<usuario> getUsuario() {
         List<usuario> lista = new ArrayList();
-        String sql = "select * from usuario order by idUsuario";
+        String sql = "select * from usuario";
         Connection c = null;
         try {
-            c = new conexion().getConexion();
+            c = conexion.getConexion();
             ResultSet rs = null;
             PreparedStatement pst = c.prepareCall(sql);
             rs = pst.executeQuery();
             while (rs.next()) {
                 usuario e = new usuario(rs.getInt("idUsuario"), rs.getString("user"), rs.getString("clave"), rs.getInt("estado"), rs.getInt("empelado_idempelado"));
+                System.out.println(e.getIdUsuario() + " " + e.getUsuario() + " " + e.getContraseña() + " " + e.getEstado() + " " + e.getIdEmpleado());
                 lista.add(e);
             }
             rs.close();
@@ -59,18 +60,18 @@ public class usuarioBD {
         Connection c = null;
         try {
             c = conexion.getConexion();
-
             PreparedStatement pst = c.prepareCall(sql);
             pst.setInt(1, 2);
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
+                //e = new usuario(rs.getInt("idUsuario"), rs.getString("user"), rs.getString("clave"), rs.getInt("estado"), rs.getInt("empelado_idempelado"));
                 e.setIdUsuario(rs.getInt("idUsuario"));
                 e.setUsuario(rs.getString("user"));
                 e.setContraseña(rs.getString("clave"));
                 e.setEstado(rs.getInt("estado"));
                 e.setIdEmpleado(rs.getInt("empelado_idempelado"));
-            }else
-            {
+            } else {
+                e = new usuario();
                 e.setEstado(1);
                 return e;
             }
@@ -117,7 +118,7 @@ public class usuarioBD {
                 r = rs.getString(1);
             }
 
-            System.out.println(rs.getString("user") + "fdcsfasdfdsfsdsdafsdfsdaf");
+            System.out.println(rs.getString(1) + "fdcsfasdfdsfsdsdafsdfsdaf");
             rs.close();
 
             rs = null;
@@ -142,38 +143,59 @@ public class usuarioBD {
     }
 
     public String existeUsuario(String usuario, String pass) {
-
-        List<usuario> l = getUsuario();
-        int x = 0;
-        for (usuario en : l) {
-            if (en.getUsuario().equals(usuario)) {
-                if (en.getContraseña().equals(pass)) {
-                    x = 1;
+        usuario e = new usuario();
+        String sql = "select * from usuario where user=?", r;
+        Connection c = null;
+        try {
+            c = conexion.getConexion();
+            PreparedStatement pst = c.prepareCall(sql);
+            pst.setString(1, usuario);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                if (rs.getString("clave").equals(pass)) {
+                    r = "Bienvenido";
                 } else {
-                    x = 2;
+                    r = "Contraseña incorrecta";
                 }
             } else {
-                x = 3;
+                r = "El usuario " + usuario + " no esta registrado";
+            }
+            System.out.println(r + "                            ddddddd");
+            rs.close();
+            rs = null;
+            conexion.CierraConexion(c);
+            c = null;
+            System.out.println("funciono  dsadasdfasdfsdfsdafas");
+            return r;
+        } catch (SQLException ex) {
+            Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                c.close();
+                c = null;
+                System.out.println("noooooooooooooo funciono  dsadasdfasdfsdfsdafas");
+                return r = null;
+            } catch (SQLException ex1) {
+                Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex1);
+                System.out.println("asdfdsfsadfasdfsnoooooooooooooo funciono  dsadasdfasdfsdfsdafas");
+                return r = null;
             }
         }
-        if (x == 1) {
-            return "Bienvenido";
-        }
-        if (x == 2) {
-            return "Contraseña incorrecta";
-        } else {
-            return "El usuario " + usuario + " no esta registrado";
-        }
-
     }
 
     public int obtenerUsuario(String usuario, String pass) {
         List<usuario> l = getUsuario();
         int x = 0;
+        String nombre, contraseña;
         for (usuario en : l) {
-            if (en.getUsuario().equals(usuario) && en.getContraseña().equals(pass)) {
+            nombre = en.getUsuario();
+            contraseña = en.getContraseña();
+            System.out.println(nombre + "          " + contraseña);
+            if (nombre.equals(usuario) && contraseña.equals(pass)) {
+                System.out.println(nombre + "     =     " + contraseña);
                 x = en.getIdUsuario();
+                break;
             } else {
+                System.out.println(nombre + "     !=     " + contraseña);
                 x = -1;
             }
         }
@@ -186,7 +208,7 @@ public class usuarioBD {
         Connection c = null;
 
         try {
-            c = new conexion().getConexion();
+            c = conexion.getConexion();
 
             PreparedStatement pst = c.prepareCall(sql);
             if (activo.equals("Iniciar")) {
@@ -253,6 +275,39 @@ public class usuarioBD {
             }
         }
 
+    }
+
+    public int idCargo(int i) {
+        String sql = "SELECT cargo_idcargo FROM cargo_has_usuario where Usuario_idUsuario =?";
+        Connection c = null;
+        try {
+            c = conexion.getConexion();
+
+            PreparedStatement pst = c.prepareCall(sql);
+            pst.setInt(1, i);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                i=rs.getInt(1);
+            }
+            else{
+                i=0;
+            }
+            c.close();
+            c = null;
+            System.out.println(i+" idCargo                     funciona ");
+        } catch (SQLException ex) {
+            Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                c.close();
+                c = null;
+                System.out.println("idCargo           no          funciona ");
+            } catch (SQLException ex1) {
+                Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex1);
+                System.out.println("idCargo           no          funciona 2.0 ");
+
+            }
+        }
+        return i;
     }
 
 }

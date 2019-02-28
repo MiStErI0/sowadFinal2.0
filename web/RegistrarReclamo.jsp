@@ -4,6 +4,8 @@
     Author     : User
 --%>
 
+<%@page import="modelo.usuario"%>
+<%@page import="funciones.usuarioBD"%>
 <%@page import="modelo.tipotelefono"%>
 <%@page import="modelo.distrito"%>
 <%@page import="modelo.provincia"%>
@@ -11,10 +13,26 @@
 <%@page import="funciones.reclamoDB"%>
 <%@page import="modelo.departamento"%>
 <%@page import="java.util.List"%>
-<script src="validar/validaciones.js" type="text/javascript"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+
+<%
+        usuarioBD usu = new usuarioBD();
+
+        usuario e;
+        String nombre = null;
+        int id=0;
+        e = usu.usuActivo();
+        if (e.getEstado() == 2) {
+            nombre = usu.nomUsuAc();
+            id=e.getIdUsuario();
+            
+            System.out.println(id +"               aaaaaaaaaaaa");
+        } else {
+            response.sendRedirect("login.jsp");
+        }
+    %>
 <sql:setDataSource 
     var="conexion" 
     driver="com.mysql.jdbc.Driver"
@@ -40,6 +58,10 @@
 
 <!DOCTYPE html>
 <script>
+    function usuario() {
+            var fsfd = "Bienvenido <%=nombre%>";
+            document.getElementById("nomusuario").innerHTML = fsfd;
+        }
     function getprovincia() {
         cdep = document.getElementById("iddepartamento").value;
         $.ajax({
@@ -72,7 +94,7 @@
     <jsp:include page="head.html" />
 
 
-    <jsp:include page="body.html" />
+    <%@include file="body.html"%>
     <section class="content-header">
         <h1 style="margin-top: 55px; text-align: center">
             Registrar de Reclamo
@@ -223,7 +245,7 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label>Funcionario</label> 
-                                        <input id="idfuncionario" type="text" name="funcionario" class="form-control" placeholder="Ingrese telefono ...">	
+                                        <input id="idfuncionario" type="text" name="funcionario" class="form-control" placeholder="Ingrese funcionario ...">	
                                     </div>  												
                                 </div>
                             </div>
@@ -240,7 +262,8 @@
                                 <div class="col-sm-10">
                                     <div class="form-group">
                                         <label>Adjuntar archivos</label> 
-                                        <input id="idarchivo" type="file" name="file" class="form-control" placeholder="Ingrese archivo">	
+                                        <input id="idarchivo" type="file" name="file" class="form-control" placeholder="Ingrese archivo">
+                                        <input id="idUser" type="text" name="User" class="form-control" style="display: none;">
                                     </div>  												
                                 </div>
                                 <div style="margin-top: 23px" class="col-sm-2">
@@ -251,7 +274,7 @@
                                     <!-- LO ULTIMO-->
                                     <!-- LO ULTIMO-->
                                     <div class="form-group">
-                                        <a href="#ventana1" class="btn btn-primary" data-toggle="modal">probando</a>
+                                        <a href="#ventana1" class="btn btn-primary" data-toggle="modal" >probando</a>
                                         <div class="modal fade" id="ventana1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">

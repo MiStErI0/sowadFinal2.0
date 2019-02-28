@@ -16,9 +16,14 @@ Author     : User
 
         usuario e;
         String nombre = null;
+        int id = 0;
+        int idCargo=0;
         e = usu.usuActivo();
         if (e.getEstado() == 2) {
             nombre = usu.nomUsuAc();
+            id = e.getIdUsuario();
+            idCargo=usu.idCargo(id);
+            System.out.println(id +"               aaaaaaaaaaaa");
         } else {
             response.sendRedirect("login.jsp");
         }
@@ -27,9 +32,9 @@ Author     : User
     %>
     <script>
         function usuario() {
-            var fsfd = "<%= nombre%>";
+            var fsfd = "Bienvenido <%=nombre%>";
             document.getElementById("peru").innerHTML = fsfd;
-            document.getElementById("hola").innerHTML = fsfd;
+            document.getElementById("nomusuario").innerHTML = fsfd;
         }
     </script>
     <jsp:include page="head.html" />
@@ -39,7 +44,7 @@ Author     : User
 
 
 
-    <jsp:include page="footer.html" />
+    <%@include file="footer.html"%>
     <script>
         $(document).ready(function ()
         {
