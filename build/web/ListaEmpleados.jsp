@@ -4,6 +4,7 @@
     Author     : Computer
 --%>
 
+<%@page import="modelo.tipodocumento"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
@@ -56,9 +57,9 @@
 
     </style>
 
-
-
-
+    <%
+        tipodocumento tipodoc = (tipodocumento) request.getSession().getAttribute("tipodoc");
+    %>
 
     <jsp:include page="body.html" />
 
@@ -106,7 +107,7 @@
 
                                             <td>
 
-                                                <a href="ReclamoServlet?accion=MODIFICARAREA&id=${fila.idempelado}">Editar</a>
+                                                <a href="ReclamoServlet?accion=MODIFICAREMP&id=${fila.idempelado}">Editar</a>
                                                 <a href="ReclamoServlet?accion=ELIMINAEMP&id=${fila.idempelado}">Eliminar</a>
 
 

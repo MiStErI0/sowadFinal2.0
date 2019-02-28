@@ -66,7 +66,7 @@ public class reclamoDB {
 
             int contador = ps.executeUpdate();
 
-            RegistrarCliente(cn);
+            
 
             if (contador == 0) {
 
@@ -110,13 +110,15 @@ public class reclamoDB {
         return r;
     }
 
-    public String RegistrarCliente(Connection cn) {
-
+    public String RegistrarCliente() {
+        
+        String result=null;
+        Connection cn=null;
         String resultado = null;
         String sql = "insert into cliente(idpersona) values (?)";
 
         try {
-
+            cn=conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
 
             int id = Idpersona(cn);
@@ -124,6 +126,8 @@ public class reclamoDB {
             ps.setInt(1, id);
 
             int contador = ps.executeUpdate();
+            
+           
 
             if (contador == 0) {
 
@@ -269,7 +273,7 @@ public class reclamoDB {
 
             int contador = ps.executeUpdate();
 
-            RegistrarCliente(cn);
+            
 
             if (contador == 0) {
 
@@ -1043,11 +1047,12 @@ public class reclamoDB {
     public empleado empleadoGET(int id) {
         empleado f = new empleado();
         Connection cn = null;
-        String sql = "SELECT idempelado ,fechainicio ,nombreP ,paternoP ,maternoP ,correo ,numero ,cargo ,idcargo ,estadoEmp ,\n"
-                + "departamento ,provincia ,distrito ,idDepartamento ,idProvincia ,idDistrito ,tipodoc ,idtipo_documento ,\n"
-                + "num_documento,direccion,fechafin,sueldo,area,idarea,nombreO,idOperador FROM empelado as e \n"
+        String sql = "SELECT idempelado,fechainicio,nombreP,paternoP,maternoP,correo,numero,cargo,idcargo,estadoEmp,\n"
+                + "departamento,provincia,distrito,idDepartamento,idProvincia,idDistrito,tipodoc,idtipo_documento,\n"
+                + "num_documento,direccion,fechafin,sueldo,area,idarea,nombreO,idOperador,nombreTT,idTipo_telefono FROM empelado as e \n"
                 + "inner join persona as p on e.idPersona=p.idPersona\n"
                 + "inner join telefonoe as t on t.idempleado=e.idempelado\n"
+                + "inner join tipo_telefono as tt on tt.idTipo_telefono=t.Tipo_telefono_idTipo_telefono\n"
                 + "inner join operador as o on o.idOperador=t.Operador_idOperador\n"
                 + "inner join tipo_documento td on td.idtipo_documento=p.tipo_documento_idtipo_documento\n"
                 + "inner join usuario as u on u.empelado_idempelado=e.idempelado\n"
@@ -1076,7 +1081,7 @@ public class reclamoDB {
                 f.setCargo(rs.getString(8));
                 f.setIdcargo(rs.getInt(9));
                 f.setEstadoEmp(rs.getInt(10));
-                
+
                 f.setDepartamento(rs.getString(11));
                 f.setProvincia(rs.getString(12));
                 f.setDistrito(rs.getString(13));
@@ -1085,7 +1090,7 @@ public class reclamoDB {
                 f.setIdDistrito(rs.getInt(16));
                 f.setTipodoc(rs.getString(17));
                 f.setIdtipo_documento(rs.getInt(18));
-                
+
                 f.setNum_documento(rs.getString(19));
                 f.setDireccion(rs.getString(20));
                 f.setFechafin(rs.getString(21));
@@ -1094,8 +1099,8 @@ public class reclamoDB {
                 f.setIdearea(rs.getInt(24));
                 f.setNombreO(rs.getString(25));
                 f.setIdOperador(rs.getInt(26));
-                
-                
+                f.setTipotelefono(rs.getString(27));
+                f.setIdtipotelefono(rs.getInt(28));
 
             }
             conexion.CierraConexion(cn);

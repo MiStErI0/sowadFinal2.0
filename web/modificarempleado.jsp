@@ -4,6 +4,7 @@
     Author     : User
 --%>
 
+<%@page import="modelo.empleado"%>
 <%@page import="modelo.tipotelefono"%>
 <%@page import="modelo.distrito"%>
 <%@page import="modelo.provincia"%>
@@ -74,15 +75,21 @@
 
 </script>
 
+<%
+    empleado empleado = (empleado) request.getSession().getAttribute("empleado");
+%>
+
 <html>
 
     <jsp:include page="head.html" />
 
 
+
+
     <jsp:include page="body.html" />
     <section class="content-header">
         <h1 style="margin-top: 55px; text-align: center">
-            Registrar de Empleado
+            Modificar de Empleado
 
         </h1>
         <ol class="breadcrumb">
@@ -94,7 +101,7 @@
     <form action="ReclamoServlet?accion=REGISTRAREMP" method="POST">
         <div class="box-body bg-gray-c">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="panel panel-default panel-shadow">
                         <div class="panel-body">
 
@@ -103,7 +110,8 @@
                                 <div class="col-sm-6">				
                                     <div class="form-group">
                                         <label>Tipo Documento</label>
-                                        <select id="idtipodoc" name="tipodoc" class="form-control">
+                                        <input id="idtipodoc2" type="text" disabled name="tipodoc2" class="form-control" value="<%=empleado.getTipodoc()%>">
+                                        <select id="idtipodoc" name="tipodoc" class="form-control" value="<%=empleado.getIdtipo_documento()%>">
                                             <option value="00">.: Seleccione Tipo doc :.</option>
                                             <c:forEach var="fila" items="${sqlTD.rows}">
                                                 <option value="${fila.idtipo_documento}">${fila.tipodoc}</option>
@@ -113,8 +121,8 @@
                                 </div>
                                 <div class="col-sm-6">				
                                     <div class="form-group">
-                                        <label>Tipo Documento</label>
-                                        <input type="text" id="iddocumento" name="documento" class="form-control" placeholder="ingrese documento..." >
+                                        <label>Numero de Documento</label>
+                                        <input type="text" id="iddocumento" name="documento" class="form-control" value="<%=empleado.getNum_documento()%>" >
                                     </div>
                                 </div>
                             </div>
@@ -123,178 +131,155 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Nombres</label>  
-                                        <input id="idnombre" type="text" name="nombre" class="form-control"  placeholder="ingrese nombres...">	
-                                    </div> 												
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>Apellido Paterno</label>
-                                        <input id="idpaterno" type="text" name="paterno" class="form-control"  placeholder="ingrese apellido...">	
-                                    </div>													
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>Apellido Materno</label>
-                                        <input id="idmaterno" type="text" name="materno" class="form-control"  placeholder="ingrese apellido...">	
-                                    </div> 												
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">				
-                                    <div class="form-group">
-                                        <label>Departamento</label>
-                                        <select id="iddepartamento" name="departamento" class="form-control" onchange="getprovincia()">
-                                            <option value="00">.: Seleccione Provincia :.</option>
-                                            <c:forEach var="fila" items="${sqlDep.rows}">
-                                                <option value="${fila.idDepartamento}">${fila.departamento}</option>
-                                            </c:forEach>
-                                        </select>
+                                        <input id="idnombre" type="text" name="nombre" class="form-control"  value="<%=empleado.getNombreP()%>" >	
+                                               </div> 												
+                                               </div>
+                                               <div class="col-sm-4">
+                                               <div class="form-group">
+                                            <label>Apellido Paterno</label>
+                                            <input id="idpaterno" type="text" name="paterno" class="form-control"  value="<%=empleado.getPaternoP()%>">	
+                                        </div>													
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Apellido Materno</label>
+                                            <input id="idmaterno" type="text" name="materno" class="form-control"  value="<%=empleado.getMaternoP()%>">	
+                                        </div> 												
                                     </div>
                                 </div>
-                                <div class="col-sm-4">				
-                                    <div class="form-group">
-                                        <label>Provincia</label>
-                                        <select id="idprovincia" name="provincia" class="form-control" onchange="getdistrito()">
-                                            <option value="00">.: Seleccione Provincia :.</option>
-                                        </select>
-                                    </div>      
-                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-4">				
+                                        <div class="form-group">
+                                            <label>Departamento</label>
+                                            <input id="iddepartamento2" type="text" disabled name="departamento2" class="form-control" value="<%=empleado.getDepartamento()%>">
+                                            <select id="iddepartamento" name="departamento" class="form-control" onchange="getprovincia()" value="<%=empleado.getIdProvincia()%>">
+                                                <option value="00">.: Seleccione Provincia :.</option>
+                                                <c:forEach var="fila" items="${sqlDep.rows}">
+                                                    <option value="${fila.idDepartamento}">${fila.departamento}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">				
+                                        <div class="form-group">
+                                            <label>Provincia</label>
+                                            <input id="idprovincia2" type="text" disabled name="provincia2" class="form-control" value="<%=empleado.getProvincia()%>">
+                                            <select id="idprovincia" name="provincia" class="form-control" onchange="getdistrito()" value="<%=empleado.getIdProvincia()%>">
+                                                <option value="00">.: Seleccione Provincia :.</option>
+                                            </select>
+                                        </div>      
+                                    </div> 
 
-                                <div class="col-sm-4">				
-                                    <div class="form-group">
-                                        <label>Distrito</label>
-                                        <select id="iddistrito" name="distrito" class="form-control">
-                                            <option value="00">.: Seleccione Distrito :.</option>  
-                                        </select>
+                                    <div class="col-sm-4">				
+                                        <div class="form-group">
+                                            <label>Distrito</label>
+                                            <input id="iddistrito2" type="text" disabled name="distrito2" class="form-control" value="<%=empleado.getDistrito()%>">
+                                            <select id="iddistrito" name="distrito" class="form-control" value="<%=empleado.getDistrito()%>">
+                                                <option value="00">.: Seleccione Distrito :.</option>  
+                                            </select>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <div class="form-group">
-                                        <label>Direccion</label> 
-                                        <input id="iddireccion" type="text" name="direccion" class="form-control" placeholder="Ingrese Direccion ...">	
-                                    </div>   												
-                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label>Direccion</label> 
+                                            <input id="iddireccion" type="text" name="direccion" class="form-control" value="<%=empleado.getDireccion() %>">	
+                                        </div>   												
+                                    </div>
 
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>Correo Electronico</label> 
-                                        <input id="idcorreo" type="text" name="correo" class="form-control" placeholder="Ingrese correo ...">	
-                                    </div>  												
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Telefono</label> 
-                                        <input id="idtelefono" type="text" name="telefono" class="form-control" placeholder="Ingrese telefono ...">	
-                                    </div>  												
-                                </div>
-                                <div class="col-sm-6">				
-                                    <div class="form-group">
-                                        <label>Tipo Telefono</label>
-                                        <select id="idtipotelefono" name="tipotelefono" class="form-control">
-                                            <option value="00">.: Seleccione Tipo de telefono :.</option>
-                                            <c:forEach var="fila" items="${sqlTT.rows}">
-                                                <option value="${fila.idtipo_telefono}">${fila.nombreTT}</option>
-                                            </c:forEach>
-                                        </select>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Correo Electronico</label> 
+                                            <input id="idcorreo" type="text" name="correo" class="form-control" value="<%=empleado.getCorreo()%>">	
+                                        </div>  												
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>Fecha de Inicio</label> 
-                                        <input id="idfechai" type="date" name="fechainicio" class="form-control" >	
-                                    </div>  												
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>Fecha Fin</label> 
-                                        <input id="idfechaf" type="date" name="fechafin" class="form-control">	
-                                    </div>  												
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>Sueldo</label> 
-                                        <input id="idsuedo" type="text" name="sueldo" class="form-control" placeholder="Ingrese sueldo ...">	
-                                    </div>  												
-                                </div>
-                                <div class="col-sm-4">				
-                                    <div class="form-group">
-                                        <label>Operador</label>
-                                        <select id="idoperador" name="operador" class="form-control">
-                                            <option value="00">.: Seleccione Operador :.</option>
-                                            <c:forEach var="fila" items="${sqlOp.rows}">
-                                                <option value="${fila.idOperador}">${fila.nombreO}</option>
-                                            </c:forEach>
-                                        </select>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Telefono</label> 
+                                            <input id="idtelefono" type="text" name="telefono" class="form-control" value="<%=empleado.getNumero()%>">	
+                                        </div>  												
+                                    </div>
+                                    <div class="col-sm-6">				
+                                        <div class="form-group">
+                                            <label>Tipo Telefono</label>
+                                            <input id="idtipotelefono2" type="text" disabled name="tipotelefono2" class="form-control" value="<%=empleado.getTipotelefono()%>">
+                                            <select id="idtipotelefono" name="tipotelefono" class="form-control" value="<%=empleado.getIdtipotelefono()%>">
+                                                <option value="00">.: Seleccione Tipo de telefono :.</option>
+                                                <c:forEach var="fila" items="${sqlTT.rows}">
+                                                    <option value="${fila.idtipo_telefono}">${fila.nombreTT}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Fecha de Inicio</label> 
+                                            <input id="idfechai" type="date" name="fechainicio" class="form-control" value="<%=empleado.getFechainicio()%>">	
+                                        </div>  												
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Fecha Fin</label> 
+                                            <input id="idfechaf" type="date" name="fechafin" class="form-control" value="<%=empleado.getFechafin()%>">	
+                                        </div>  												
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Sueldo</label> 
+                                            <input id="idsuedo" type="text" name="sueldo" class="form-control" value="<%=empleado.getSueldo()%>">	
+                                        </div>  												
+                                    </div>
+                                    <div class="col-sm-4">				
+                                        <div class="form-group">
+                                            <label>Operador</label>
+                                            <input id="idoperador2" type="text" disabled name="operador2" class="form-control" value="<%=empleado.getNombreO() %>">
+                                            <select id="idoperador" name="operador" class="form-control" value="<%=empleado.getIdOperador()%>">
+                                                <option value="00">.: Seleccione Operador :.</option>
+                                                <c:forEach var="fila" items="${sqlOp.rows}">
+                                                    <option value="${fila.idOperador}">${fila.nombreO}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-4">				
+                                        <div class="form-group">
+                                            <label>Area</label>
+                                            <input id="idarea22" type="text" disabled name="area22" class="form-control" value="<%=empleado.getArea()%>">
+                                            <select id="idarea" name="area" class="form-control" value="<%=empleado.getIdearea()%>">
+                                                <option value="00">.: Seleccione Area :.</option>
+                                                <c:forEach var="fila" items="${sqlAr.rows}">
+                                                    <option value="${fila.idarea}">${fila.area}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">				
+                                        <div class="form-group">
+                                            <label>Cargo</label>
+                                            <input id="idcargo2" type="text" disabled name="cargo2" class="form-control" value="<%=empleado.getCargo()%>">
+                                            <select id="idcargo" name="cargo" class="form-control" value="<%=empleado.getIdcargo()%>">
+                                                <option value="00">.: Seleccione Cargo :.</option>
+                                                <c:forEach var="fila" items="${sqlCa.rows}">
+                                                    <option value="${fila.idcargo}">${fila.cargo}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-
-
-                                <div class="col-sm-4">				
-                                    <div class="form-group">
-                                        <label>Area</label>
-                                        <select id="idarea" name="area" class="form-control">
-                                            <option value="00">.: Seleccione Area :.</option>
-                                            <c:forEach var="fila" items="${sqlAr.rows}">
-                                                <option value="${fila.idarea}">${fila.area}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">				
-                                    <div class="form-group">
-                                        <label>Cargo</label>
-                                        <select id="idcargo" name="cargo" class="form-control">
-                                            <option value="00">.: Seleccione Cargo :.</option>
-                                            <c:forEach var="fila" items="${sqlCa.rows}">
-                                                <option value="${fila.idcargo}">${fila.cargo}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="panel panel-default panel-shadow">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                   <label>Crear Cuenta de Usuario</label>
-                                    <div class="form-group">
-                                        <label>Usuario</label>  
-                                        <input id="idusuario" type="text" name="usuario" class="form-control"  placeholder="ingrese nombre de usuario...">	
-                                    </div> 												
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>contraseña</label>
-                                        <input id="idcontraseña" type="text" name="contraseña" class="form-control"  placeholder="ingrese contraseña...">	
-                                    </div>													
-                                </div>
-                                <div class="col-sm-12">
-
-                                    <div class="form-group">
-
-                                        <input type="submit" value="Registrar Empleado">	
-                                    </div>
-                                </div>
-
-
-
                             </div>
                         </div>
                     </div>
+
+                    
                 </div>
             </div>
-        </div>
 
     </form>
 </div>

@@ -146,11 +146,14 @@ public class ReclamoServlet extends HttpServlet {
             direcciones.setIdProvincia(idprovincia);
             direcciones.setIdDistrito(iddistrito);
             direcciones.setIdDepartamento(iddepartamento);
-
-            String resultado5 = proDB.RegistrarFuncionario(funcionarios);
+            
+            
+            
+            String resultado2 = proDB.RegistrarPersona(personas);
+            String resultado6 = proDB.RegistrarCliente();
             String resultado4 = proDB.RegistroTelefono(telefonos);
             String resultado3 = proDB.RegistroDireccion(direcciones);
-            String resultado2 = proDB.RegistrarPersona(personas);
+            String resultado5 = proDB.RegistrarFuncionario(funcionarios);
             String resultado = proDB.RegistrarReclamo(reclamo);
 
             if (resultado == null || resultado2 == null || resultado3 == null || resultado4 == null) {
@@ -379,7 +382,9 @@ public class ReclamoServlet extends HttpServlet {
             Integer area = Integer.valueOf(request.getParameter("area"));
             Integer cargo = Integer.valueOf(request.getParameter("cargo"));
             String uss = request.getParameter("usuario");
-            String pass = request.getParameter("contraseña");
+            String contra = request.getParameter("contra");
+            
+            System.out.println("sssssssssssssssss"+contra);
 
             persona p = new persona();
             p.setTipodocumento(tipotelefono);
@@ -408,19 +413,19 @@ public class ReclamoServlet extends HttpServlet {
 
             usuario u = new usuario();
             u.setUsuario(uss);
-            u.setContraseña(pass);
+            u.setContraseña(contra);
 
             cargo_area ca = new cargo_area();
             ca.setCargo_idcargo(cargo);
 
             String resultado1 = proDB.RegistrarPersona(p);
+            String resultado4 = proDB.RegistrarEmpleado(e);
             String resultado2 = proDB.RegistroTelefonoE(t);
             String resultado3 = proDB.RegistroDireccionE(d);
-            String resultado4 = proDB.RegistrarEmpleado(e);
             String resultado5 = proDB.RegistroUsuario(u);
             String resultado6 = proDB.RegistrarCargoUsuario(ca);
 
-            response.sendRedirect("ListaEmpelados");
+            response.sendRedirect("ListaEmpleados.jsp");
 
         } else if (accion.equals("MODIFICAREMP")) {
 

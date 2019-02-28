@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="col-sm-6">				
                                     <div class="form-group">
-                                        <label>Tipo Documento</label>
+                                        <label>Numero de Documento</label>
                                         <input type="text" id="iddocumento" name="documento" class="form-control" placeholder="ingrese documento..." >
                                     </div>
                                 </div>
@@ -276,14 +276,15 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>contraseña</label>
-                                        <input id="idcontraseña" type="text" name="contraseña" class="form-control"  placeholder="ingrese contraseña...">	
+                                        <input id="idcontraseña" type="text" name="contra" class="form-control"  placeholder="ingrese contraseña...">	
                                     </div>													
                                 </div>
                                 <div class="col-sm-12">
 
                                     <div class="form-group">
 
-                                        <input type="submit" value="Registrar Empleado">	
+                                        <input type="submit" value="Registrar Empleado">
+                                        
                                     </div>
                                 </div>
 

@@ -39,11 +39,13 @@ private String num_documento;
 private String direccion;
 private String area;
 private String nombreO;
+private String tipotelefono;
+private Integer idtipotelefono;
 
     public empleado() {
     }
 
-    public empleado(Integer idPersona, String fechainicio, String sueldo, String fechafin, Integer idearea, Integer idcargo, Integer idempelado, String nombreP, String paternoP, String maternoP, String correo, String numero, String cargo, Integer estadoEmp, String departamento, String provincia, String distrito, Integer idDepartamento, Integer idProvincia, Integer idDistrito, Integer idtipo_documento, Integer idOperador, String tipodoc, String num_documento, String direccion, String area, String nombreO) {
+    public empleado(Integer idPersona, String fechainicio, String sueldo, String fechafin, Integer idearea, Integer idcargo, Integer idempelado, String nombreP, String paternoP, String maternoP, String correo, String numero, String cargo, Integer estadoEmp, String departamento, String provincia, String distrito, Integer idDepartamento, Integer idProvincia, Integer idDistrito, Integer idtipo_documento, Integer idOperador, String tipodoc, String num_documento, String direccion, String area, String nombreO, String tipotelefono, Integer idtipotelefono) {
         this.idPersona = idPersona;
         this.fechainicio = fechainicio;
         this.sueldo = sueldo;
@@ -71,6 +73,8 @@ private String nombreO;
         this.direccion = direccion;
         this.area = area;
         this.nombreO = nombreO;
+        this.tipotelefono = tipotelefono;
+        this.idtipotelefono = idtipotelefono;
     }
 
     public Integer getIdPersona() {
@@ -288,6 +292,23 @@ private String nombreO;
     public void setNombreO(String nombreO) {
         this.nombreO = nombreO;
     }
+
+    public String getTipotelefono() {
+        return tipotelefono;
+    }
+
+    public void setTipotelefono(String tipotelefono) {
+        this.tipotelefono = tipotelefono;
+    }
+
+    public Integer getIdtipotelefono() {
+        return idtipotelefono;
+    }
+
+    public void setIdtipotelefono(Integer idtipotelefono) {
+        this.idtipotelefono = idtipotelefono;
+    }
+
 
 
 
