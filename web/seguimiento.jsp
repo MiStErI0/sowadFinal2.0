@@ -4,6 +4,8 @@
     Author     : Computer
 --%>
 
+<%@page import="modelo.usuario"%>
+<%@page import="funciones.usuarioBD"%>
 <%@page import="modelo.detallereclamos"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -26,6 +28,22 @@
 
 <!DOCTYPE html>
 <html>
+    <%
+        usuarioBD usu = new usuarioBD();
+
+        usuario e;
+        String nombre = null;
+        int id=0,idCargo=0;
+        e = usu.usuActivo();
+        if (e.getEstado() == 2) {
+            nombre = usu.nomUsuAc();
+            id=e.getIdUsuario();
+            idCargo=usu.idCargo(id);
+            System.out.println(id +"               aaaaaaaaaaaa");
+        } else {
+            response.sendRedirect("login.jsp");
+        }
+    %>
     <jsp:include page="head.html" />
     <style>
         
@@ -60,7 +78,6 @@
     <%
         List<detallereclamos> listaB = (ArrayList<detallereclamos>) request.getSession().getAttribute("listaB");
     %>
-
 
 
     <body>

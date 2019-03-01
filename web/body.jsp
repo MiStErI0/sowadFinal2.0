@@ -31,20 +31,24 @@
                                     </a>
                                 </li>
                                 
+                                <%if(idCargo!=1){%>    
                                 <li><a href="ReclamoServlet?accion=LISTAR">
                                         <i class="fas fa-list" style='font-size:15px'></i> Lista de Reclamos
                                     </a>
                                 </li>
-
-
+                                <%}%>
+                                <%if(idCargo==1){%>    
                                 <li><a href="#">
                                         <i class='far fa-user' style='font-size:20px'></i> Usuarios
                                     </a>
                                 </li>
+                                <%}%>
+                                <%if(idCargo==1){%>
                                 <li><a href="ReclamoServlet?accion=AJUSTES">
                                         <i class="fas fa-list" style='font-size:15px'></i> Ajustes
                                     </a>
                                 </li>
+                                <%}%>
                             </ul>
                         </div>
 
@@ -94,7 +98,7 @@
                                         </a>
                                     </li>
                                     <li><a href="javascript:;">Help</a></li>
-                                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                    <li><a href="usuario?accion=Cerrar"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                                 </ul>
                             </li>
 

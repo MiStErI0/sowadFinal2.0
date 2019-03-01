@@ -470,7 +470,7 @@ public class reclamoDB {
         Connection cn = null;
         String sql = "insert into reclamos(idReclamos,codigo_reclamo,fechahecho,descripcion,idcliente,"
                 + "categoria_idcategoria,Estado_idEstado,area_idarea,idfuncion)"
-                + "values(?,(concat('00000',?)),?,?,?,1,1,1,?)";
+                + "values(?,(concat(?,'0CoRe0',?)),?,?,?,1,1,1,?)";
 
         try {
             cn = conexion.getConexion();
@@ -481,11 +481,12 @@ public class reclamoDB {
             int id3 = IdNuevoFuncionario(cn);
 
             ps.setInt(1, id);
-            ps.setInt(2, id);
-            ps.setString(3, f.getFechahecho());
-            ps.setString(4, f.getDescripcion());
-            ps.setInt(5, id2);
-            ps.setInt(6, id3);
+            ps.setInt(2, id2);
+            ps.setInt(3, id);
+            ps.setString(4, f.getFechahecho());
+            ps.setString(5, f.getDescripcion());
+            ps.setInt(6, id2);
+            ps.setInt(7, id3);
 
             int contador = ps.executeUpdate();
 

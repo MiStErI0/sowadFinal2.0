@@ -15,12 +15,12 @@
 
         usuario e;
         String nombre = null;
-        int id=0;
+        int id=0,idCargo=0;
         e = usu.usuActivo();
         if (e.getEstado() == 2) {
             nombre = usu.nomUsuAc();
             id=e.getIdUsuario();
-            
+            idCargo=usu.idCargo(id);
             System.out.println(id +"               aaaaaaaaaaaa");
         } else {
             response.sendRedirect("login.jsp");
@@ -35,7 +35,7 @@
     <jsp:include page="head.html" />
 
 
-    
+    <%@include file="body.jsp" %>
 
 
 	<div class="box-body bg-gray-c">

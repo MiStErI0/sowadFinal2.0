@@ -4,6 +4,8 @@
     Author     : Computer
 --%>
 
+<%@page import="modelo.usuario"%>
+<%@page import="funciones.usuarioBD"%>
 <%@page import="modelo.operador"%>
 <%@page import="modelo.cargo"%>
 <%@page import="modelo.area"%>
@@ -50,6 +52,22 @@
 
 
 <html>
+    <%
+        usuarioBD usu = new usuarioBD();
+
+        usuario e;
+        String nombre = null;
+        int id=0,idCargo=0;
+        e = usu.usuActivo();
+        if (e.getEstado() == 2) {
+            nombre = usu.nomUsuAc();
+            id=e.getIdUsuario();
+            idCargo=usu.idCargo(id);
+            System.out.println(id +"               aaaaaaaaaaaa");
+        } else {
+            response.sendRedirect("login.jsp");
+        }
+    %>
     <jsp:include page="head.html" />
 
     <%
@@ -57,7 +75,7 @@
     %>
 
 
-    <jsp:include page="body.html" />
+    <%@include file="body.jsp" %>
     <form id="formarea" method="Post" action="ReclamoServlet?accion=MODIFICAROPERADOR2">
         <h3>Modificar Operador</h3>
         <div class="box-body bg-gray-c">

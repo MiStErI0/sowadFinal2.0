@@ -4,6 +4,8 @@
     Author     : Computer
 --%>
 
+<%@page import="modelo.usuario"%>
+<%@page import="funciones.usuarioBD"%>
 <%@page import="modelo.tipodocumento"%>
 <%@page import="modelo.area"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -49,14 +51,30 @@
 
 
 <html>
+    <%
+        usuarioBD usu = new usuarioBD();
+
+        usuario e;
+        String nombre = null;
+        int id=0,idCargo=0;
+        e = usu.usuActivo();
+        if (e.getEstado() == 2) {
+            nombre = usu.nomUsuAc();
+            id=e.getIdUsuario();
+            idCargo=usu.idCargo(id);
+            System.out.println(id +"               aaaaaaaaaaaa");
+        } else {
+            response.sendRedirect("login.jsp");
+        }
+    %>
     <jsp:include page="head.html" />
 
     <%
         tipodocumento tipodoc = (tipodocumento) request.getSession().getAttribute("tipodoc");
     %>
 
-
-    <jsp:include page="body.html" />
+    
+    <%@include file="body.jsp" %>
     <form id="formarea" method="Post" action="ReclamoServlet?accion=MODIFICARTIPODOC2">
 <h3>Modificar Area</h3>
         <div class="box-body bg-gray-c">

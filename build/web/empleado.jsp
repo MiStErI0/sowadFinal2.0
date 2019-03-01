@@ -4,6 +4,8 @@
     Author     : User
 --%>
 
+<%@page import="modelo.usuario"%>
+<%@page import="funciones.usuarioBD"%>
 <%@page import="modelo.tipotelefono"%>
 <%@page import="modelo.distrito"%>
 <%@page import="modelo.provincia"%>
@@ -75,11 +77,27 @@
 </script>
 
 <html>
+    <%
+        usuarioBD usu = new usuarioBD();
+
+        usuario e;
+        String nombre = null;
+        int id=0,idCargo=0;
+        e = usu.usuActivo();
+        if (e.getEstado() == 2) {
+            nombre = usu.nomUsuAc();
+            id=e.getIdUsuario();
+            idCargo=usu.idCargo(id);
+            System.out.println(id +"               aaaaaaaaaaaa");
+        } else {
+            response.sendRedirect("login.jsp");
+        }
+    %>
 
     <jsp:include page="head.html" />
 
 
-    <jsp:include page="body.html" />
+    <%@include file="body.jsp" %>
     <section class="content-header">
         <h1 style="margin-top: 55px; text-align: center">
             Registrar de Empleado

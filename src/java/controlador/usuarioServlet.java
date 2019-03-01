@@ -65,7 +65,7 @@ public class usuarioServlet extends HttpServlet {
                     if (resp.equals("Bienvenido")) {
 
                         int id = usu.obtenerUsuario(usuario, pass);
-                        System.out.println(id+"                    ddasdasasdasds");
+                        System.out.println(id + "                    ddasdasasdasds");
                         usuario e = new usuario();
                         e.setIdUsuario(id);
                         e.setUsuario(usuario);
@@ -114,6 +114,17 @@ public class usuarioServlet extends HttpServlet {
 
                 }
 
+            }else{
+
+                usuarioBD usu = new usuarioBD();
+
+                usuario e;
+                e = usu.usuActivo();
+                
+                usu.Sesion(e,"cerrar");
+                
+                response.sendRedirect("login.jsp");
+                
             }
 
             /* TODO output your page here. You may use following sample code.
