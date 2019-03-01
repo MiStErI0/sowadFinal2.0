@@ -97,7 +97,7 @@
 
     <jsp:include page="head.html" />
 
-
+    <%@include file="body.jsp" %>
 
     <section class="content-header">
         <h1 style="margin-top: 55px; text-align: center">

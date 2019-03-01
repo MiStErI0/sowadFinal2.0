@@ -470,7 +470,7 @@ public class reclamoDB {
         Connection cn = null;
         String sql = "insert into reclamos(idReclamos,codigo_reclamo,fechahecho,descripcion,idcliente,"
                 + "categoria_idcategoria,Estado_idEstado,area_idarea,idfuncion)"
-                + "values(?,?,(concat('00000',?)),?,?,1,1,1,?)";
+                + "values(?,(concat('00000',?)),?,?,?,1,1,1,?)";
 
         try {
             cn = conexion.getConexion();
@@ -2028,5 +2028,4 @@ public class reclamoDB {
 
         return f;
     }
-
 }

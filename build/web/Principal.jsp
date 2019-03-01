@@ -40,7 +40,7 @@ Author     : User
     <jsp:include page="head.html" />
 
 
-    <%@include file="body.html"%>
+    <%@include file="body.jsp" %>
 
 
 
