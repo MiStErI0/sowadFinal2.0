@@ -35,7 +35,7 @@
     <jsp:include page="head.html" />
 
 
-    <%@include file="body.html"%>
+    
 
 
 	<div class="box-body bg-gray-c">

@@ -39,6 +39,7 @@ import modelo.persona;
 import modelo.provincia;
 import modelo.reclamos;
 import modelo.telefono;
+import modelo.ticket;
 import modelo.tipodocumento;
 import modelo.tipotelefono;
 import modelo.usuario;
@@ -147,7 +148,7 @@ public class ReclamoServlet extends HttpServlet {
             direcciones.setIdDistrito(iddistrito);
             direcciones.setIdDepartamento(iddepartamento);
             
-            
+            ticket ticket=null;
             
             String resultado2 = proDB.RegistrarPersona(personas);
             String resultado6 = proDB.RegistrarCliente();
@@ -155,16 +156,26 @@ public class ReclamoServlet extends HttpServlet {
             String resultado3 = proDB.RegistroDireccion(direcciones);
             String resultado5 = proDB.RegistrarFuncionario(funcionarios);
             String resultado = proDB.RegistrarReclamo(reclamo);
+            
+            
+            
+            
+            
+            
+    
+            
+
+            
 
             if (resultado == null || resultado2 == null || resultado3 == null || resultado4 == null) {
                 System.out.println("lo inserto correctamente");
+                ticket = proDB.TicketGET();
+                System.out.println("asdasdasd"+ ticket.getNombre());
+            System.out.println("asdasdasd"+ ticket.getIdreclamos());
+                request.getSession().setAttribute("ticket", ticket);
 
-                /*listaA = proDB.ListaReclamos();*/
-                request.getSession().setAttribute("listaA", listaA);
-
-                request.getRequestDispatcher("ListarReclamos.jsp").forward(request, response);
-
-                response.sendRedirect("ListarReclamos.jsp");
+                request.getRequestDispatcher("consulta.jsp").forward(request, response);
+       
 
             } else {
 
@@ -441,12 +452,29 @@ public class ReclamoServlet extends HttpServlet {
 
             System.out.println(" el id del empleado a cambiar es " + e.getIdempelado());
 
-           /* e.setCategoria(request.getParameter("categoria"));
-            e.setIdcategoria(Integer.valueOf(request.getParameter("idcategoria")));*/
+            e.setIdtipo_documento(Integer.valueOf(request.getParameter("tipodoc")));
+            e.setNum_documento(request.getParameter("documento"));
+            e.setNombreP(request.getParameter("nombre"));
+            e.setPaternoP(request.getParameter("paterno"));
+            e.setMaternoP(request.getParameter("materno"));
+            e.setIdDepartamento(Integer.valueOf(request.getParameter("departamento")));
+            e.setIdProvincia(Integer.valueOf(request.getParameter("provincia")));
+            e.setIdDistrito(Integer.valueOf(request.getParameter("distrito")));
+            e.setDireccion(request.getParameter("direccion"));
+            e.setCorreo(request.getParameter("correo"));
+            e.setNumero(request.getParameter("telefono"));
+            e.setIdtipotelefono(Integer.valueOf(request.getParameter("tipotelefono")));
+            e.setFechainicio(request.getParameter("fechainicio"));
+            e.setFechafin(request.getParameter("fechafin"));
+            e.setSueldo(request.getParameter("sueldo"));
+            e.setIdOperador(Integer.valueOf(request.getParameter("operador")));
+            e.setIdearea(Integer.valueOf(request.getParameter("area")));
+            e.setIdcargo(Integer.valueOf(request.getParameter("cargo")));
+            e.setIdempelado(Integer.valueOf(request.getParameter("idempleado")));
+        
+            String resultado = proDB.empleadoUPD(e);
 
-            //String resultado = proDB.categoriaUPD(e);
-
-            response.sendRedirect("empleado.jsp");
+            response.sendRedirect("ListaEmpleados.jsp");
 
         } else if (accion.equals("ELIMINAEMP")) {
 

@@ -14,8 +14,9 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
   private static java.util.List<String> _jspx_dependants;
 
   static {
-    _jspx_dependants = new java.util.ArrayList<String>(1);
+    _jspx_dependants = new java.util.ArrayList<String>(2);
     _jspx_dependants.add("/body.html");
+    _jspx_dependants.add("/footer.html");
   }
 
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_out_value_nobody;
@@ -73,9 +74,14 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
 
         usuario e;
         String nombre = null;
+        int id = 0;
+        int idCargo=0;
         e = usu.usuActivo();
         if (e.getEstado() == 2) {
             nombre = usu.nomUsuAc();
+            id = e.getIdUsuario();
+            idCargo=usu.idCargo(id);
+            System.out.println(id +"               aaaaaaaaaaaa");
         } else {
             response.sendRedirect("login.jsp");
         }
@@ -106,7 +112,7 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <div class=\"col-md-3 left_col\">\r\n");
       out.write("                <div class=\"left_col scroll-view\">\r\n");
       out.write("                    <div class=\"navbar nav_title\"  style=\"border: 0;text-align: center; font-family: 'Federant', cursive;\">\r\n");
-      out.write("                        <a href=\"#\" class=\"site_title\" onclick=\"Rendirect()\"> <span>Sistema de Reclamos</span></a>\r\n");
+      out.write("                        <a href=\"Principal.jsp\" class=\"site_title\" > <span>Sistema de Reclamos</span></a>\r\n");
       out.write("                    </div>\r\n");
       out.write("\r\n");
       out.write("                    <div class=\"clearfix\"></div>\r\n");
@@ -119,17 +125,22 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            <ul class=\"nav side-menu\">\r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write("                                ");
+ if(idCargo==2){ 
       out.write("\r\n");
       out.write("                                <li><a href=\"ReclamoServlet?accion=REGISTRAR\">\r\n");
       out.write("                                        <i class=\"fa fa-pencil-square-o\" style=\"font-size:20px\"></i> Registrar Reclamo\r\n");
       out.write("                                    </a>\r\n");
       out.write("                                </li>\r\n");
+      out.write("                                ");
+}
+      out.write("\r\n");
       out.write("                                <li><a href=\"ReclamoServlet?accion=LISTAR\">\r\n");
       out.write("                                        <i class=\"fas fa-list\" style='font-size:15px'></i> Lista de Reclamos\r\n");
       out.write("                                    </a>\r\n");
       out.write("                                </li>\r\n");
-      out.write("                                \r\n");
-      out.write("                                 \r\n");
+      out.write("\r\n");
+      out.write("\r\n");
       out.write("                                <li><a href=\"#\">\r\n");
       out.write("                                        <i class='far fa-user' style='font-size:20px'></i> Usuarios\r\n");
       out.write("                                    </a>\r\n");
@@ -266,7 +277,64 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("    ");
-      org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "footer.html", out, false);
+      out.write("\r\n");
+      out.write("</div>  \r\n");
+      out.write("<!-- footer content -->\r\n");
+      out.write("        <footer>\r\n");
+      out.write("          <div class=\"pull-right\">\r\n");
+      out.write("            Gentelella - Bootstrap Admin Template by <a href=\"https://colorlib.com\">Colorlib</a>\r\n");
+      out.write("          </div>\r\n");
+      out.write("          <div class=\"clearfix\"></div>\r\n");
+      out.write("        </footer>\r\n");
+      out.write("        <!-- /footer content -->\r\n");
+      out.write("     </div>\r\n");
+      out.write("    \r\n");
+      out.write("\r\n");
+      out.write("    <!-- jQuery -->\r\n");
+      out.write("    <script src=\"resource/vendors/jquery/dist/jquery.min.js\"></script>\r\n");
+      out.write("    <!-- Bootstrap -->\r\n");
+      out.write("    <script src=\"resource/vendors/bootstrap/dist/js/bootstrap.min.js\"></script>\r\n");
+      out.write("    <!-- FastClick -->\r\n");
+      out.write("    <script src=\"resource/vendors/fastclick/lib/fastclick.js\"></script>\r\n");
+      out.write("    \r\n");
+      out.write("    <script src=\"validar/validaciones.js\" type=\"text/javascript\"></script>\r\n");
+      out.write("    <!-- NProgress -->\r\n");
+      out.write("    <script src=\"resource/vendors/nprogress/nprogress.js\"></script>\r\n");
+      out.write("    <!-- Chart.js -->\r\n");
+      out.write("    <script src=\"resource/vendors/Chart.js/dist/Chart.min.js\"></script>\r\n");
+      out.write("    <!-- gauge.js -->\r\n");
+      out.write("    <script src=\"resource/vendors/gauge.js/dist/gauge.min.js\"></script>\r\n");
+      out.write("    <!-- bootstrap-progressbar -->\r\n");
+      out.write("    <script src=\"resource/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js\"></script>\r\n");
+      out.write("    <!-- iCheck -->\r\n");
+      out.write("    <script src=\"resource/vendors/iCheck/icheck.min.js\"></script>\r\n");
+      out.write("    <!-- Skycons -->\r\n");
+      out.write("    <script src=\"resource/vendors/skycons/skycons.js\"></script>\r\n");
+      out.write("    <!-- Flot -->\r\n");
+      out.write("    <script src=\"resource/vendors/Flot/jquery.flot.js\"></script>\r\n");
+      out.write("    <script src=\"resource/vendors/Flot/jquery.flot.pie.js\"></script>\r\n");
+      out.write("    <script src=\"resource/vendors/Flot/jquery.flot.time.js\"></script>\r\n");
+      out.write("    <script src=\"resource/vendors/Flot/jquery.flot.stack.js\"></script>\r\n");
+      out.write("    <script src=\"resource/vendors/Flot/jquery.flot.resize.js\"></script>\r\n");
+      out.write("    <!-- Flot plugins -->\r\n");
+      out.write("    <script src=\"resource/vendors/flot.orderbars/js/jquery.flot.orderBars.js\"></script>\r\n");
+      out.write("    <script src=\"resource/vendors/flot-spline/js/jquery.flot.spline.min.js\"></script>\r\n");
+      out.write("    <script src=\"resource/vendors/flot.curvedlines/curvedLines.js\"></script>\r\n");
+      out.write("    <!-- DateJS -->\r\n");
+      out.write("    <script src=\"resource/vendors/DateJS/build/date.js\"></script>\r\n");
+      out.write("    <!-- JQVMap -->\r\n");
+      out.write("    <script src=\"resource/vendors/jqvmap/dist/jquery.vmap.js\"></script>\r\n");
+      out.write("    <script src=\"resource/vendors/jqvmap/dist/maps/jquery.vmap.world.js\"></script>\r\n");
+      out.write("    <script src=\"resource/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js\"></script>\r\n");
+      out.write("    <!-- bootstrap-daterangepicker -->\r\n");
+      out.write("    <script src=\"resource/vendors/moment/min/moment.min.js\"></script>\r\n");
+      out.write("    <script src=\"resource/vendors/bootstrap-daterangepicker/daterangepicker.js\"></script>\r\n");
+      out.write("    \r\n");
+      out.write("\r\n");
+      out.write("    <!-- Custom Theme Scripts -->\r\n");
+      out.write("    <script src=\"resource/build/js/custom.min.js\"></script>\r\n");
+      out.write("\t\r\n");
+      out.write("  </body>");
       out.write("\r\n");
       out.write("    <script>\r\n");
       out.write("        $(document).ready(function ()\r\n");

@@ -32,7 +32,7 @@
     <body>
 
 
-        <form action="ProductoServlet?accion=MODIFICARBD" method="post">
+        <form action="ProductoServlet?accion=MODIFICARBD" method="get">
 
 
 

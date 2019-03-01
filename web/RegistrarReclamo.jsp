@@ -18,21 +18,21 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <%
-        usuarioBD usu = new usuarioBD();
+    usuarioBD usu = new usuarioBD();
 
-        usuario e;
-        String nombre = null;
-        int id=0;
-        e = usu.usuActivo();
-        if (e.getEstado() == 2) {
-            nombre = usu.nomUsuAc();
-            id=e.getIdUsuario();
-            
-            System.out.println(id +"               aaaaaaaaaaaa");
-        } else {
-            response.sendRedirect("login.jsp");
-        }
-    %>
+    usuario e;
+    String nombre = null;
+    int id = 0;
+    e = usu.usuActivo();
+    if (e.getEstado() == 2) {
+        nombre = usu.nomUsuAc();
+        id = e.getIdUsuario();
+
+        System.out.println(id + "               aaaaaaaaaaaa");
+    } else {
+        response.sendRedirect("login.jsp");
+    }
+%>
 <sql:setDataSource 
     var="conexion" 
     driver="com.mysql.jdbc.Driver"
@@ -47,21 +47,25 @@
 <sql:query var="sqlTT" dataSource="${conexion}">
     select idTipo_telefono, nombreTT from tipo_telefono
 </sql:query>
-    
+
 <sql:query var="sqlOp" dataSource="${conexion}">
     select idOperador, nombreO from Operador
 </sql:query>
-    
+
 <sql:query var="sqlTD" dataSource="${conexion}">
     select idtipo_documento, tipodoc from tipo_documento
+</sql:query>
+
+<sql:query var="sqlUR" dataSource="${conexion}">    
+    select IFNULL(max(idReclamos),0)+1 codigo from reclamos
 </sql:query>
 
 <!DOCTYPE html>
 <script>
     function usuario() {
-            var fsfd = "Bienvenido <%=nombre%>";
-            document.getElementById("nomusuario").innerHTML = fsfd;
-        }
+        var fsfd = "Bienvenido <%=nombre%>";
+        document.getElementById("nomusuario").innerHTML = fsfd;
+    }
     function getprovincia() {
         cdep = document.getElementById("iddepartamento").value;
         $.ajax({
@@ -94,7 +98,7 @@
     <jsp:include page="head.html" />
 
 
-    <%@include file="body.html"%>
+
     <section class="content-header">
         <h1 style="margin-top: 55px; text-align: center">
             Registrar de Reclamo
@@ -128,8 +132,9 @@
                                 </div>
                                 <div class="col-sm-6">				
                                     <div class="form-group">
-                                        <label>Tipo Documento</label>
-                                        <input type="text" id="iddocumento" onkeypress="return soloNumeros(event,this.value,8)" name="documento" class="form-control" placeholder="ingrese documento..." >
+                                        <label>Numero Documento</label>
+                  
+                                        <input type="text" id="iddocumento" onkeypress="return soloNumeros(event, this.value, 8)" name="documento" class="form-control" placeholder="ingrese documento..." >
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +183,7 @@
                                         </select>
                                     </div>      
                                 </div> 
-                                
+
                                 <div class="col-sm-4">				
                                     <div class="form-group">
                                         <label>Distrito</label>
@@ -208,7 +213,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Telefono</label> 
-                                        <input id="idtelefono" type="text" name="telefono" class="form-control" onkeypress="return soloNumeros(event,this.value,9)" placeholder="Ingrese telefono ...">	
+                                        <input id="idtelefono" type="text" name="telefono" class="form-control" onkeypress="return soloNumeros(event, this.value, 9)" placeholder="Ingrese telefono ...">	
                                     </div>  												
                                 </div>
                                 <div class="col-sm-4">				
@@ -246,9 +251,12 @@
                                     <div class="form-group">
                                         <label>Funcionario</label> 
                                         <input id="idfuncionario" type="text" name="funcionario" class="form-control" placeholder="Ingrese funcionario ...">	
+                                        
+                                        
                                     </div>  												
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
@@ -279,23 +287,23 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h2 class="modal-title">modal</h2>
+                                                        <h2 class="modal-title">Link de Reclamo</h2>
                                                         <button class="close" type="button" data-dismiss="modal" aria-hidden="true"></button> 
                                                     </div>
-                                                    
+
                                                     <div class="modal-body">
-                                                        
-                                                        hola
+
+                                                        Estimado Sr (a).(nombre) , su reclamo ha sido registrado con el ticket numero (codigoreclamo). Puede consultar el estado de su ticket en la siguiente direccion:
 
                                                     </div>
 
                                                     <div class="modal-footer">
                                                         <div class="form-group">
-                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">SI</button>
-                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
+                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                                                            
                                                         </div>
                                                     </div>
-                                                        
+
                                                 </div>
                                             </div>
                                         </div>
@@ -307,7 +315,7 @@
                 </div>
             </div>
         </div>
-    
+
 
     </form>
     <jsp:include page="footer.html" />

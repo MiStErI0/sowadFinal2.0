@@ -30,6 +30,7 @@ import modelo.provincia;
 import modelo.reclamos;
 import modelo.reclamos;
 import modelo.telefono;
+import modelo.ticket;
 import modelo.tipodocumento;
 import modelo.tipotelefono;
 import modelo.usuario;
@@ -65,8 +66,6 @@ public class reclamoDB {
             ps.setString(6, f.getCorreo());
 
             int contador = ps.executeUpdate();
-
-            
 
             if (contador == 0) {
 
@@ -111,14 +110,14 @@ public class reclamoDB {
     }
 
     public String RegistrarCliente() {
-        
-        String result=null;
-        Connection cn=null;
+
+        String result = null;
+        Connection cn = null;
         String resultado = null;
         String sql = "insert into cliente(idpersona) values (?)";
 
         try {
-            cn=conexion.getConexion();
+            cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
 
             int id = Idpersona(cn);
@@ -126,8 +125,6 @@ public class reclamoDB {
             ps.setInt(1, id);
 
             int contador = ps.executeUpdate();
-            
-           
 
             if (contador == 0) {
 
@@ -272,8 +269,6 @@ public class reclamoDB {
             ps.setString(2, f.getNombresF());
 
             int contador = ps.executeUpdate();
-
-            
 
             if (contador == 0) {
 
@@ -473,9 +468,9 @@ public class reclamoDB {
 
         String resultado = null;
         Connection cn = null;
-        String sql = "insert into reclamos(idReclamos,fechahecho,descripcion,idcliente,"
+        String sql = "insert into reclamos(idReclamos,codigo_reclamo,fechahecho,descripcion,idcliente,"
                 + "categoria_idcategoria,Estado_idEstado,area_idarea,idfuncion)"
-                + "values(?,?,?,?,1,1,1,?)";
+                + "values(?,?,(concat('00000',?)),?,?,1,1,1,?)";
 
         try {
             cn = conexion.getConexion();
@@ -486,10 +481,11 @@ public class reclamoDB {
             int id3 = IdNuevoFuncionario(cn);
 
             ps.setInt(1, id);
-            ps.setString(2, f.getFechahecho());
-            ps.setString(3, f.getDescripcion());
-            ps.setInt(4, id2);
-            ps.setInt(5, id3);
+            ps.setInt(2, id);
+            ps.setString(3, f.getFechahecho());
+            ps.setString(4, f.getDescripcion());
+            ps.setInt(5, id2);
+            ps.setInt(6, id3);
 
             int contador = ps.executeUpdate();
 
@@ -1111,6 +1107,90 @@ public class reclamoDB {
         }
 
         return f;
+    }
+
+    public String empleadoUPD(empleado c) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "UPDATE empelado as e \n"
+                + "INNER JOIN persona as p ON e.idPersona = p.idPersona \n"
+                + "inner join telefonoe as t on t.idempleado=e.idempelado\n"
+                + "inner join tipo_telefono as tt on tt.idTipo_telefono=t.Tipo_telefono_idTipo_telefono\n"
+                + "inner join operador as o on o.idOperador=t.Operador_idOperador\n"
+                + "inner join tipo_documento td on td.idtipo_documento=p.tipo_documento_idtipo_documento\n"
+                + "inner join usuario as u on u.empelado_idempelado=e.idempelado\n"
+                + "inner join area as ar on ar.idarea=e.idearea\n"
+                + "inner join cargo_has_usuario as cu on cu.Usuario_idUsuario=u.idUsuario\n"
+                + "inner join cargo as ca on ca.idcargo=cu.cargo_idcargo\n"
+                + "inner join direccione as d on d.idempleado = e.idempelado\n"
+                + "inner join departamento as de on de.idDepartamento = d.Distrito_Provincia_Departamento_idDepartamento\n"
+                + "inner join provincia as pro on pro.idProvincia = d.Distrito_Provincia_idProvincia\n"
+                + "inner join distrito as dis on dis.idDistrito = d.Distrito_idDistrito\n"
+                + "SET idtipo_documento=?,num_documento=?,nombreP=?,paternoP=?,maternoP=?,\n"
+                + "Distrito_Provincia_Departamento_idDepartamento=?,Distrito_Provincia_idProvincia=?,Distrito_idDistrito=?,\n"
+                + "direccion=?,correo=?,numero=?,Tipo_telefono_idTipo_telefono=?,fechainicio=?,\n"
+                + "fechafin=?,sueldo=?,Operador_idOperador=?,idarea=?,idcargo=? where idempelado=?";
+
+        try {
+
+            cn = conexion.getConexion();
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            System.out.println("aaaaaaaaa " + c.getIdtipo_documento());
+            System.out.println("aaaaaaaaa " + c.getNum_documento());
+            System.out.println("aaaaaaaaa " + c.getNombreP());
+            System.out.println("aaaaaaaaa " + c.getPaternoP());
+            System.out.println("aaaaaaaaa " + c.getMaternoP());
+            System.out.println("aaaaaaaaa " + c.getIdDepartamento());
+            System.out.println("aaaaaaaaa " + c.getIdProvincia());
+            System.out.println("aaaaaaaaa " + c.getIdDistrito());
+            System.out.println("aaaaaaaaa " + c.getDireccion());
+            System.out.println("aaaaaaaaa " + c.getCorreo());
+            System.out.println("aaaaaaaaa " + c.getNumero());
+            System.out.println("aaaaaaaaa " + c.getIdtipotelefono());
+            System.out.println("aaaaaaaaa " + c.getFechainicio());
+            System.out.println("aaaaaaaaa " + c.getFechafin());
+            System.out.println("aaaaaaaaa " + c.getSueldo());
+            System.out.println("aaaaaaaaa " + c.getIdOperador());
+            System.out.println("aaaaaaaaa " + c.getIdearea());
+            System.out.println("aaaaaaaaa " + c.getIdcargo());
+            System.out.println("aaaaaaaaa " + c.getIdempelado());
+
+            pst.setInt(1, c.getIdtipo_documento());
+            pst.setString(2, c.getNum_documento());
+            pst.setString(3, c.getNombreP());
+            pst.setString(4, c.getPaternoP());
+            pst.setString(5, c.getMaternoP());
+            pst.setInt(6, c.getIdDepartamento());
+            pst.setInt(7, c.getIdProvincia());
+            pst.setInt(8, c.getIdDistrito());
+            pst.setString(9, c.getDireccion());
+            pst.setString(10, c.getCorreo());
+            pst.setString(11, c.getNumero());
+            pst.setInt(12, c.getIdtipotelefono());
+            pst.setString(13, c.getFechainicio());
+            pst.setString(14, c.getFechafin());
+            pst.setString(15, c.getSueldo());
+            pst.setInt(16, c.getIdOperador());
+            pst.setInt(17, c.getIdearea());
+            pst.setInt(18, c.getIdcargo());
+            pst.setInt(19, c.getIdempelado());
+
+            int contador = pst.executeUpdate();
+
+            if (contador == 0) {
+                System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
+                resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
+            }
+
+            conexion.CierraConexion(cn);
+        } catch (SQLException ex) {
+            conexion.CierraConexion(cn);
+            Logger.getLogger(reclamoDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(" error en la actualizacion " + ex.getMessage());
+            resultado = ex.getMessage();
+        }
+        return resultado;
     }
 
     /*---------------------------------------------------------------------Usuario----------------------------------------------------------------*/
@@ -1895,6 +1975,48 @@ public class reclamoDB {
             if (rs.next()) {
                 f.setIdtipo_documento(rs.getInt(1));
                 f.setTipodoc(rs.getString(2));
+
+            }
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error la conseguir el categoria " + e.getMessage());
+        }
+
+        return f;
+    }
+
+    /*-----------------------------------------------------------------Ticket-----------------------------------------------------*/
+    public ticket TicketGET() {
+        ticket f = new ticket();
+        String resultado = null;
+        Connection cn = null;
+        String sql = "select nombreP,paternoP,maternoP,idReclamos from reclamos as r\n"
+                + "inner join cliente as c on c.idcliente=r.idcliente\n"
+                + "inner join persona as p on p.idPersona=c.idpersona where idReclamos=?";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            int id = nuevoId(cn);
+            id=id;
+            System.out.println("no llega ctmrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"+id);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                System.out.println("soy llegan los datos");
+
+                f.setNombre(rs.getString(1));
+                f.setPaterno(rs.getString(2));
+                f.setMaterno(rs.getString(3));
+                f.setIdreclamos(rs.getInt(4));
+
+            } else {
+
+                System.out.println("del soy no llegan");
 
             }
             conexion.CierraConexion(cn);

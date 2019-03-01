@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/johan07/Documents/GitHub/Sowad/web/body.html</file>
-            <file>file:/C:/Users/johan07/Documents/GitHub/Sowad/web/Principal.jsp</file>
-            <file>file:/C:/Users/johan07/Documents/GitHub/Sowad/web/validar/validaciones.js</file>
-            <file>file:/C:/Users/johan07/Documents/GitHub/Sowad/web/ajustes.jsp</file>
-            <file>file:/C:/Users/johan07/Documents/GitHub/Sowad/web/RegistrarReclamo.jsp</file>
-            <file>file:/C:/Users/johan07/Documents/GitHub/Sowad/src/java/funciones/usuarioBD.java</file>
-            <file>file:/C:/Users/johan07/Documents/GitHub/Sowad/src/java/controlador/ReclamoServlet.java</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/Sowad/web/modificarempleado.jsp</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/Sowad/web/consulta.jsp</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/Sowad/web/WEB-INF/ticket.jsp</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/Sowad/web/editar.jsp</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/Sowad/src/java/funciones/reclamoDB.java</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/Sowad/src/java/controlador/ReclamoServlet.java</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/Sowad/web/ver.jsp</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/Sowad/web/ListarReclamos.jsp</file>
+            <file>file:/C:/Users/Computer/Documents/GitHub/Sowad/web/RegistrarReclamo.jsp</file>
         </group>
     </open-files>
 </project-private>
