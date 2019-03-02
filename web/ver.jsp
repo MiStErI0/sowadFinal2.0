@@ -227,11 +227,7 @@
                                             <textarea type="text" disabled name="cnro_documento" id="cnro_documento" class="form-control" > </textarea>
                                         </div>
                                     </div>
-                                    <div>
-                                        <input type="submit" value="Rechazar Denuncia">
-                                        
-                                        <input type="submit" value="Aceptar y derivar denuncia">
-                                    </div>
+                                    
 
                                 </div>
 

@@ -13,21 +13,23 @@
 <!DOCTYPE html>
 <html>
 <%
-        usuarioBD usu = new usuarioBD();
+    usuarioBD usu = new usuarioBD();
 
-        usuario e;
-        String nombre = null;
-        int id=0;
-        e = usu.usuActivo();
-        if (e.getEstado() == 2) {
-            nombre = usu.nomUsuAc();
-            id=e.getIdUsuario();
-            
-            System.out.println(id +"               aaaaaaaaaaaa");
-        } else {
-            response.sendRedirect("login.jsp");
-        }
-    %>   
+    usuario e;
+    String nombre = null;
+    int id = 0;
+    int idCargo = 0;
+    e = usu.usuActivo();
+    if (e.getEstado() == 2) {
+        nombre = usu.nomUsuAc();
+        id = e.getIdUsuario();
+        idCargo = usu.idCargo(id);
+
+        System.out.println(id + "               aaaaaaaaaaaa");
+    } else {
+        response.sendRedirect("login.jsp");
+    }
+%>  
     <jsp:include page="head.html" />
     <style>
         
@@ -56,7 +58,7 @@
        
     </style>
 
-    <jsp:include page="body.html" />
+    <%@include file="body.jsp"%>
     <%
         List<reclamos> listaA = (ArrayList<reclamos>) request.getSession().getAttribute("listaA");
     %>

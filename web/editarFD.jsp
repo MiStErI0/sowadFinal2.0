@@ -17,10 +17,10 @@
     user="root"
     password="varvon1995"/>
 <sql:query var="sqlCat" dataSource="${conexion}">
-    select idcategoria, categoria from categoria
+    select idcategoria, categoria from categoria where estaCat = 1
 </sql:query>
 <sql:query var="sqlAr" dataSource="${conexion}">
-    select idarea, area from area
+    select idarea, area from area where estadoA=1
 </sql:query>
 
 <!DOCTYPE html>

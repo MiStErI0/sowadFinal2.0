@@ -23,10 +23,12 @@
     usuario e;
     String nombre = null;
     int id = 0;
+    int idCargo = 0;
     e = usu.usuActivo();
     if (e.getEstado() == 2) {
         nombre = usu.nomUsuAc();
         id = e.getIdUsuario();
+        idCargo = usu.idCargo(id);
 
         System.out.println(id + "               aaaaaaaaaaaa");
     } else {
@@ -49,11 +51,11 @@
 </sql:query>
 
 <sql:query var="sqlOp" dataSource="${conexion}">
-    select idOperador, nombreO from Operador
+    select idOperador, nombreO from Operador where estadoOp=1
 </sql:query>
 
 <sql:query var="sqlTD" dataSource="${conexion}">
-    select idtipo_documento, tipodoc from tipo_documento
+    select idtipo_documento, tipodoc from tipo_documento where estadoTD=1
 </sql:query>
 
 <sql:query var="sqlUR" dataSource="${conexion}">    
