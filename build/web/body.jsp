@@ -43,7 +43,7 @@
                                     </a>
                                 </li>
                                 <%}%>
-                                <%if(idCargo==1){%>
+                                <%if(idCargo!=1){%>
                                 <li><a href="ReclamoServlet?accion=AJUSTES">
                                         <i class="fas fa-list" style='font-size:15px'></i> Ajustes
                                     </a>

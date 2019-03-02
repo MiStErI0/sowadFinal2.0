@@ -41,11 +41,13 @@ private String area;
 private String nombreO;
 private String tipotelefono;
 private Integer idtipotelefono;
+private String user;
+private String clave;
 
     public empleado() {
     }
 
-    public empleado(Integer idPersona, String fechainicio, String sueldo, String fechafin, Integer idearea, Integer idcargo, Integer idempelado, String nombreP, String paternoP, String maternoP, String correo, String numero, String cargo, Integer estadoEmp, String departamento, String provincia, String distrito, Integer idDepartamento, Integer idProvincia, Integer idDistrito, Integer idtipo_documento, Integer idOperador, String tipodoc, String num_documento, String direccion, String area, String nombreO, String tipotelefono, Integer idtipotelefono) {
+    public empleado(Integer idPersona, String fechainicio, String sueldo, String fechafin, Integer idearea, Integer idcargo, Integer idempelado, String nombreP, String paternoP, String maternoP, String correo, String numero, String cargo, Integer estadoEmp, String departamento, String provincia, String distrito, Integer idDepartamento, Integer idProvincia, Integer idDistrito, Integer idtipo_documento, Integer idOperador, String tipodoc, String num_documento, String direccion, String area, String nombreO, String tipotelefono, Integer idtipotelefono, String user, String clave) {
         this.idPersona = idPersona;
         this.fechainicio = fechainicio;
         this.sueldo = sueldo;
@@ -75,6 +77,8 @@ private Integer idtipotelefono;
         this.nombreO = nombreO;
         this.tipotelefono = tipotelefono;
         this.idtipotelefono = idtipotelefono;
+        this.user = user;
+        this.clave = clave;
     }
 
     public Integer getIdPersona() {
@@ -309,8 +313,23 @@ private Integer idtipotelefono;
         this.idtipotelefono = idtipotelefono;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
 
 
-
+   
     
 }

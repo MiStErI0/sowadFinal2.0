@@ -776,11 +776,15 @@ public class ReclamoServlet extends HttpServlet {
              
         }else if(accion.equals("USUARIO")){
             
-            
-            
-            
             response.sendRedirect("usuario.jsp");
         
+        }else if(accion.equals("VERUSUARIO")){
+            
+            empleado user = proDB.userGET(Integer.valueOf(request.getParameter("id")));
+
+            request.getSession().setAttribute("user", user);
+            
+            response.sendRedirect("verusuario.jsp");
         
         
         }

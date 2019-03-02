@@ -132,9 +132,9 @@ if(idCargo!=1){
 }
       out.write("\r\n");
       out.write("                                ");
-if(idCargo==1){
+if(idCargo!=1){
       out.write("    \r\n");
-      out.write("                                <li><a href=\"#\">\r\n");
+      out.write("                                <li><a href=\"ReclamoServlet?accion=USUARIO\">\r\n");
       out.write("                                        <i class='far fa-user' style='font-size:20px'></i> Usuarios\r\n");
       out.write("                                    </a>\r\n");
       out.write("                                </li>\r\n");

@@ -795,7 +795,7 @@ public class reclamoDB {
         return resultado;
 
     }
-    
+
     public String RegistrarR(reclamos f) {
         String resultado = null;
         Connection cn = null;
@@ -1329,6 +1329,77 @@ public class reclamoDB {
         }
         return resultado;
 
+    }
+
+    public empleado userGET(int id) {
+        empleado f = new empleado();
+        Connection cn = null;
+        String sql = "SELECT idUsuario,fechainicio,nombreP,paternoP,maternoP,correo,numero,cargo,idcargo,estadoEmp,\n"
+                + "departamento,provincia,distrito,idDepartamento,idProvincia,idDistrito,tipodoc,idtipo_documento,\n"
+                + "num_documento,direccion,fechafin,sueldo,area,idarea,nombreO,idOperador,nombreTT,idTipo_telefono,user,clave FROM empelado as e \n"
+                + "inner join persona as p on e.idPersona=p.idPersona\n"
+                + "inner join telefonoe as t on t.idempleado=e.idempelado\n"
+                + "inner join tipo_telefono as tt on tt.idTipo_telefono=t.Tipo_telefono_idTipo_telefono\n"
+                + "inner join operador as o on o.idOperador=t.Operador_idOperador\n"
+                + "inner join tipo_documento td on td.idtipo_documento=p.tipo_documento_idtipo_documento\n"
+                + "inner join usuario as u on u.empelado_idempelado=e.idempelado\n"
+                + "inner join area as ar on ar.idarea=e.idearea\n"
+                + "inner join cargo_has_usuario as cu on cu.Usuario_idUsuario=u.idUsuario\n"
+                + "inner join cargo as ca on ca.idcargo=cu.cargo_idcargo\n"
+                + "inner join direccione as d on d.idempleado = e.idempelado\n"
+                + "inner join departamento as de on de.idDepartamento = d.Distrito_Provincia_Departamento_idDepartamento\n"
+                + "inner join provincia as pro on pro.idProvincia = d.Distrito_Provincia_idProvincia\n"
+                + "inner join distrito as dis on dis.idDistrito = d.Distrito_idDistrito where idUsuario=?";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                f.setIdempelado(rs.getInt(1));
+                f.setFechainicio(rs.getString(2));
+                f.setNombreP(rs.getString(3));
+                f.setPaternoP(rs.getString(4));
+                f.setMaternoP(rs.getString(5));
+                f.setCorreo(rs.getString(6));
+                f.setNumero(rs.getString(7));
+                f.setCargo(rs.getString(8));
+                f.setIdcargo(rs.getInt(9));
+                f.setEstadoEmp(rs.getInt(10));
+
+                f.setDepartamento(rs.getString(11));
+                f.setProvincia(rs.getString(12));
+                f.setDistrito(rs.getString(13));
+                f.setIdDepartamento(rs.getInt(14));
+                f.setIdProvincia(rs.getInt(15));
+                f.setIdDistrito(rs.getInt(16));
+                f.setTipodoc(rs.getString(17));
+                f.setIdtipo_documento(rs.getInt(18));
+
+                f.setNum_documento(rs.getString(19));
+                f.setDireccion(rs.getString(20));
+                f.setFechafin(rs.getString(21));
+                f.setSueldo(rs.getString(22));
+                f.setArea(rs.getString(23));
+                f.setIdearea(rs.getInt(24));
+                f.setNombreO(rs.getString(25));
+                f.setIdOperador(rs.getInt(26));
+                f.setTipotelefono(rs.getString(27));
+                f.setIdtipotelefono(rs.getInt(28));
+                f.setUser(rs.getString(29));
+                f.setClave(rs.getString(30));
+
+            }
+            conexion.CierraConexion(cn);
+
+        } catch (Exception e) {
+            conexion.CierraConexion(cn);
+            System.out.println(" error la conseguir el empleado " + e.getMessage());
+        }
+
+        return f;
     }
 
     /*------------------------------------------------------------------------Area----------------------------------------------------------------*/
@@ -2034,8 +2105,8 @@ public class reclamoDB {
             cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
             int id = nuevoId(cn);
-            id=id;
-            System.out.println("no llega ctmrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"+id);
+            id = id;
+            System.out.println("no llega ctmrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" + id);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
