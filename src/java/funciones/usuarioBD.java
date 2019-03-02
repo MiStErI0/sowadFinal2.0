@@ -310,5 +310,41 @@ public class usuarioBD {
         }
         return i;
     }
+    
+    public int idArea() {
+        String sql = "SELECT e.idearea FROM empelado as e\n" 
+                + "inner join usuario as u on e.idempelado=u.empelado_idempelado where u.estado=?";
+        Connection c = null;
+        int i=0;
+        try {
+            c = conexion.getConexion();
+
+            PreparedStatement pst = c.prepareCall(sql);
+            pst.setInt(1, 2);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                i=rs.getInt(1);
+            }
+            else{
+                i=0;
+            }
+            c.close();
+            c = null;
+            System.out.println(i+" idarea                    funciona ");
+        } catch (SQLException ex) {
+            Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                c.close();
+                c = null;
+                System.out.println("idArea          no          funciona ");
+            } catch (SQLException ex1) {
+                Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex1);
+                System.out.println("idArea         no          funciona 2.0 ");
+
+            }
+        }
+        return i;
+    }
+
 
 }

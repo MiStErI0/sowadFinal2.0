@@ -142,7 +142,7 @@ if(idCargo!=1){
 }
       out.write("\r\n");
       out.write("                                ");
-if(idCargo==1){
+if(idCargo!=1){
       out.write("\r\n");
       out.write("                                <li><a href=\"ReclamoServlet?accion=AJUSTES\">\r\n");
       out.write("                                        <i class=\"fas fa-list\" style='font-size:15px'></i> Ajustes\r\n");

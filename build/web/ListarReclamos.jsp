@@ -12,27 +12,35 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<%
-    usuarioBD usu = new usuarioBD();
+    <%
+        usuarioBD usu = new usuarioBD();
 
-    usuario e;
-    String nombre = null;
-    int id = 0;
-    int idCargo = 0;
-    e = usu.usuActivo();
-    if (e.getEstado() == 2) {
-        nombre = usu.nomUsuAc();
-        id = e.getIdUsuario();
-        idCargo = usu.idCargo(id);
+        usuario e;
+        String nombre = null;
+        int id = 0;
+        int idCargo = 0;
+        int idArea=0;
+        e = usu.usuActivo();
+        if (e.getEstado() == 2) {
+            nombre = usu.nomUsuAc();
+            id = e.getIdUsuario();
+            idCargo = usu.idCargo(id);
+            idArea=usu.idArea();
 
-        System.out.println(id + "               aaaaaaaaaaaa");
-    } else {
-        response.sendRedirect("login.jsp");
-    }
-%>  
+            System.out.println(id + "               aaaaaaaaaaaa   " +idArea);
+        } else {
+            response.sendRedirect("login.jsp");
+        }
+    %>
+    <script>
+        function usuario() {
+            var fsfd = "Bienvenido <%=nombre%>";
+            document.getElementById("nomusuario").innerHTML = fsfd;
+        }
+    </script>
     <jsp:include page="head.html" />
     <style>
-        
+
         #customers {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
             border-collapse: collapse;
@@ -55,7 +63,7 @@
             background-color: #4CAF50;
             color: white;
         }
-       
+
     </style>
 
     <%@include file="body.jsp"%>
@@ -66,7 +74,7 @@
 
     <section class="content-header">
         <h1 style="margin-top: 55px; text-align: center">
-            Lista de Reclamos gdfgdfgdfgfd
+            Lista de Reclamos
 
         </h1>
         <ol class="breadcrumb">
@@ -91,22 +99,104 @@
         </tr>
         <%for (reclamos f : listaA) {%>
         <tr>
+            <%
+                String estado = f.getNombreestado();
+                int area=f.getArea_idarea();
+                System.out.println("ddddddddddddddddddddddddddddddddd"+area);
+                System.out.println("ddddddddddddddddddddddddddddddddd"+estado);
+                if ((idCargo == 3 && estado.equals("Registrado")) || (idCargo == 3 && estado.equals("En proceso")) || (idCargo == 3 && estado.equals("Finalizado")) || (idCargo == 3 && estado.equals("Denegado"))) 
+                {
+            %>
             <td>0000<%=f.getIdreclamos()%></td>
             <td><%=f.getFechahecho()%></td>
             <td><%=f.getPaternoP()%> <%=f.getMaternoP()%>, <%=f.getNombreP()%></td>
             <td><%=f.getNombrecategoria()%></td>
             <td><%=f.getNombreestado()%></td>
 
+            <%
+                System.out.println(estado + "        465465465");
+            %>
 
             <td>
-                
-                
+                <%
+                    if (estado.equals("Registrado")) {
+                %>
+                <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
+                <a href="ReclamoServlet?accion=MODIFICAR&id=<%=f.getIdreclamos()%>">EDITAR</a>
+                <%
+                } else if (estado.equals("En proceso")) {
+                %>
+                <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
+                <a href="ReclamoServlet?accion=MODIFICAR&id=<%=f.getIdreclamos()%>">EDITAR</a>
+                <a href="ReclamoServlet?accion=SEGUIR&id=<%=f.getIdreclamos()%>">SEGUIMIENTO</a>
+                <%
+
+                } else if (estado.equals("Atendido")) {
+                %>
                 <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
                 <a href="ReclamoServlet?accion=MODIFICAR&id=<%=f.getIdreclamos()%>">EDITAR</a>
                 <a href="ReclamoServlet?accion=REGISTARR&id=<%=f.getIdreclamos()%>">REGISTRA</a>
                 <a href="ReclamoServlet?accion=MODIFICARFD&id=<%=f.getIdreclamos()%>">EDITARFD</a>
-                <a href="ReclamoServlet?accion=SEGUIR&id=<%=f.getIdreclamos()%>">SEGUIMIENTO</a></td>
+                <%
+                } else if (estado.equals("Finalizado")) {
+                %>
+                <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
+                <%
+                } else {
+                %>
+                <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
+                <%
+                    }
+                %>
+            </td>
+            <%
+                }
+                else if(idCargo == 4 && estado.equals("Atendido") && idArea==area)
+                {
+            %>
+            <td>0000<%=f.getIdreclamos()%></td>
+            <td><%=f.getFechahecho()%></td>
+            <td><%=f.getPaternoP()%> <%=f.getMaternoP()%>, <%=f.getNombreP()%></td>
+            <td><%=f.getNombrecategoria()%></td>
+            <td><%=f.getNombreestado()%></td>
 
+            <%
+                System.out.println(estado + "        465465465");
+            %>
+
+            <td>
+                <%
+                    if (estado.equals("Registrado")) {
+                %>
+                <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
+                <a href="ReclamoServlet?accion=MODIFICAR&id=<%=f.getIdreclamos()%>">EDITAR</a>
+                <%
+                } else if (estado.equals("En Proceso")) {
+                %>
+                <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
+                <a href="ReclamoServlet?accion=MODIFICAR&id=<%=f.getIdreclamos()%>">EDITAR</a>
+                <%
+
+                } else if (estado.equals("Atendido")) {
+                %>
+                <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
+                <a href="ReclamoServlet?accion=REGISTARR&id=<%=f.getIdreclamos()%>">REGISTRA</a>
+                <%
+                } else if (estado.equals("Finalizado")) {
+                %>
+                <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
+
+                <%
+                } else {
+                %>
+                <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
+
+                <%
+                    }
+                %>
+            </td>
+            
+                <%}%>
         </tr>  
 
         <%}%>

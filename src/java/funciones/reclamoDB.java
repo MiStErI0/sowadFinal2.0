@@ -430,11 +430,11 @@ public class reclamoDB {
         List<reclamos> lista = null;
         Connection cn = null;
         reclamos f = null;
-        String sql = "select r.idReclamos,r.fechahecho,r.descripcion,p.nombreP,p.paternoP,p.maternoP,e.nombreEs,ca.categoria from reclamos as r \n"
+        String sql = "select r.idReclamos,r.fechahecho,r.descripcion,p.nombreP,p.paternoP,p.maternoP,e.nombreEs,ca.categoria,r.area_idarea from reclamos as r \n"
                 + "inner join cliente as c on r.idcliente=c.idcliente\n"
                 + "inner join persona as p on c.idpersona=p.idPersona\n"
                 + "inner join estado as e on e.idEstado=r.Estado_idEstado\n"
-                + "inner join categoria as ca on ca.idcategoria=r.categoria_idcategoria";
+                + "inner join categoria as ca on ca.idcategoria=r.categoria_idcategoria ";
 
         try {
             cn = new conexion().getConexion();
@@ -453,6 +453,7 @@ public class reclamoDB {
                 e.setMaternoP(rs.getString(6));
                 e.setNombreestado(rs.getString(7));
                 e.setNombrecategoria(rs.getString(8));
+                e.setArea_idarea(rs.getInt(9));
 
                 lista.add(e);
             }
