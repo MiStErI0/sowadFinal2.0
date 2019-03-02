@@ -25,25 +25,25 @@
                             <ul class="nav side-menu">
 
 
-                                
+                                <%if(idCargo==5){%> 
                                 <li><a href="ReclamoServlet?accion=REGISTRAR">
                                         <i class="fa fa-pencil-square-o" style="font-size:20px"></i> Registrar Reclamo
                                     </a>
                                 </li>
-                                
+                                <%}%>
                                 <%if(idCargo!=1){%>    
                                 <li><a href="ReclamoServlet?accion=LISTAR">
                                         <i class="fas fa-list" style='font-size:15px'></i> Lista de Reclamos
                                     </a>
                                 </li>
                                 <%}%>
-                                <%if(idCargo!=1){%>    
+                                   
                                 <li><a href="ReclamoServlet?accion=USUARIO">
                                         <i class='far fa-user' style='font-size:20px'></i> Usuarios
                                     </a>
                                 </li>
-                                <%}%>
-                                <%if(idCargo!=1){%>
+                               
+                                <%if(idCargo==1){%>
                                 <li><a href="ReclamoServlet?accion=AJUSTES">
                                         <i class="fas fa-list" style='font-size:15px'></i> Ajustes
                                     </a>

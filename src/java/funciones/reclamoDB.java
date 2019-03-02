@@ -800,7 +800,7 @@ public class reclamoDB {
     public String RegistrarR(reclamos f) {
         String resultado = null;
         Connection cn = null;
-        String sql = "update reclamos set respuesta=? ,Estado_idEstado=1 where idReclamos=?";
+        String sql = "update reclamos set respuesta=? ,Estado_idEstado=7 where idReclamos=?";
 
         try {
             cn = conexion.getConexion();

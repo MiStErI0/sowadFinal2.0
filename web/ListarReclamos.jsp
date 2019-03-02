@@ -104,7 +104,7 @@
                 int area=f.getArea_idarea();
                 System.out.println("ddddddddddddddddddddddddddddddddd"+area);
                 System.out.println("ddddddddddddddddddddddddddddddddd"+estado);
-                if ((idCargo == 3 && estado.equals("Registrado")) || (idCargo == 3 && estado.equals("En proceso")) || (idCargo == 3 && estado.equals("Finalizado")) || (idCargo == 3 && estado.equals("Denegado"))) 
+                if ((idCargo == 3 && estado.equals("Registrado")) || (idCargo == 3 && estado.equals("En proceso")) || (idCargo == 3 && estado.equals("Finalizado")) || (idCargo == 3 && estado.equals("Denegado")) || (idCargo == 3 && estado.equals("En proceso."))) 
                 {
             %>
             <td>0000<%=f.getIdreclamos()%></td>
@@ -130,6 +130,12 @@
                 <a href="ReclamoServlet?accion=MODIFICAR&id=<%=f.getIdreclamos()%>">EDITAR</a>
                 <a href="ReclamoServlet?accion=SEGUIR&id=<%=f.getIdreclamos()%>">SEGUIMIENTO</a>
                 <%
+                   } else if (estado.equals("En proceso.")) {
+                %>
+                <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
+                <a href="ReclamoServlet?accion=MODIFICARFD&id=<%=f.getIdreclamos()%>">EDITARFD</a>
+                <a href="ReclamoServlet?accion=SEGUIR&id=<%=f.getIdreclamos()%>">SEGUIMIENTO</a>
+                <%
 
                 } else if (estado.equals("Atendido")) {
                 %>
@@ -141,6 +147,7 @@
                 } else if (estado.equals("Finalizado")) {
                 %>
                 <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
+                <a href="ReclamoServlet?accion=SEGUIR&id=<%=f.getIdreclamos()%>">SEGUIMIENTO</a>
                 <%
                 } else {
                 %>
