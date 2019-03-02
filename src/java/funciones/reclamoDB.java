@@ -2096,19 +2096,17 @@ public class reclamoDB {
     }
 
     /*-----------------------------------------------------------------Ticket-----------------------------------------------------*/
-    public ticket TicketGET() {
-        ticket f = new ticket();
+    public String TicketGET() {
+
         String resultado = null;
         Connection cn = null;
-        String sql = "select nombreP,paternoP,maternoP,idReclamos from reclamos as r\n"
-                + "inner join cliente as c on c.idcliente=r.idcliente\n"
-                + "inner join persona as p on p.idPersona=c.idpersona where idReclamos=?";
+        String sql = "SELECT codigo_reclamo FROM reclamos where idReclamos=?",r=null;
 
         try {
             cn = conexion.getConexion();
             PreparedStatement ps = cn.prepareStatement(sql);
             int id = nuevoId(cn);
-            id = id;
+            id=id-1;
             System.out.println("no llega ctmrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" + id);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -2116,24 +2114,23 @@ public class reclamoDB {
             if (rs.next()) {
 
                 System.out.println("soy llegan los datos");
-
-                f.setNombre(rs.getString(1));
-                f.setPaterno(rs.getString(2));
-                f.setMaterno(rs.getString(3));
-                f.setIdreclamos(rs.getInt(4));
-
+                r=rs.getString("codigo_reclamo");
+                
             } else {
 
                 System.out.println("del soy no llegan");
+                r=null;
 
             }
             conexion.CierraConexion(cn);
+            return r;
 
         } catch (Exception e) {
             conexion.CierraConexion(cn);
             System.out.println(" error la conseguir el categoria " + e.getMessage());
+            r=null;
         }
 
-        return f;
+        return r;
     }
 }

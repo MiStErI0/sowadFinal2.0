@@ -25,13 +25,14 @@
     int id = 0;
     int idCargo = 0;
     e = usu.usuActivo();
+    String CodiR = request.getParameter("CodigoR");
     if (e.getEstado() == 2) {
         nombre = usu.nomUsuAc();
         id = e.getIdUsuario();
         idCargo = usu.idCargo(id);
 
         System.out.println(id + "               aaaaaaaaaaaa");
-    } 
+    }
 %>
 <sql:setDataSource 
     var="conexion" 
@@ -62,6 +63,16 @@
 
 <!DOCTYPE html>
 <script>
+    $(document).ready(function ()
+    {
+       var Codigo=<%=CodiR%>;
+       if(Codigo===null)
+       {
+           
+       }else
+        $("#mostrarmodal").modal("show");
+    });
+
     function usuario() {
         var fsfd = "Bienvenido <%=nombre%>";
         document.getElementById("nomusuario").innerHTML = fsfd;
@@ -133,7 +144,7 @@
                                 <div class="col-sm-6">				
                                     <div class="form-group">
                                         <label>Numero Documento</label>
-                  
+
                                         <input type="text" id="iddocumento" onkeypress="return soloNumeros(event, this.value, 8)" name="documento" class="form-control" placeholder="ingrese documento..." >
                                     </div>
                                 </div>
@@ -251,8 +262,8 @@
                                     <div class="form-group">
                                         <label>Funcionario</label> 
                                         <input id="idfuncionario" type="text" name="funcionario" class="form-control" placeholder="Ingrese funcionario ...">	
-                                        
-                                        
+
+
                                     </div>  												
                                 </div>
                             </div>
@@ -293,14 +304,14 @@
 
                                                     <div class="modal-body">
 
-                                                        Estimado Sr (a).(nombre) , su reclamo ha sido registrado con el ticket numero (codigoreclamo). Puede consultar el estado de su ticket en la siguiente direccion:
+                                                        Estimado Sr(a).(nombre) , su reclamo ha sido registrado con el ticket numero (codigoreclamo). Puede consultar el estado de su ticket en la siguiente direccion:
 
                                                     </div>
 
                                                     <div class="modal-footer">
                                                         <div class="form-group">
                                                             <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                                                            
+
                                                         </div>
                                                     </div>
 
@@ -308,6 +319,23 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="modal fade" id="mostrarmodal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h3 class="text" style="text-align: center" >holaaaaaaaaaa</h3>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="#" data-dismiss="modal" class="btn btn-danger">Cerrar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
