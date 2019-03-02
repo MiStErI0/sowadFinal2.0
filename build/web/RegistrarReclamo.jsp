@@ -25,7 +25,9 @@
     int id = 0;
     int idCargo = 0;
     e = usu.usuActivo();
-    String CodiR = request.getParameter("CodigoR");
+    String CodiR = (String)session.getAttribute("CodigoR");
+    String nomCl = (String)session.getAttribute("nombreCli");
+    System.out.println(CodiR + "               aaaaaaaaaaaa           "+nomCl);
     if (e.getEstado() == 2) {
         nombre = usu.nomUsuAc();
         id = e.getIdUsuario();
@@ -66,11 +68,15 @@
     $(document).ready(function ()
     {
        var Codigo=<%=CodiR%>;
+       alert(Codigo +" " + <%=nomCl%>);
        if(Codigo===null)
        {
            
-       }else
-        $("#mostrarmodal").modal("show");
+       }else{
+        document.getElementById("nomCC").innerHTML = <%=nomCl%>;
+        document.getElementById("codCC").innerHTML = Codigo;
+        $("#ventana1").modal("show");
+       }
     });
 
     function usuario() {
@@ -293,7 +299,6 @@
                                     <!-- LO ULTIMO-->
                                     <!-- LO ULTIMO-->
                                     <div class="form-group">
-                                        <a href="#ventana1" class="btn btn-primary" data-toggle="modal" >probando</a>
                                         <div class="modal fade" id="ventana1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -304,7 +309,7 @@
 
                                                     <div class="modal-body">
 
-                                                        Estimado Sr(a).(nombre) , su reclamo ha sido registrado con el ticket numero (codigoreclamo). Puede consultar el estado de su ticket en la siguiente direccion:
+                                                        Estimado Sr(a).<label id="nomCC"></label> , su reclamo ha sido registrado con el ticket numero <label id="codCC"></label>. Puede consultar el estado de su ticket en la siguiente direccion:
 
                                                     </div>
 
@@ -319,23 +324,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="modal fade" id="mostrarmodal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                        <div class="modal-dialog modal-sm">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h3 class="text" style="text-align: center" >holaaaaaaaaaa</h3>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="#" data-dismiss="modal" class="btn btn-danger">Cerrar</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>

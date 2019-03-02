@@ -161,9 +161,12 @@ public class ReclamoServlet extends HttpServlet {
             if (resultado == null || resultado2 == null || resultado3 == null || resultado4 == null) {
                 System.out.println("lo inserto correctamente");
                 String CodigoR=proDB.TicketGET();
-                request.getSession().setAttribute("CogigoR", CodigoR);
+                request.getSession().setAttribute("CodigoR", CodigoR);
+                request.getSession().setAttribute("nombreCli", nombre+" "+paterno);
+                
+                System.out.println(CodigoR+"       lo inserto correctamente        " +nombre+" "+paterno);
 
-                request.getRequestDispatcher("RegistrarReclamo.jsp").forward(request, response);
+                response.sendRedirect("RegistrarReclamo.jsp");
        
 
             } else {

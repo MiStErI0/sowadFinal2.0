@@ -187,7 +187,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                <input type=\"submit\" class=\"btnSubmit\"  value=\"Login\"/>\r\n");
       out.write("                            </div>\r\n");
       out.write("                            <div class=\"form-group\">\r\n");
-      out.write("                                <a href=\"RegistroReclamos1.jsp\" class=\"col-md-4\">Registrar Reclamo</a>\r\n");
+      out.write("                                <a href=\"RegistrarReclamo.jsp\" class=\"col-md-4\">Registrar Reclamo</a>\r\n");
       out.write("                                <a href=\"#\" class=\"col-md-4 col-md-offset-4\">Seguimiento de Ticket</a><br/>\r\n");
       out.write("                            </div>\r\n");
       out.write("                            <div class=\"form-group\">\r\n");
