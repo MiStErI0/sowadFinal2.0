@@ -26,7 +26,7 @@
     <%
         reclamos reclamo2 = (reclamos) request.getSession().getAttribute("reclamo2");
     %>
-    <body>
+    <%@include file="body.jsp" %>
 
 
         <form action="ReclamoServlet?accion=REGISTRARRR" method="post">
@@ -204,7 +204,7 @@
             </div>
         </div>
         
-
+<jsp:include page="footer.html" />
     </form>
 </html>
 

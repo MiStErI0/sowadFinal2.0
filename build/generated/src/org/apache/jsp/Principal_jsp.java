@@ -114,15 +114,21 @@ public final class Principal_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            <h3>General</h3>\r\n");
       out.write("                            <ul class=\"nav side-menu\">\r\n");
       out.write("\r\n");
-      out.write("\r\n");
-      out.write("                                \r\n");
+      out.write("                                ");
+if (idCargo != 0) {
+      out.write("       \r\n");
+      out.write("                                ");
+if (idCargo == 5) {
+      out.write(" \r\n");
       out.write("                                <li><a href=\"ReclamoServlet?accion=REGISTRAR\">\r\n");
       out.write("                                        <i class=\"fa fa-pencil-square-o\" style=\"font-size:20px\"></i> Registrar Reclamo\r\n");
       out.write("                                    </a>\r\n");
       out.write("                                </li>\r\n");
-      out.write("                                \r\n");
       out.write("                                ");
-if(idCargo!=1){
+}
+      out.write("\r\n");
+      out.write("                                ");
+if (idCargo != 1) {
       out.write("    \r\n");
       out.write("                                <li><a href=\"ReclamoServlet?accion=LISTAR\">\r\n");
       out.write("                                        <i class=\"fas fa-list\" style='font-size:15px'></i> Lista de Reclamos\r\n");
@@ -131,21 +137,27 @@ if(idCargo!=1){
       out.write("                                ");
 }
       out.write("\r\n");
-      out.write("                                ");
-if(idCargo!=1){
-      out.write("    \r\n");
+      out.write("\r\n");
       out.write("                                <li><a href=\"ReclamoServlet?accion=USUARIO\">\r\n");
       out.write("                                        <i class='far fa-user' style='font-size:20px'></i> Usuarios\r\n");
+      out.write("                                    </a>\r\n");
+      out.write("                                </li>\r\n");
+      out.write("\r\n");
+      out.write("                                ");
+if (idCargo == 1) {
+      out.write("\r\n");
+      out.write("                                <li><a href=\"ReclamoServlet?accion=AJUSTES\">\r\n");
+      out.write("                                        <i class=\"fas fa-list\" style='font-size:15px'></i> Ajustes\r\n");
       out.write("                                    </a>\r\n");
       out.write("                                </li>\r\n");
       out.write("                                ");
 }
       out.write("\r\n");
       out.write("                                ");
-if(idCargo!=1){
+} else {
       out.write("\r\n");
-      out.write("                                <li><a href=\"ReclamoServlet?accion=AJUSTES\">\r\n");
-      out.write("                                        <i class=\"fas fa-list\" style='font-size:15px'></i> Ajustes\r\n");
+      out.write("                                <li><a href=\"ReclamoServlet?accion=REGISTRAR\">\r\n");
+      out.write("                                        <i class=\"fa fa-pencil-square-o\" style=\"font-size:20px\"></i> Registrar Reclamo\r\n");
       out.write("                                    </a>\r\n");
       out.write("                                </li>\r\n");
       out.write("                                ");

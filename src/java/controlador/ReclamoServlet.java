@@ -165,7 +165,7 @@ public class ReclamoServlet extends HttpServlet {
             System.out.println("asdasdasd"+ ticket.getIdreclamos());
                 request.getSession().setAttribute("ticket", ticket);
 
-                request.getRequestDispatcher("consulta.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
        
 
             } else {

@@ -47,7 +47,7 @@
         reclamos reclamo = (reclamos) request.getSession().getAttribute("reclamo");
     %>
 
-    <body>
+     <%@include file="body.jsp" %>
 
 
         <form action="ReclamoServlet?accion=MODIFICARBD" method="post">
@@ -234,7 +234,7 @@
             </div>
         </div>
         
-
+<jsp:include page="footer.html" />
     </form>
 </html>
 

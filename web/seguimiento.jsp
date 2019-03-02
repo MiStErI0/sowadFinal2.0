@@ -79,16 +79,7 @@
         List<detallereclamos> listaB = (ArrayList<detallereclamos>) request.getSession().getAttribute("listaB");
     %>
 
-
-    <body>
-
-
-
-
-
-
-
-
+<%@include file="body.jsp" %>
         <div class="box-body bg-gray-c">
             <div class="row">
                 <div class="col-md-8">
@@ -260,7 +251,7 @@
         </div>
     </div>
 
-
+<jsp:include page="footer.html" />
 </form>
 </html>
 
