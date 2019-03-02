@@ -46,6 +46,13 @@
             response.sendRedirect("login.jsp");
         }
     %>
+    <script>
+        function usuario() {
+            var fsfd = "Bienvenido <%=nombre%>";
+            document.getElementById("nomusuario").innerHTML = fsfd;
+        }
+    </script>
+    
     <jsp:include page="head.html" />
 
     <style>

@@ -66,7 +66,7 @@
 
     <section class="content-header">
         <h1 style="margin-top: 55px; text-align: center">
-            Lista de Reclamos
+            Lista de Reclamos gdfgdfgdfgfd
 
         </h1>
         <ol class="breadcrumb">
@@ -99,9 +99,11 @@
 
 
             <td>
+                
+                
                 <a href="ReclamoServlet?accion=VER&id=<%=f.getIdreclamos()%>">VER</a>
                 <a href="ReclamoServlet?accion=MODIFICAR&id=<%=f.getIdreclamos()%>">EDITAR</a>
-                <a href="ReclamoServlet?accion=REGISTARR&id=<%=f.getIdreclamos()%>">REGISTRAR</a>
+                <a href="ReclamoServlet?accion=REGISTARR&id=<%=f.getIdreclamos()%>">REGISTRA</a>
                 <a href="ReclamoServlet?accion=MODIFICARFD&id=<%=f.getIdreclamos()%>">EDITARFD</a>
                 <a href="ReclamoServlet?accion=SEGUIR&id=<%=f.getIdreclamos()%>">SEGUIMIENTO</a></td>
 
