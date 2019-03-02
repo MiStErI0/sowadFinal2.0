@@ -215,15 +215,16 @@ public class usuarioBD {
                 pst.setInt(1, 2);
                 pst.setInt(2, e.getIdUsuario());
                 pst.setString(3, e.getUsuario());
+                System.out.println("sesion                     funciona ");
             } else {
                 pst.setInt(1, 1);
                 pst.setInt(2, e.getIdUsuario());
                 pst.setString(3, e.getUsuario());
+                System.out.println("sesion         Cerrar            funciona ");
             }
             int rs = pst.executeUpdate();
             c.close();
             c = null;
-            System.out.println("sesion                     funciona ");
         } catch (SQLException ex) {
             Logger.getLogger(usuarioBD.class.getName()).log(Level.SEVERE, null, ex);
             try {
