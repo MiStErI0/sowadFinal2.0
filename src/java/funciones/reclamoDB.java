@@ -575,7 +575,7 @@ public class reclamoDB {
         String sql = "select r.idReclamos,r.fechahecho,r.descripcion,fun.nombresF,p.nombreP,p.paternoP,\n"
                 + "p.maternoP,p.num_documento,p.correo,e.nombreEs,ca.categoria,t.numero,d.direccion,\n"
                 + "concat(de.departamento,' / ',pro.provincia,' / ',dis.distrito) as ubi,e.nombreEs,"
-                + "r.idfuncion,r.area_idarea from reclamos as r \n"
+                + "r.idfuncion,r.area_idarea from,r.respuesta reclamos as r \n"
                 + "inner join funcionario as fun on fun.idfuncionario=r.idfuncion\n"
                 + "inner join cliente as c on r.idcliente=c.idcliente\n"
                 + "inner join persona as p on c.idpersona=p.idPersona\n"
@@ -612,6 +612,7 @@ public class reclamoDB {
                 f.setArea_idarea(rs.getInt(17));
                 f.setDetalle(rs.getString(18));
                 f.setFecha_asignacion(rs.getString(19));
+                f.setRespuesta(rs.getString(20));
 
             }
             conexion.CierraConexion(cn);
@@ -630,7 +631,7 @@ public class reclamoDB {
         String sql = "select r.idReclamos,r.fechahecho,r.descripcion,fun.nombresF,p.nombreP,p.paternoP,\n"
                 + "p.maternoP,p.num_documento,p.correo,e.nombreEs,ca.categoria,t.numero,d.direccion,\n"
                 + "concat(de.departamento,' / ',pro.provincia,' / ',dis.distrito) as ubi,e.nombreEs,"
-                + "r.idfuncion,r.area_idarea,der.detalle,der.fecha_asignacion from reclamos as r \n"
+                + "r.idfuncion,r.area_idarea,der.detalle,der.fecha_asignacion,r.respuesta from reclamos as r \n"
                 + "inner join detalle_reclamos as der on der.Reclamos_idReclamos=r.idReclamos\n"
                 + "inner join funcionario as fun on fun.idfuncionario=r.idfuncion\n"
                 + "inner join cliente as c on r.idcliente=c.idcliente\n"
@@ -668,6 +669,7 @@ public class reclamoDB {
                 f.setArea_idarea(rs.getInt(17));
                 f.setDetalle(rs.getString(18));
                 f.setFecha_asignacion(rs.getString(19));
+                f.setRespuesta(rs.getString(20));
 
             }
             conexion.CierraConexion(cn);
