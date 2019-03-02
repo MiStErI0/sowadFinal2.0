@@ -31,9 +31,7 @@
         idCargo = usu.idCargo(id);
 
         System.out.println(id + "               aaaaaaaaaaaa");
-    } else {
-        response.sendRedirect("login.jsp");
-    }
+    } 
 %>
 <sql:setDataSource 
     var="conexion" 

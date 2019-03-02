@@ -135,7 +135,7 @@
                                 <input type="submit" class="btnSubmit"  value="Login"/>
                             </div>
                             <div class="form-group">
-                                <a href="#" class="col-md-4">Olvido la Contraseña?</a>
+                                <a href="RegistroReclamos1.jsp" class="col-md-4">Registrar Reclamo</a>
                                 <a href="#" class="col-md-4 col-md-offset-4">Seguimiento de Ticket</a><br/>
                             </div>
                             <div class="form-group">
