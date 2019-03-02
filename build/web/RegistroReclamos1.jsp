@@ -76,6 +76,22 @@
 </script>
 
 <html>
+    <%
+    usuarioBD usu = new usuarioBD();
+
+    usuario e;
+    String nombre = null;
+    int id = 0;
+    int idCargo = 0;
+    e = usu.usuActivo();
+    if (e.getEstado() == 2) {
+        nombre = usu.nomUsuAc();
+        id = e.getIdUsuario();
+        idCargo = usu.idCargo(id);
+
+        System.out.println(id + "               aaaaaaaaaaaa");
+    } 
+%>
 
     <jsp:include page="head.html" />
 
