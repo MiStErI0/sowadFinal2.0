@@ -14,12 +14,7 @@
     url="jdbc:mysql://localhost:3306/sowad1?useTimezone=true&serverTimezone=UTC&useSSL=false"
     user="root"
     password="varvon1995"/>
-<sql:query var="sqlCat" dataSource="${conexion}">
-    select idcategoria, categoria from categoria
-</sql:query>
-<sql:query var="sqlAr" dataSource="${conexion}">
-    select idarea, area from area
-</sql:query>
+
 
 <!DOCTYPE html>
 <html>
@@ -35,12 +30,6 @@
 
 
         <form action="ReclamoServlet?accion=REGISTRARRR" method="post">
-
-
-
-
-
-
             <div class="box-body bg-gray-c">
                 <div class="row">
                     <div class="col-md-8">
@@ -202,7 +191,7 @@
                                     
                                     <div>
                                         
-                                        <a type="btn" href="ReclamoServlet?accion=REGISTARR&id=<%=reclamo.getIdreclamos()%>">Devolver Denuncia</a>
+                                        <a type="btn" href="ReclamoServlet?accion=DEVOLVER&id=<%=reclamo.getIdreclamos()%>">Devolver Denuncia</a>
                                         <input type="submit" value="Registrar Denuncia">
                                     </div>
 

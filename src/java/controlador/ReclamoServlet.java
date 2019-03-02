@@ -156,16 +156,7 @@ public class ReclamoServlet extends HttpServlet {
             String resultado3 = proDB.RegistroDireccion(direcciones);
             String resultado5 = proDB.RegistrarFuncionario(funcionarios);
             String resultado = proDB.RegistrarReclamo(reclamo);
-            
-            
-            
-            
-            
-            
-    
-            
-
-            
+                   
 
             if (resultado == null || resultado2 == null || resultado3 == null || resultado4 == null) {
                 System.out.println("lo inserto correctamente");
@@ -754,6 +745,44 @@ public class ReclamoServlet extends HttpServlet {
                 response.sendRedirect("tipodoc.jsp");
             }
 
+        }else if(accion.equals("REGISTARR")){
+        
+        reclamos reclamo = proDB.reclamoGET2(Integer.valueOf(request.getParameter("id")));
+        reclamos reclamo2 = proDB.detallerec(Integer.valueOf(request.getParameter("id")));
+            //automovil.imprime();
+
+        request.getSession().setAttribute("reclamo", reclamo);
+        request.getSession().setAttribute("reclamo2", reclamo2);
+        
+        response.sendRedirect("registro.jsp");
+        
+        
+        }else if(accion.equals("REGISTRARRR")){
+            
+            reclamos reclamo = (reclamos) request.getSession().getAttribute("reclamo");
+
+            System.out.println(" el id del reclamo a cambiar es " + reclamo.getIdreclamos());
+
+            reclamo.setRespuesta(request.getParameter("respuesta"));
+
+            System.out.println(" Datos se actulizaron ");
+
+            String resultado = proDB.RegistrarR(reclamo);
+
+            listaA = proDB.ListaReclamos();
+            request.getSession().setAttribute("listaA", listaA);
+
+            response.sendRedirect("ListarReclamos.jsp");
+             
+        }else if(accion.equals("USUARIO")){
+            
+            
+            
+            
+            response.sendRedirect("usuario.jsp");
+        
+        
+        
         }
 
         try (PrintWriter out = response.getWriter()) {

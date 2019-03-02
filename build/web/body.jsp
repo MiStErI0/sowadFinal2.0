@@ -37,8 +37,8 @@
                                     </a>
                                 </li>
                                 <%}%>
-                                <%if(idCargo==1){%>    
-                                <li><a href="#">
+                                <%if(idCargo!=1){%>    
+                                <li><a href="ReclamoServlet?accion=USUARIO">
                                         <i class='far fa-user' style='font-size:20px'></i> Usuarios
                                     </a>
                                 </li>

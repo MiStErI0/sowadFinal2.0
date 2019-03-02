@@ -795,6 +795,39 @@ public class reclamoDB {
         return resultado;
 
     }
+    
+    public String RegistrarR(reclamos f) {
+        String resultado = null;
+        Connection cn = null;
+        String sql = "update reclamos set respuesta=? ,Estado_idEstado=1 where idReclamos=?";
+
+        try {
+            cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+
+            System.out.println("aaaaaaaaaaaaaaaaa" + f.getRespuesta());
+            System.out.println("aaaaaaaaaaaaaaaaa" + f.getIdreclamos());
+
+            ps.setString(1, f.getRespuesta());
+            ps.setInt(2, f.getIdreclamos());
+
+            int contador = ps.executeUpdate();
+
+            if (contador == 0) {
+                System.out.println(" NO SE ACTUALIZO NINGUNA FILA REVISAR ....");
+                resultado = " NO SE ACTUALIZO NINGUNA FILA REVISAR ....";
+            }
+
+            conexion.CierraConexion(cn);
+        } catch (Exception e) {
+            conexion.getConexion();
+            System.out.println(" error en la actualizacion " + e.getMessage());
+            resultado = e.getMessage();
+        }
+
+        return resultado;
+
+    }
 
     public List<detallereclamos> ListaDetalleReclamos(int reclamo) {
         List<detallereclamos> lista = null;

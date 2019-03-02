@@ -41,6 +41,7 @@
             response.sendRedirect("login.jsp");
         }
     %>
+    
     <jsp:include page="head.html" />
 
     <%
@@ -53,11 +54,6 @@
 
 
         <form action="ReclamoServlet?accion=MODIFICARBDFD" method="post">
-
-
-
-
-
 
             <div class="box-body bg-gray-c">
                 <div class="row">
