@@ -190,6 +190,12 @@
                                         <input type="text" disabled name="descripcion" class="form-control" value="<%=reclamo.getDescripcion()%>">
                                     </div>
                                 </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Respuesta</label>
+                                        <input type="text" disabled name="Respueta" class="form-control" value="<%=reclamo.getRespuesta()%>" >
+                                    </div>
+                                </div>
 
                             </div>
 
@@ -209,12 +215,7 @@
                                         <textarea type="text" disabled name="cnro_documento" id="cnro_documento" class="form-control" > </textarea>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Respuesta</label>
-                                        <input type="text" disabled name="Respueta" id="cnro_documento" value="<%=reclamo.getRespuesta() %>" >
-                                    </div>
-                                </div>
+                                
 
                             </div>
 

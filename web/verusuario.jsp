@@ -78,26 +78,26 @@
 </script>
 
 <%
-    empleado user = (empleado) request.getSession().getAttribute("user");
+    empleado empleado = (empleado) request.getSession().getAttribute("user");
 %>
 
 <html>
-<%
+    <%
         usuarioBD usu = new usuarioBD();
 
         usuario e;
         String nombre = null;
-        int id=0,idCargo=0;
+        int id = 0, idCargo = 0;
         e = usu.usuActivo();
         if (e.getEstado() == 2) {
             nombre = usu.nomUsuAc();
-            id=e.getIdUsuario();
-            idCargo=usu.idCargo(id);
-            System.out.println(id +"               aaaaaaaaaaaa");
+            id = e.getIdUsuario();
+            idCargo = usu.idCargo(id);
+            System.out.println(id + "               aaaaaaaaaaaa");
         } else {
             response.sendRedirect("login.jsp");
         }
-    %>
+        %>
     <jsp:include page="head.html" />
 
 
@@ -106,7 +106,7 @@
     <%@include file="body.jsp" %>
     <section class="content-header">
         <h1 style="margin-top: 55px; text-align: center">
-            Modificar de Empleado 
+            Usuario <%=empleado.getUser()%>
 
         </h1>
         <ol class="breadcrumb">
@@ -115,33 +115,178 @@
         </ol>
     </section>
 
-    
+    <form action="ReclamoServlet?accion=MODIFICAREMP2" method="POST">
         <div class="box-body bg-gray-c">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="panel panel-default panel-shadow">
+                        <div class="panel-body">
+                            <div class="row">
+                                 <div class="col-sm-12">				
+                                    <div class="form-group">
+                                        <div style="text-align: center"><img src="img/a.png" alt="Smiley face" height="155" width="155"/>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">				
+                                    <div class="form-group">
+                                        <label>Usuario</label>
+                                        <input id="idtipodoc2" type="text" disabled name="tipodoc2" class="form-control" value="<%=empleado.getUser()%>">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">				
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        <input type="text" id="iddocumento" disabled name="documento" class="form-control" value="<%=empleado.getClave()%>"> 
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
                     <div class="panel panel-default panel-shadow">
                         <div class="panel-body">
 
 
                             <div class="row">
-                                <div class="col-sm-6">				
+                                <div class="col-sm-3">				
                                     <div class="form-group">
                                         <label>Tipo Documento</label>
-                                        <input id="idtipodoc2" type="text" disabled name="tipodoc2" class="form-control" value="<%=user.getTipodoc()%>">
-                                        
+                                        <input id="idtipodoc2" type="text" disabled name="tipodoc2" class="form-control" value="<%=empleado.getTipodoc()%>">
+
                                     </div>
                                 </div>
-                                <div class="col-sm-6">				
+                                <div class="col-sm-3">				
                                     <div class="form-group">
                                         <label>Numero de Documento</label>
-                                        <input type="text" id="iddocumento" name="documento" class="form-control" value="<%=user.getNum_documento()%>"> 
-                                        
+                                        <input type="text" id="iddocumento" disabled name="documento" class="form-control" value="<%=empleado.getNum_documento()%>"> 
+
                                     </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Nombres</label>  
+                                        <input id="idnombre" type="text" disabled name="nombre" class="form-control"  value="<%=empleado.getNombreP()%>" >	
+                                    </div> 												
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Apellido Paterno</label>
+                                        <input id="idpaterno" type="text" disabled name="paterno" class="form-control"  value="<%=empleado.getPaternoP()%>">	
+                                    </div>													
                                 </div>
                             </div>
 
-                            
-                                
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Apellido Materno</label>
+                                        <input id="idmaterno" type="text" disabled name="materno" class="form-control"  value="<%=empleado.getMaternoP()%>">	
+                                    </div> 												
+                                </div>
+                                <div class="col-sm-3">				
+                                    <div class="form-group">
+                                        <label>Departamento</label>
+                                        <input id="iddepartamento2" type="text" disabled name="departamento2" class="form-control" value="<%=empleado.getDepartamento()%>">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">				
+                                    <div class="form-group">
+                                        <label>Provincia</label>
+                                        <input id="idprovincia2" type="text" disabled name="provincia2" class="form-control" value="<%=empleado.getProvincia()%>">
+
+                                    </div>      
+                                </div> 
+
+                                <div class="col-sm-3">				
+                                    <div class="form-group">
+                                        <label>Distrito</label>
+                                        <input id="iddistrito2" type="text" disabled name="distrito2" class="form-control" value="<%=empleado.getDistrito()%>">
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <label>Direccion</label> 
+                                        <input id="iddireccion" type="text" disabled name="direccion" class="form-control" value="<%=empleado.getDireccion()%>">	
+                                    </div>   												
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Correo Electronico</label> 
+                                        <input id="idcorreo" type="text" disabled name="correo" class="form-control" value="<%=empleado.getCorreo()%>">	
+                                    </div>  												
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Telefono</label> 
+                                        <input id="idtelefono" type="text" disabled name="telefono" class="form-control" value="<%=empleado.getNumero()%>">	
+                                    </div>  												
+                                </div>
+                                <div class="col-sm-4">				
+                                    <div class="form-group">
+                                        <label>Tipo Telefono</label>
+                                        <input id="idtipotelefono2" type="text" disabled name="tipotelefono2" class="form-control" value="<%=empleado.getTipotelefono()%>">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Fecha de Inicio</label> 
+                                        <input id="idfechai" type="date" disabled name="fechainicio" class="form-control" value="<%=empleado.getFechainicio()%>">	
+                                    </div>  												
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Fecha Fin</label> 
+                                        <input id="idfechaf" type="date" disabled name="fechafin" class="form-control" value="<%=empleado.getFechafin()%>">	
+                                    </div>  												
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Sueldo</label> 
+                                        <input id="idsuedo" type="text" disabled name="sueldo" class="form-control" value="<%=empleado.getSueldo()%>">	
+                                    </div>  												
+                                </div>
+                                <div class="col-sm-4">				
+                                    <div class="form-group">
+                                        <label>Operador</label>
+                                        <input id="idoperador2" type="text" disabled name="operador2" class="form-control" value="<%=empleado.getNombreO()%>">
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-4">				
+                                    <div class="form-group">
+                                        <label>Area</label>
+                                        <input id="idarea22" type="text" disabled name="area22" class="form-control" value="<%=empleado.getArea()%>">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">				
+                                    <div class="form-group">
+                                        <label>Cargo</label>
+                                        <input id="idcargo2" type="text" disabled name="cargo2" class="form-control" value="<%=empleado.getCargo()%>">
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -151,7 +296,7 @@
             </div>
         </div>
 
-    
+    </form>
 </div>
 </div>
 </div>
